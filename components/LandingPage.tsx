@@ -3,203 +3,293 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import {
-  Activity,
   ArrowRight,
-  Bell,
+  BrainCircuit,
+  BriefcaseBusiness,
+  GaugeCircle,
   Globe,
-  Languages,
-  Layers,
-  MessageSquareText,
+  LineChart,
   Radar,
-  Sparkle,
-  Waypoints
+  Target
 } from 'lucide-react';
-import { copy, Language } from '@/lib/content';
 import { LeadModal } from './LeadModal';
 
-const navAnchors = ['why', 'what', 'how', 'faq'];
+const navItems = [
+  { label: 'Why it matters', href: '#why' },
+  { label: 'How it works', href: '#how' },
+  { label: 'Capabilities', href: '#capabilities' },
+  { label: 'Platforms', href: '#platforms' }
+];
+
+const heroMetrics = [
+  { label: 'Signal confidence', value: '97%' },
+  { label: 'Active narratives', value: '18' },
+  { label: 'Alert latency', value: '<60s' }
+];
+
+const howSteps = [
+  {
+    title: 'Capture public discourse',
+    description: 'Live ingestion from X and Threads to map emerging market conversation themes.',
+    icon: Globe
+  },
+  {
+    title: 'Model emotional momentum',
+    description: 'Emotion-weighted NLP identifies intensity shifts behind surface-level sentiment.',
+    icon: BrainCircuit
+  },
+  {
+    title: 'Detect narrative inflection',
+    description: 'Pattern detection flags volatility, pressure zones, and turning points early.',
+    icon: Radar
+  },
+  {
+    title: 'Deliver decision-ready signal',
+    description: 'Concise dashboards and alerts built for investors, press, and strategic teams.',
+    icon: Target
+  }
+];
+
+const capabilities = [
+  {
+    title: 'Emotion Index Engine',
+    description: 'Quantifies direction, confidence, and emotional velocity across public narratives.',
+    icon: GaugeCircle
+  },
+  {
+    title: 'Narrative Shift Alerts',
+    description: 'Detects structural changes in conversation framing before broad market reaction.',
+    icon: LineChart
+  },
+  {
+    title: 'Executive Briefing Layer',
+    description: 'Transforms noisy social streams into concise, evidence-based daily intelligence.',
+    icon: BriefcaseBusiness
+  }
+];
 
 export function LandingPage() {
-  const [lang, setLang] = useState<Language>('en');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const t = copy[lang];
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-brand-dark/90 backdrop-blur">
-        <div className="section-wrap flex h-20 items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-full bg-brand-gradient" />
-            <div>
-              <p className="text-lg font-semibold">SocialPulse</p>
-              <p className="text-xs text-brand-muted">Early Access</p>
-            </div>
-          </div>
-          <nav className="hidden items-center gap-6 text-sm text-brand-muted md:flex">
-            {t.nav.map((item, index) => (
-              <a key={item} href={`#${navAnchors[index]}`} className="hover:text-white">
-                {item}
-              </a>
-            ))}
-          </nav>
-          <div className="flex items-center gap-3">
-            <button
-              className="flex items-center gap-2 rounded-full border border-white/20 px-3 py-2 text-xs"
-              onClick={() => setLang((prev) => (prev === 'en' ? 'es' : 'en'))}
-            >
-              <Languages className="h-4 w-4" /> EN / ES
-            </button>
-            <button onClick={() => setIsModalOpen(true)} className="hidden rounded-full bg-brand-gradient px-4 py-2 text-xs font-semibold md:block">
-              {t.ctaPrimary}
-            </button>
-          </div>
+      <div className="relative min-h-screen overflow-hidden bg-[#091426] text-white">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-24 -top-24 h-[440px] w-[440px] rounded-full bg-[#F2398A]/30 blur-[150px]" />
+          <div className="absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[#9A33FF]/25 blur-[150px]" />
+          <div className="absolute -bottom-20 -right-12 h-[420px] w-[420px] rounded-full bg-[#14C7E5]/25 blur-[160px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(170,180,194,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(170,180,194,0.03)_1px,transparent_1px)] bg-[size:30px_30px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,20,38,0.84)_0%,rgba(9,20,38,0.24)_30%,rgba(9,20,38,0.28)_68%,rgba(9,20,38,0.9)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(9,20,38,0)_0%,rgba(9,20,38,0.3)_60%,rgba(9,20,38,0.88)_100%)]" />
         </div>
-      </header>
 
-      <main>
-        <section className="section-wrap pb-20 pt-16">
-          <div className="grid gap-12 lg:grid-cols-[1.05fr_1fr] lg:items-center">
-            <div>
-              <div className="mb-6 flex flex-wrap gap-2 text-xs">
-                {[t.badgeEarly, t.badgePlatforms, t.badgeAudience].map((badge) => (
-                  <span key={badge} className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-brand-muted">
-                    {badge}
-                  </span>
-                ))}
+        <header className="sticky top-0 z-40 border-b border-white/10 bg-[#091426]/80 backdrop-blur-xl">
+          <div className="section-wrap flex h-20 items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-brand-gradient shadow-[0_0_35px_rgba(154,51,255,0.5)]" />
+              <div>
+                <p className="text-base font-semibold tracking-tight md:text-lg">SocialPulse</p>
+                <p className="text-xs text-[#AAB4C2]">Emotional Signal Intelligence</p>
               </div>
-              <h1 className="font-heading text-4xl font-semibold leading-tight text-white md:text-5xl">{t.heroTitle}</h1>
-              <p className="mt-5 max-w-2xl text-lg text-brand-muted">{t.heroSubtitle}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <button onClick={() => setIsModalOpen(true)} className="rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold">
-                  {t.ctaPrimary}
-                </button>
-                <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm">
-                  {t.ctaSecondary}
-                  <ArrowRight className="h-4 w-4" />
+            </div>
+            <nav className="hidden items-center gap-8 text-sm text-[#AAB4C2] lg:flex">
+              {navItems.map((item) => (
+                <a key={item.label} href={item.href} className="transition hover:text-white">
+                  {item.label}
                 </a>
-              </div>
-            </div>
-            <div className="glass-card p-4">
-              <Image src="/dashboard-mock.svg" alt="Dashboard preview" width={1200} height={720} className="h-auto w-full rounded-xl" priority />
-            </div>
-          </div>
-        </section>
-
-        <section id="why" className="section-wrap pb-16">
-          <div className="glass-card bg-micro-grid bg-grid p-8">
-            <h2 className="text-3xl font-semibold">{t.whyTitle}</h2>
-            <p className="mt-4 max-w-4xl text-brand-muted">{t.whyText}</p>
-          </div>
-        </section>
-
-        <section id="what" className="section-wrap pb-16">
-          <h2 className="text-3xl font-semibold">{t.whatTitle}</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {[
-              ['Emotional signal detection', MessageSquareText],
-              ['Trend shifts', Activity],
-              ['Narrative drivers', Waypoints],
-              ['Context-aware summaries', Layers]
-            ].map(([title, Icon]) => (
-              <article key={String(title)} className="glass-card p-6">
-                <Icon className="h-5 w-5 text-brand-cyan" />
-                <h3 className="mt-4 text-lg font-medium">{title}</h3>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="how" className="section-wrap pb-16">
-          <h2 className="text-3xl font-semibold">{t.howTitle}</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-4">
-            {[
-              ['Select topic/account', Radar],
-              ['Ingest public posts (X/Threads)', Globe],
-              ['NLP + emotion modeling', Sparkle],
-              ['Dashboard with trends & alerts', Bell]
-            ].map(([title, Icon], idx) => (
-              <article key={String(title)} className="glass-card p-5">
-                <p className="text-xs text-brand-muted">0{idx + 1}</p>
-                <Icon className="mt-2 h-5 w-5 text-brand-pink" />
-                <h3 className="mt-4 text-base">{title}</h3>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="section-wrap pb-16">
-          <h2 className="text-3xl font-semibold">{t.capabilitiesTitle}</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {['Emotional trend tracking', 'Narrative shift alerts', 'Contextual summaries', 'Benchmarking (Planned)', 'API access (Roadmap)'].map((item) => (
-              <div key={item} className="glass-card p-5 text-sm text-brand-muted">
-                {item}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="section-wrap pb-16">
-          <h2 className="text-3xl font-semibold">{t.platformsTitle}</h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
-            <div className="glass-card p-6">
-              <h3 className="font-medium">Available Now</h3>
-              <ul className="mt-3 space-y-2 text-brand-muted"><li>X</li><li>Threads</li></ul>
-            </div>
-            <div className="glass-card p-6">
-              <h3 className="font-medium">Roadmap</h3>
-              <ul className="mt-3 space-y-2 text-brand-muted"><li>Instagram</li><li>TikTok</li><li>YouTube</li><li>Reddit</li></ul>
-            </div>
-          </div>
-        </section>
-
-        <section className="section-wrap pb-16">
-          <h2 className="text-3xl font-semibold">{t.roadmapTitle}</h2>
-          <div className="mt-6 space-y-3 text-brand-muted">
-            <div className="glass-card p-4">Platform expansion</div>
-            <div className="glass-card p-4">Domain-adapted models</div>
-            <div className="glass-card p-4">API</div>
-            <div className="glass-card p-4">Multilingual</div>
-          </div>
-        </section>
-
-        <section id="faq" className="section-wrap pb-16">
-          <h2 className="text-3xl font-semibold">{t.faqTitle}</h2>
-          <div className="mt-6 space-y-4">
-            {[
-              'What platforms are supported?',
-              'What stage is the company?',
-              'Is this real-time?',
-              'How is privacy handled?',
-              'Who is this for?',
-              'How can investors access more information?'
-            ].map((q) => (
-              <details key={q} className="glass-card p-5">
-                <summary className="cursor-pointer font-medium">{q}</summary>
-                <p className="mt-3 text-sm text-brand-muted">SocialPulse is in early access and focused on clear signal extraction from public social data, currently on X and Threads.</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        <section className="section-wrap pb-20">
-          <div className="rounded-3xl border border-white/10 bg-gradient-to-r from-brand-violet/20 to-brand-cyan/20 p-10 text-center">
-            <h2 className="text-3xl font-semibold">{t.finalTitle}</h2>
-            <p className="mx-auto mt-4 max-w-3xl text-brand-muted">{t.finalText}</p>
-            <button onClick={() => setIsModalOpen(true)} className="mt-7 rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold">
-              {t.ctaPrimary}
+              ))}
+            </nav>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="rounded-full bg-[linear-gradient(120deg,#F2398A_0%,#9A33FF_52%,#246BFF_100%)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_12px_45px_rgba(36,107,255,0.35)] transition hover:brightness-110"
+            >
+              Request Access
             </button>
           </div>
-        </section>
-      </main>
+        </header>
 
-      <footer className="border-t border-white/10 py-8">
-        <div className="section-wrap flex flex-wrap items-center justify-between gap-3 text-sm text-brand-muted">
-          <span>{t.footer}</span>
-          <a href="mailto:contact@socialpulse.ai" className="hover:text-white">contact@socialpulse.ai</a>
-        </div>
-      </footer>
+        <main className="relative z-10">
+          <section className="section-wrap pb-24 pt-16 md:pb-28 md:pt-24">
+            <div className="grid items-center gap-14 lg:min-h-[76vh] lg:grid-cols-[1.05fr_1fr]">
+              <div className="animate-fade-up">
+                <div className="mb-7 flex flex-wrap gap-2 text-xs font-medium">
+                  {['Early Access', 'X + Threads (Live)'].map((badge) => (
+                    <span
+                      key={badge}
+                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[#AAB4C2]"
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+                <h1 className="max-w-2xl text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+                  Emotional intelligence for social media - built for signal, not noise.
+                </h1>
+                <p className="mt-6 max-w-2xl text-base text-[#AAB4C2] md:text-xl">
+                  SocialPulse translates the emotional pulse of public conversations into clear, decision-ready
+                  insights for investors, press, and strategic partners.
+                </p>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="rounded-full bg-[linear-gradient(120deg,#F2398A_0%,#9A33FF_52%,#246BFF_100%)] px-7 py-3.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(58,49,255,0.35)] transition hover:brightness-110"
+                  >
+                    Request Investor / Press Access
+                  </button>
+                  <a
+                    href="#how"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.02] px-7 py-3.5 text-sm text-white transition hover:bg-white/[0.08]"
+                  >
+                    See the one-minute overview
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
 
-      <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} lang={lang} />
+              <div className="relative animate-fade-up" style={{ animationDelay: '120ms' }}>
+                <div className="absolute -inset-7 -z-10 rounded-[2rem] bg-[linear-gradient(135deg,rgba(242,57,138,0.28),rgba(154,51,255,0.28),rgba(20,199,229,0.22))] blur-3xl" />
+                <div className="rounded-[1.9rem] border border-white/10 bg-white/5 p-5 shadow-2xl backdrop-blur-xl">
+                  <div className="relative overflow-hidden rounded-2xl border border-white/10">
+                    <Image
+                      src="/dashboard-mock.svg"
+                      alt="SocialPulse dashboard preview"
+                      width={1200}
+                      height={720}
+                      className="h-auto w-full"
+                      priority
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(242,57,138,0.14),rgba(58,49,255,0.2),rgba(20,199,229,0.12))]" />
+                  </div>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    {heroMetrics.map((metric) => (
+                      <div
+                        key={metric.label}
+                        className="rounded-2xl border border-white/10 bg-[#0D1A31]/85 px-3 py-3 backdrop-blur"
+                      >
+                        <p className="text-xs text-[#AAB4C2]">{metric.label}</p>
+                        <p className="mt-1 text-lg font-semibold tracking-tight">{metric.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="why" className="section-wrap pb-20 md:pb-24">
+            <div className="mx-auto max-w-4xl animate-fade-up rounded-3xl border border-white/10 bg-[#0B1A31]/90 px-7 py-10 text-center backdrop-blur md:px-12 md:py-14">
+              <div className="mx-auto mb-6 h-px w-28 bg-brand-gradient" />
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Why It Matters</h2>
+              <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-[#AAB4C2] md:text-lg">
+                Market perception can shift long before formal reports catch up. SocialPulse reveals emotional momentum
+                and narrative pressure in real time, helping decision-makers respond with context and timing, not
+                guesswork.
+              </p>
+            </div>
+          </section>
+
+          <section id="how" className="section-wrap pb-20 md:pb-24">
+            <div className="mb-8 max-w-3xl animate-fade-up">
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">How It Works</h2>
+              <p className="mt-4 text-[#AAB4C2]">
+                A four-step pipeline built for clarity under pressure, from raw public chatter to structured strategic
+                intelligence.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {howSteps.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <article
+                    key={step.title}
+                    className="animate-fade-up rounded-[1.7rem] bg-[linear-gradient(140deg,rgba(242,57,138,0.4),rgba(154,51,255,0.3),rgba(20,199,229,0.35))] p-[1px]"
+                    style={{ animationDelay: `${index * 85}ms` }}
+                  >
+                    <div className="h-full rounded-[calc(1.7rem-1px)] bg-[#0B1A31]/95 p-6">
+                      <p className="text-xs text-[#AAB4C2]">0{index + 1}</p>
+                      <Icon className="mt-4 h-5 w-5 text-[#14C7E5]" />
+                      <h3 className="mt-5 text-lg font-semibold tracking-tight">{step.title}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{step.description}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section id="capabilities" className="section-wrap pb-20 md:pb-24">
+            <div className="mb-8 max-w-3xl animate-fade-up">
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Capabilities</h2>
+              <p className="mt-4 text-[#AAB4C2]">
+                Purpose-built AI components engineered for investor and media intelligence workflows.
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-3">
+              {capabilities.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <article
+                    key={item.title}
+                    className="animate-fade-up rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_18px_45px_rgba(58,49,255,0.25)]"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <Icon className="h-5 w-5 text-[#F2398A]" />
+                    <h3 className="mt-5 text-xl font-semibold tracking-tight">{item.title}</h3>
+                    <p className="mt-4 text-sm leading-relaxed text-[#AAB4C2]">{item.description}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section id="platforms" className="section-wrap pb-24 md:pb-28">
+            <div className="mb-8 max-w-3xl animate-fade-up">
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Supported Platforms</h2>
+              <p className="mt-4 text-[#AAB4C2]">Current coverage is live for core channels, with rapid expansion queued.</p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              <article className="animate-fade-up rounded-3xl border border-[#246BFF]/45 bg-[#0F213F]/95 p-7 shadow-[0_18px_55px_rgba(36,107,255,0.22)]">
+                <h3 className="text-xl font-semibold tracking-tight">Available Now</h3>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {['X', 'Threads'].map((platform) => (
+                    <span
+                      key={platform}
+                      className="rounded-full border border-[#14C7E5]/40 bg-[#14C7E5]/10 px-4 py-1.5 text-sm text-white"
+                    >
+                      {platform}
+                    </span>
+                  ))}
+                </div>
+              </article>
+              <article
+                className="animate-fade-up rounded-3xl border border-white/10 bg-white/[0.03] p-7 opacity-70"
+                style={{ animationDelay: '100ms' }}
+              >
+                <h3 className="text-xl font-semibold tracking-tight">Roadmap</h3>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {['Instagram', 'TikTok', 'YouTube', 'Reddit'].map((platform) => (
+                    <span key={platform} className="rounded-full border border-white/20 px-4 py-1.5 text-sm text-[#AAB4C2]">
+                      {platform}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            </div>
+          </section>
+        </main>
+
+        <footer className="relative z-10 border-t border-white/10 py-10">
+          <div className="section-wrap text-center text-sm text-[#AAB4C2]">
+            <div className="mx-auto mb-3 flex w-fit items-center gap-2">
+              <div className="h-3.5 w-3.5 rounded-full bg-brand-gradient" />
+              <span className="font-semibold tracking-tight text-white">SocialPulse</span>
+            </div>
+            <p>Early access for investor and press briefings.</p>
+          </div>
+        </footer>
+      </div>
+
+      <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} lang="en" />
     </>
   );
 }

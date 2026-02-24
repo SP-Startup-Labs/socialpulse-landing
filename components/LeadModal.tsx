@@ -82,18 +82,28 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  const inputClasses = 'mt-2 w-full rounded-lg border border-white/20 bg-slate-900/70 px-3 py-2 text-sm text-white placeholder:text-brand-muted focus:border-brand-cyan focus:outline-none';
+  const fieldBase =
+    'mt-2 w-full rounded-xl border border-transparent px-3.5 py-2.5 text-sm text-white placeholder:text-[#AAB4C2] transition focus:outline-none';
+  const fieldChrome =
+    'bg-[linear-gradient(rgba(255,255,255,0.05),rgba(255,255,255,0.05))_padding-box,linear-gradient(120deg,rgba(255,255,255,0.14),rgba(255,255,255,0.05))_border-box]';
+  const focusChrome =
+    'focus:bg-[linear-gradient(rgba(255,255,255,0.08),rgba(255,255,255,0.08))_padding-box,linear-gradient(120deg,#F2398A,#9A33FF,#246BFF)_border-box]';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-      <div className="w-full max-w-2xl rounded-2xl border border-white/15 bg-brand-dark p-6">
-        <div className="mb-4 flex items-start justify-between">
-          <h2 className="text-xl font-semibold">{title}</h2>
-          <button onClick={onClose} aria-label="Close modal" className="rounded p-1 text-brand-muted hover:text-white">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#050B16]/80 p-4 backdrop-blur-sm">
+      <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-white/15 bg-[#091426] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.55)] md:p-7">
+        <div className="pointer-events-none absolute -top-28 left-1/2 h-40 w-64 -translate-x-1/2 rounded-full bg-[#9A33FF]/25 blur-3xl" />
+        <div className="relative mb-6 flex items-start justify-between">
+          <h2 className="text-xl font-semibold tracking-tight md:text-2xl">{title}</h2>
+          <button
+            onClick={onClose}
+            aria-label="Close modal"
+            className="rounded-lg border border-white/10 p-1.5 text-[#AAB4C2] transition hover:bg-white/5 hover:text-white"
+          >
             <X className="h-5 w-5" />
           </button>
         </div>
-        <form className="grid grid-cols-1 gap-4 md:grid-cols-2" onSubmit={onSubmit} noValidate>
+        <form className="relative grid grid-cols-1 gap-4 md:grid-cols-2" onSubmit={onSubmit} noValidate>
           {([
             ['firstName', labels.firstName],
             ['lastName', labels.lastName],
@@ -102,9 +112,9 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
             ['organization', labels.org]
           ] as const).map(([key, label]) => (
             <label key={key} className={key === 'organization' ? 'md:col-span-2' : ''}>
-              <span className="text-sm text-brand-muted">{label}</span>
+              <span className="text-sm text-[#AAB4C2]">{label}</span>
               <input
-                className={inputClasses}
+                className={`${fieldBase} ${fieldChrome} ${focusChrome}`}
                 value={form[key]}
                 onChange={(e) => setField(key, e.target.value)}
                 aria-invalid={Boolean(errors[key])}
@@ -115,8 +125,12 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
           ))}
 
           <label>
-            <span className="text-sm text-brand-muted">{labels.role}</span>
-            <select className={inputClasses} value={form.role} onChange={(e) => setField('role', e.target.value)}>
+            <span className="text-sm text-[#AAB4C2]">{labels.role}</span>
+            <select
+              className={`${fieldBase} ${fieldChrome} ${focusChrome}`}
+              value={form.role}
+              onChange={(e) => setField('role', e.target.value)}
+            >
               <option value="">Select</option>
               {roleOptions.map((opt) => (
                 <option key={opt}>{opt}</option>
@@ -124,8 +138,12 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
             </select>
           </label>
           <label>
-            <span className="text-sm text-brand-muted">{labels.check}</span>
-            <select className={inputClasses} value={form.checkSize} onChange={(e) => setField('checkSize', e.target.value)}>
+            <span className="text-sm text-[#AAB4C2]">{labels.check}</span>
+            <select
+              className={`${fieldBase} ${fieldChrome} ${focusChrome}`}
+              value={form.checkSize}
+              onChange={(e) => setField('checkSize', e.target.value)}
+            >
               <option value="">Select</option>
               {checkSizeOptions.map((opt) => (
                 <option key={opt}>{opt}</option>
@@ -133,8 +151,12 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
             </select>
           </label>
           <label className="md:col-span-2">
-            <span className="text-sm text-brand-muted">{labels.stage}</span>
-            <select className={inputClasses} value={form.stageInterest} onChange={(e) => setField('stageInterest', e.target.value)}>
+            <span className="text-sm text-[#AAB4C2]">{labels.stage}</span>
+            <select
+              className={`${fieldBase} ${fieldChrome} ${focusChrome}`}
+              value={form.stageInterest}
+              onChange={(e) => setField('stageInterest', e.target.value)}
+            >
               <option value="">Select</option>
               {stageOptions.map((opt) => (
                 <option key={opt}>{opt}</option>
@@ -142,11 +164,18 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
             </select>
           </label>
           <label className="md:col-span-2">
-            <span className="text-sm text-brand-muted">{labels.message}</span>
-            <textarea className={`${inputClasses} min-h-28`} value={form.message} onChange={(e) => setField('message', e.target.value)} />
+            <span className="text-sm text-[#AAB4C2]">{labels.message}</span>
+            <textarea
+              className={`${fieldBase} ${fieldChrome} ${focusChrome} min-h-28 resize-y`}
+              value={form.message}
+              onChange={(e) => setField('message', e.target.value)}
+            />
           </label>
-          <div className="md:col-span-2">
-            <button disabled={isSubmitting} className="w-full rounded-lg bg-brand-gradient px-4 py-3 text-sm font-semibold text-white">
+          <div className="pt-1 md:col-span-2">
+            <button
+              disabled={isSubmitting}
+              className="w-full rounded-xl bg-brand-gradient px-4 py-3.5 text-sm font-semibold text-white shadow-[0_14px_42px_rgba(58,49,255,0.35)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
+            >
               {isSubmitting ? 'Submitting...' : labels.submit}
             </button>
             {success && <p className="mt-3 text-sm text-emerald-300">{success}</p>}
