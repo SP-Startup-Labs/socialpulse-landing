@@ -86,7 +86,13 @@ export function LandingPage() {
         <header className="sticky top-0 z-40 border-b border-white/10 bg-[#091426]/80 backdrop-blur-xl">
           <div className="section-wrap flex h-20 items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-brand-gradient shadow-[0_0_35px_rgba(154,51,255,0.5)]" />
+              <Image
+                src="/logo.png"
+                alt="SocialPulse"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-xl object-contain shadow-[0_0_35px_rgba(154,51,255,0.35)]"
+              />
               <div>
                 <p className="text-base font-semibold tracking-tight md:text-lg">SocialPulse</p>
                 <p className="text-xs text-[#AAB4C2]">Emotional Signal Intelligence</p>
@@ -281,7 +287,13 @@ export function LandingPage() {
         <footer className="relative z-10 border-t border-white/10 py-10">
           <div className="section-wrap text-center text-sm text-[#AAB4C2]">
             <div className="mx-auto mb-3 flex w-fit items-center gap-2">
-              <div className="h-3.5 w-3.5 rounded-full bg-brand-gradient" />
+              <Image
+                src="/logo.png"
+                alt="SocialPulse"
+                width={14}
+                height={14}
+                className="h-3.5 w-3.5 rounded object-contain"
+              />
               <span className="font-semibold tracking-tight text-white">SocialPulse</span>
             </div>
             <p>Early access for investor and press briefings.</p>
