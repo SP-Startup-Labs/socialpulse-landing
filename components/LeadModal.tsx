@@ -40,6 +40,8 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState('');
   const labels = copy[lang].formLabels;
+  const common = copy[lang].formCommon;
+  const errorsText = copy[lang].formErrors;
 
   const title = useMemo(() => copy[lang].ctaPrimary, [lang]);
 
@@ -47,10 +49,10 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
 
   const validate = () => {
     const nextErrors: Partial<Record<keyof FormData, string>> = {};
-    if (!form.firstName.trim()) nextErrors.firstName = 'Required';
-    if (!form.lastName.trim()) nextErrors.lastName = 'Required';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) nextErrors.email = 'Valid email required';
-    if (!/^[0-9+()\-\s]{7,}$/.test(form.phone)) nextErrors.phone = 'Valid phone required';
+    if (!form.firstName.trim()) nextErrors.firstName = errorsText.required;
+    if (!form.lastName.trim()) nextErrors.lastName = errorsText.required;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) nextErrors.email = errorsText.email;
+    if (!/^[0-9+()\-\s]{7,}$/.test(form.phone)) nextErrors.phone = errorsText.phone;
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -75,7 +77,7 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
       return;
     }
 
-    setErrors((prev) => ({ ...prev, email: 'Submission failed, please try again.' }));
+    setErrors((prev) => ({ ...prev, email: errorsText.submission }));
   };
 
   const setField = (key: keyof FormData, value: string) => {
@@ -131,7 +133,7 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
               value={form.role}
               onChange={(e) => setField('role', e.target.value)}
             >
-              <option value="">Select</option>
+              <option value="">{common.select}</option>
               {roleOptions.map((opt) => (
                 <option key={opt}>{opt}</option>
               ))}
@@ -144,7 +146,7 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
               value={form.checkSize}
               onChange={(e) => setField('checkSize', e.target.value)}
             >
-              <option value="">Select</option>
+              <option value="">{common.select}</option>
               {checkSizeOptions.map((opt) => (
                 <option key={opt}>{opt}</option>
               ))}
@@ -157,7 +159,7 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
               value={form.stageInterest}
               onChange={(e) => setField('stageInterest', e.target.value)}
             >
-              <option value="">Select</option>
+              <option value="">{common.select}</option>
               {stageOptions.map((opt) => (
                 <option key={opt}>{opt}</option>
               ))}
@@ -176,7 +178,7 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
               disabled={isSubmitting}
               className="button-primary w-full rounded-xl px-4 py-3.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {isSubmitting ? 'Submitting...' : labels.submit}
+              {isSubmitting ? common.submitting : labels.submit}
             </button>
             {success && <p className="mt-3 text-sm text-emerald-300">{success}</p>}
           </div>
