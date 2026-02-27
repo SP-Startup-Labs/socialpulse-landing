@@ -174,7 +174,7 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
           <div className="pt-1 md:col-span-2">
             <button
               disabled={isSubmitting}
-              className="w-full rounded-xl bg-brand-gradient px-4 py-3.5 text-sm font-semibold text-white shadow-[0_14px_42px_rgba(58,49,255,0.35)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
+              className="button-primary w-full rounded-xl px-4 py-3.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
             >
               {isSubmitting ? 'Submitting...' : labels.submit}
             </button>
