@@ -217,7 +217,7 @@ const content: Record<Language, LocalizedContent> = {
       availableTitle: 'Available Now',
       roadmapTitle: 'Roadmap',
       available: ['X', 'Threads'],
-      roadmap: ['Instagram', 'TikTok', 'YouTube', 'Reddit']
+      roadmap: ['Instagram', 'TikTok', 'YouTube', 'Reddit', 'URL', 'Google Reviews']
     },
     footer: 'Early access available for investors, press and strategic partners.'
   },
