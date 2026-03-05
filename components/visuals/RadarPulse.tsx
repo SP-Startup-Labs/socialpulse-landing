@@ -2,8 +2,10 @@ type RadarPulseProps = {
   className?: string;
   labels?: {
     top: string;
+    topRight: string;
     right: string;
     bottom: string;
+    bottomLeft: string;
     left: string;
   };
   compact?: boolean;
@@ -30,8 +32,10 @@ export function RadarPulse({ className = '', labels, compact = false }: RadarPul
       {labels ? (
         <>
           <p className={`absolute left-1/2 top-4 -translate-x-1/2 uppercase tracking-[0.16em] text-[#AAB4C2] ${labelClass}`}>{labels.top}</p>
+          <p className={`absolute right-[16%] top-[18%] uppercase tracking-[0.16em] text-[#AAB4C2] ${labelClass}`}>{labels.topRight}</p>
           <p className={`absolute right-5 top-1/2 -translate-y-1/2 uppercase tracking-[0.16em] text-[#AAB4C2] ${labelClass}`}>{labels.right}</p>
           <p className={`absolute bottom-4 left-1/2 -translate-x-1/2 uppercase tracking-[0.16em] text-[#AAB4C2] ${labelClass}`}>{labels.bottom}</p>
+          <p className={`absolute left-[16%] bottom-[18%] uppercase tracking-[0.16em] text-[#AAB4C2] ${labelClass}`}>{labels.bottomLeft}</p>
           <p className={`absolute left-5 top-1/2 -translate-y-1/2 uppercase tracking-[0.16em] text-[#AAB4C2] ${labelClass}`}>{labels.left}</p>
         </>
       ) : null}

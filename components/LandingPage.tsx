@@ -6,7 +6,6 @@ import {
   ArrowRight,
   Activity,
   BarChart3,
-  Bell,
   BrainCircuit,
   BriefcaseBusiness,
   LayoutDashboard,
@@ -20,8 +19,6 @@ import {
 import { type Language } from '@/lib/content';
 import { LeadModal } from './LeadModal';
 import { GradientIcon } from './visuals/GradientIcon';
-import { MetricPills } from './visuals/MetricPills';
-import { MiniBarChart } from './visuals/MiniBarChart';
 import { NoiseToSignalIllustration } from './visuals/NoiseToSignalIllustration';
 import { RadarPulse } from './visuals/RadarPulse';
 import { SignalSparkline } from './visuals/SignalSparkline';
@@ -30,6 +27,7 @@ type LocalizedContent = {
   brandTagline: string;
   nav: Array<{ label: string; href: string }>;
   badges: { early: string; live: string };
+  heroSignals: string[];
   hero: {
     title: string;
     subtitle: string;
@@ -49,13 +47,16 @@ type LocalizedContent = {
     title: string;
     intro: string;
     outputs: string[];
+    pipeline: Array<{ title: string; description: string }>;
     closing: string;
     frameworkTitle: string;
     frameworkSubtitle: string;
     radarLabels: {
       top: string;
+      topRight: string;
       right: string;
       bottom: string;
+      bottomLeft: string;
       left: string;
     };
   };
@@ -103,6 +104,7 @@ const content: Record<Language, LocalizedContent> = {
       early: 'Early Access',
       live: 'X + Threads Live'
     },
+    heroSignals: ['Emotional Pulse', 'Narrative Context', 'Decision Signals'],
     hero: {
       title: 'Emotional Intelligence for Social Media.',
       subtitle: 'Turning public conversations into clear emotional signals for decision-making.',
@@ -112,9 +114,9 @@ const content: Record<Language, LocalizedContent> = {
       ctaSecondary: 'Explore the framework'
     },
     heroMetrics: [
-      { label: 'Emotional pulse', value: 'Live analysis' },
-      { label: 'Emotion + narrative', value: 'Context detected' },
-      { label: 'Decision signals', value: 'Actionable alerts' }
+      { label: 'Emotion Index', value: 'Live analysis' },
+      { label: 'Narrative Shift', value: 'Context detected' },
+      { label: 'Signal Momentum', value: 'Actionable alerts' }
     ],
     problem: {
       title: 'The Problem',
@@ -139,16 +141,36 @@ const content: Record<Language, LocalizedContent> = {
         'Reputational risk and tension alerts',
         'Executive-ready dashboards and insights'
       ],
+      pipeline: [
+        {
+          title: 'Capture Layer',
+          description: 'Real-time ingestion of public discourse across social platforms.'
+        },
+        {
+          title: 'Emotion Modeling',
+          description: 'Multi-dimensional emotional signal extraction.'
+        },
+        {
+          title: 'Narrative Detection',
+          description: 'Identifies shifts in public framing and narrative pressure.'
+        },
+        {
+          title: 'Decision Signals',
+          description: 'Structured signals designed for investors and strategic teams.'
+        }
+      ],
       closing:
         'Less noise. Clear emotional context for faster and better decisions.',
-      frameworkTitle: 'Audience Emotional Map',
+      frameworkTitle: 'Emotional Signal Map',
       frameworkSubtitle:
-        'Understanding how audiences emotionally react to narratives in real time.',
+        'Multi-dimensional emotional profiling of public narratives.',
       radarLabels: {
-        top: 'Trust',
-        right: 'Enthusiasm',
-        bottom: 'Rejection',
-        left: 'Fear'
+        top: 'Intensity',
+        topRight: 'Sentiment',
+        right: 'Volatility',
+        bottom: 'Activation',
+        bottomLeft: 'Clarity',
+        left: 'Trust'
       }
     },
     opportunity: {
@@ -231,7 +253,7 @@ const content: Record<Language, LocalizedContent> = {
     platforms: {
       title: 'Supported Platforms',
       intro:
-        'Coverage begins with high-signal platforms and expands through a staged integration roadmap.',
+        'Initial coverage focuses on high-signal platforms where public narratives emerge first.',
       availableTitle: 'Available Now',
       roadmapTitle: 'Roadmap',
       available: ['X', 'Threads'],
@@ -241,10 +263,10 @@ const content: Record<Language, LocalizedContent> = {
   },
 
   es: {
-    brandTagline: 'Inteligencia de Señal Emocional',
+    brandTagline: 'Inteligencia de Senal Emocional',
     nav: [
       { label: 'Problema', href: '#problem' },
-      { label: 'Solución', href: '#solution' },
+      { label: 'Solucion', href: '#solution' },
       { label: 'Mercado', href: '#opportunity' },
       { label: 'Roadmap', href: '#roadmap' }
     ],
@@ -252,117 +274,138 @@ const content: Record<Language, LocalizedContent> = {
       early: 'Acceso temprano',
       live: 'X + Threads en vivo'
     },
+    heroSignals: ['Pulso Emocional', 'Contexto Narrativo', 'Senales de Decision'],
     hero: {
       title: 'Inteligencia Emocional para Social Media.',
-      subtitle: 'Convertimos conversación pública en señal emocional clara para decidir.',
+      subtitle: 'Convertimos conversacion publica en senal emocional clara para decidir.',
       thesis:
-        'El engagement muestra actividad. SocialPulse revela intención y presión emocional.',
-      ctaPrimary: 'Solicitar acceso para inversión / prensa',
+        'El engagement muestra actividad. SocialPulse revela intencion y presion emocional.',
+      ctaPrimary: 'Solicitar acceso para inversion / prensa',
       ctaShort: 'Solicitar acceso',
       ctaSecondary: 'Explorar el framework'
     },
     heroMetrics: [
-      { label: 'Pulso emocional', value: 'Análisis en vivo' },
-      { label: 'Emoción + narrativa', value: 'Contexto detectado' },
-      { label: 'Señales de decisión', value: 'Alertas accionables' }
+      { label: 'Indice Emocional', value: 'Analisis en vivo' },
+      { label: 'Cambio Narrativo', value: 'Contexto detectado' },
+      { label: 'Signal Momentum', value: 'Alertas accionables' }
     ],
     problem: {
       title: 'El Problema',
       intro:
-        'Las métricas tradicionales de redes sociales miden actividad — likes, views y engagement — pero no explican intención emocional ni presión narrativa.',
+        'Las metricas tradicionales de redes sociales miden actividad - likes, views y engagement - pero no explican intencion emocional ni presion narrativa.',
       points: [
-        'La percepción cambia antes que cualquier dashboard.',
-        'La emoción suele ser la primera señal, pero hoy no se mide.',
+        'La percepcion cambia antes que cualquier dashboard.',
+        'La emocion suele ser la primera senal, pero hoy no se mide.',
         'Un giro narrativo puede destruir confianza en horas.',
-        'Decidir sin contexto emocional implica operar con información incompleta.'
+        'Decidir sin contexto emocional implica operar con informacion incompleta.'
       ],
       conclusion:
-        'Comprender el estado emocional del público es clave para tomar decisiones digitales.'
+        'Comprender el estado emocional del publico es clave para tomar decisiones digitales.'
     },
     solution: {
-      title: 'La Solución',
+      title: 'La Solucion',
       intro:
-        'SocialPulse transforma conversaciones públicas en inteligencia emocional estructurada:',
+        'SocialPulse transforma conversaciones publicas en inteligencia emocional estructurada:',
       outputs: [
-        'Mapa emocional del público por tema y narrativa',
-        'Detección de cambios narrativos',
-        'Alertas de tensión y riesgo reputacional',
+        'Mapa emocional del publico por tema y narrativa',
+        'Deteccion de cambios narrativos',
+        'Alertas de tension y riesgo reputacional',
         'Dashboards ejecutivos listos para decidir'
       ],
+      pipeline: [
+        {
+          title: 'Capa de Captura',
+          description: 'Ingestion en tiempo real de discurso publico en plataformas sociales.'
+        },
+        {
+          title: 'Modelado Emocional',
+          description: 'Extraccion multidimensional de senales emocionales.'
+        },
+        {
+          title: 'Deteccion Narrativa',
+          description: 'Identifica cambios en framing publico y presion narrativa.'
+        },
+        {
+          title: 'Senales de Decision',
+          description: 'Senales estructuradas para inversores y equipos estrategicos.'
+        }
+      ],
       closing:
-        'Menos ruido. Más contexto para actuar.',
-      frameworkTitle: 'Mapa Emocional del Público',
+        'Menos ruido. Mas contexto para actuar.',
+      frameworkTitle: 'Mapa de Senal Emocional',
       frameworkSubtitle:
-        'Distribución y evolución de emociones en cada narrativa.',
+        'Perfilado emocional multidimensional de narrativas publicas.',
       radarLabels: {
-        top: 'Confianza',
-        right: 'Entusiasmo',
-        bottom: 'Rechazo',
-        left: 'Miedo'
+        top: 'Intensidad',
+        topRight: 'Sentimiento',
+        right: 'Volatilidad',
+        bottom: 'Activacion',
+        bottomLeft: 'Claridad',
+        left: 'Confianza'
       }
     },
     opportunity: {
       title: 'Oportunidad de Mercado',
       intro:
-        'SocialPulse se posiciona entre la analítica de social media y la inteligencia emocional aplicada.',
+        'SocialPulse se posiciona entre la analitica de social media y la inteligencia emocional aplicada.',
       stats: [
-        { value: '>$60B', label: 'Mercado de Social Media Analytics', detail: 'Proyección al 2032' },
-        { value: '>$25B', label: 'Segmento PyME direccionable', detail: 'Empresas que gestionan reputación digital' },
-        { value: '2', label: 'Mercados iniciales', detail: 'PyMEs y economía creator' }
+        { value: '>$60B', label: 'Mercado de Social Media Analytics', detail: 'Proyeccion al 2032' },
+        { value: '>$25B', label: 'Segmento PyME direccionable', detail: 'Empresas que gestionan reputacion digital' },
+        { value: '2', label: 'Mercados iniciales', detail: 'PyMEs y economia creator' }
       ],
-      thesis: 'Una plataforma. Dos mercados globales en expansión.'
+      thesis: 'Una plataforma. Dos mercados globales en expansion.'
     },
     model: {
       title: 'Modelo SaaS Escalable',
       intro:
-        'Un modelo freemium diseñado para demostrar valor rápidamente y convertir mediante uso real del producto.',
+        'Un modelo freemium disenado para demostrar valor rapidamente y convertir mediante uso real del producto.',
       items: [
         {
-          title: 'Freemium: valor completo con límites',
+          title: 'Freemium: valor completo con limites',
           detail:
-            'Los usuarios experimentan el producto completo con búsquedas limitadas por día.'
+            'Los usuarios experimentan el producto completo con busquedas limitadas por dia.'
         },
         {
-          title: 'Desde €11.99 hasta Enterprise',
+          title: 'Desde EUR11.99 hasta Enterprise',
           detail:
             'Precio accesible para creators y escalable para equipos profesionales.'
         },
         {
-          title: 'Expansión por uso',
+          title: 'Expansion por uso',
           detail:
             'Las cuentas crecen a medida que aumentan necesidades de monitoreo y usuarios.'
         },
         {
-          title: 'Economía SaaS',
+          title: 'Economia SaaS',
           detail:
             'Infraestructura eficiente alineada con software escalable.'
         }
       ]
     },
     roadmap: {
-      title: 'Roadmap Estratégico',
+      title: 'Roadmap Estrategico',
       phases: [
         {
-          title: 'Fase 1 – Validación y Tracción',
+          title: 'Fase 1 - Validacion y Traccion',
           horizon: 'Actual',
           items: [
             'Producto estable y motor emocional optimizado',
-            'Validación del modelo freemium',
+            'Validacion del modelo freemium',
             'Primeros usuarios pagos: creators y PyMEs'
           ]
         },
         {
-          title: 'Fase 2 – Expansión',
-          horizon: '3–9 meses',
+          title: 'Fase 2 - Expansion',
+          horizon: '3-9 meses',
           items: [
             'Plantillas por industria',
-            'Optimización de onboarding y pricing',
-            'Integración con nuevas plataformas'
+            'Optimizacion de onboarding y pricing',
+            'Integracion con nuevas plataformas'
           ]
         },
         {
-          title: 'Fase 3 – Escala',
-          horizon: '9–15 meses',
+          title: 'Fase 3 - Escala',
+          horizon: '9-15 meses',
           items: [
             'Alertas avanzadas y reporting ejecutivo',
             'API e integraciones B2B',
@@ -372,23 +415,23 @@ const content: Record<Language, LocalizedContent> = {
       ]
     },
     positioning: {
-      title: 'Posicionamiento de Categoría',
+      title: 'Posicionamiento de Categoria',
       body:
-        'La inteligencia emocional aplicada a social media se está convirtiendo en una ventaja competitiva.',
+        'La inteligencia emocional aplicada a social media se esta convirtiendo en una ventaja competitiva.',
       thesis:
-        'SocialPulse transforma la emoción de intuición en señal estructurada.'
+        'SocialPulse transforma la emocion de intuicion en senal estructurada.'
     },
     platforms: {
       title: 'Plataformas Soportadas',
       intro:
-        'La cobertura comienza con plataformas de alta señal y se expande progresivamente.',
+        'La cobertura inicial se enfoca en plataformas de alta senal donde las narrativas emergen primero.',
       availableTitle: 'Disponible ahora',
       roadmapTitle: 'Roadmap',
       available: ['X', 'Threads'],
       roadmap: ['Instagram', 'TikTok', 'YouTube', 'Reddit', 'URL', 'Google Reviews']
     },
     footer:
-      'Acceso temprano disponible para inversores, prensa y partners estratégicos.'
+      'Acceso temprano disponible para inversores, prensa y partners estrategicos.'
   }
 };
 
@@ -423,6 +466,10 @@ export function LandingPage() {
           velocity: 'velocity',
           emotionalIntent: 'emotional intent',
           narrativePressure: 'narrative pressure',
+          heroMicroOne: 'Narrative Pressure',
+          heroMicroOneValue: 'Elevated',
+          heroMicroTwo: 'Volatility Lens',
+          heroMicroTwoValue: 'Watching',
           socialAnalytics: 'social media analytics',
           appliedEI: 'applied emotional intelligence',
           funnelFreemium: 'Freemium',
@@ -434,6 +481,10 @@ export function LandingPage() {
           velocity: 'velocidad',
           emotionalIntent: 'intencion emocional',
           narrativePressure: 'presion narrativa',
+          heroMicroOne: 'Presion Narrativa',
+          heroMicroOneValue: 'Elevada',
+          heroMicroTwo: 'Lente de Volatilidad',
+          heroMicroTwoValue: 'Seguimiento',
           socialAnalytics: 'analitica de social media',
           appliedEI: 'inteligencia emocional aplicada',
           funnelFreemium: 'Freemium',
@@ -454,17 +505,20 @@ export function LandingPage() {
         </div>
 
         <header className="sticky top-0 z-40 border-b border-white/10 bg-[#091426]/78 backdrop-blur-xl">
-          <div className="section-wrap flex h-20 items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/logo.png"
-                alt="SocialPulse"
-                width={40}
-                height={40}
-                className="h-10 w-10 rounded-xl object-contain shadow-[0_0_35px_rgba(154,51,255,0.35)]"
-              />
+          <div className="section-wrap flex h-24 items-center justify-between gap-3">
+            <div className="flex items-center gap-4">
+              <span className="relative inline-flex h-16 w-16 items-center justify-center">
+                <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,#F2398A,#9A33FF,#246BFF)] opacity-20 blur-[20px]" />
+                <Image
+                  src="/logo.png"
+                  alt="SocialPulse"
+                  width={70}
+                  height={70}
+                  className="relative h-16 w-16 rounded-2xl object-contain shadow-[0_0_35px_rgba(154,51,255,0.35)]"
+                />
+              </span>
               <div>
-                <p className="text-base font-semibold tracking-tight md:text-lg">SocialPulse</p>
+                <p className="text-lg font-bold tracking-tight md:text-xl">SocialPulse</p>
                 <p className="text-xs text-[#AAB4C2]">{t.brandTagline}</p>
               </div>
             </div>
@@ -505,7 +559,7 @@ export function LandingPage() {
             <div className="grid items-center gap-16 lg:min-h-[78vh] lg:grid-cols-[1.03fr_1fr]">
               <div className="animate-fade-up">
                 <div className="mb-8 flex flex-wrap gap-2 text-xs font-medium">
-                  {[t.badges.early, t.badges.live].map((badge) => (
+                  {t.heroSignals.map((badge) => (
                     <span key={badge} className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[#AAB4C2]">
                       {badge}
                     </span>
@@ -515,7 +569,6 @@ export function LandingPage() {
                 <p className="mt-7 max-w-2xl text-base leading-relaxed text-[#AAB4C2] md:text-xl">{t.hero.subtitle}</p>
                 <NoiseToSignalIllustration className="mt-6 h-auto w-full max-w-[250px] opacity-90" />
                 <p className="mt-5 text-base font-medium tracking-tight text-white/90 md:text-lg">{t.hero.thesis}</p>
-                <MetricPills items={t.heroMetrics} className="mt-5 max-w-2xl" />
                 <div className="mt-11 flex flex-wrap gap-3">
                   <button onClick={() => setIsModalOpen(true)} className={primaryButtonClass}>
                     {t.hero.ctaPrimary}
@@ -531,20 +584,20 @@ export function LandingPage() {
                 <article className="double-layer-panel absolute -left-10 top-16 z-20 rounded-2xl border border-white/10 bg-[#0D1A31]/85 px-3 py-2 backdrop-blur sm:-left-16">
                   <div className="flex items-center gap-2">
                     <GradientIcon icon={Activity} tone="cyan" className="h-7 w-7" size={12} />
-                    <p className="text-[10px] text-[#AAB4C2]">{t.heroMetrics[0]?.label}</p>
+                    <p className="text-[10px] text-[#AAB4C2]">{visualLabels.heroMicroOne}</p>
                   </div>
                   <div className="mt-1 flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold">{t.heroMetrics[0]?.value}</p>
+                    <p className="text-sm font-semibold">{visualLabels.heroMicroOneValue}</p>
                     <SignalSparkline tone="cyan" className="h-5 w-12" />
                   </div>
                 </article>
                 <article className="double-layer-panel absolute -right-8 bottom-10 z-20 rounded-2xl border border-white/10 bg-[#0D1A31]/85 px-3 py-2 backdrop-blur sm:-right-12">
                   <div className="flex items-center gap-2">
                     <GradientIcon icon={LineChart} tone="pink" className="h-7 w-7" size={12} />
-                    <p className="text-[10px] text-[#AAB4C2]">{t.heroMetrics[1]?.label}</p>
+                    <p className="text-[10px] text-[#AAB4C2]">{visualLabels.heroMicroTwo}</p>
                   </div>
                   <div className="mt-1 flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold">{t.heroMetrics[1]?.value}</p>
+                    <p className="text-sm font-semibold">{visualLabels.heroMicroTwoValue}</p>
                     <SignalSparkline tone="pink" variant="spike" className="h-5 w-12" />
                   </div>
                 </article>
@@ -651,14 +704,22 @@ export function LandingPage() {
                 <SectionHeaderAccent icon={BrainCircuit} tone="cyan" />
                 <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.solution.title}</h2>
                 <p className="mt-6 text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.solution.intro}</p>
-                <ul className="mt-7 space-y-3">
-                  {t.solution.outputs.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-[#D2D9E2] md:text-base">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#14C7E5]" />
-                      <span>{item}</span>
-                    </li>
+                <div className="mt-7 grid gap-4 sm:grid-cols-2">
+                  {t.solution.pipeline.map((step, index) => (
+                    <article key={step.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                      <div className="mb-3 flex items-center gap-2">
+                        <GradientIcon
+                          icon={[Activity, BrainCircuit, Radar, Target][index] ?? Activity}
+                          tone={(['cyan', 'purple', 'pink', 'blue'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
+                          className="h-7 w-7"
+                          size={12}
+                        />
+                        <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
+                      </div>
+                      <p className="text-xs leading-relaxed text-[#AAB4C2] md:text-sm">{step.description}</p>
+                    </article>
                   ))}
-                </ul>
+                </div>
                 <p className="mt-7 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.closing}</p>
               </article>
 
@@ -671,49 +732,6 @@ export function LandingPage() {
                   <RadarPulse labels={t.solution.radarLabels} compact />
                 </div>
               </article>
-            </div>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {t.solution.outputs.map((item, index) => (
-                <article
-                  key={item}
-                  className="floating-panel floating-panel-hover double-layer-panel animate-fade-up p-5"
-                  style={{ animationDelay: `${index * 60}ms` }}
-                >
-                  <div className="flex items-center justify-between">
-                    <GradientIcon
-                      icon={[BrainCircuit, LineChart, Bell, LayoutDashboard][index] ?? BrainCircuit}
-                      tone={(['pink', 'purple', 'blue', 'cyan'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
-                    />
-                    {index === 0 ? (
-                      <svg
-                        className="h-11 w-11"
-                        viewBox="0 0 44 44"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                      >
-                        <circle cx="22" cy="22" r="16" stroke="rgba(255,255,255,0.16)" />
-                        <path d="M22 6 A16 16 0 1 1 10 35" stroke="url(#tileGauge)" strokeWidth="3" strokeLinecap="round" />
-                        <defs>
-                          <linearGradient id="tileGauge" x1="22" y1="6" x2="10" y2="35" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#F2398A" />
-                            <stop offset="1" stopColor="#14C7E5" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                    ) : null}
-                    {index === 1 ? <SignalSparkline variant="step" tone="purple" className="h-7 w-20" /> : null}
-                    {index === 2 ? (
-                      <div className="flex items-center gap-2">
-                        <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[#F2398A]" />
-                        <SignalSparkline variant="spike" tone="pink" className="h-7 w-20" />
-                      </div>
-                    ) : null}
-                    {index === 3 ? <MiniBarChart tone="cyan" className="h-8 w-20" /> : null}
-                  </div>
-                  <p className="mt-4 text-sm text-[#D2D9E2]">{item}</p>
-                </article>
-              ))}
             </div>
           </section>
 
@@ -928,7 +946,7 @@ export function LandingPage() {
                   {t.platforms.available.map((platform, index) => (
                     <span
                       key={platform}
-                      className="inline-flex items-center gap-2 rounded-full border border-[#14C7E5]/45 bg-[#14C7E5]/10 px-4 py-1.5 text-sm text-white"
+                      className="inline-flex items-center gap-2 rounded-full border border-[#14C7E5]/45 bg-[#14C7E5]/14 px-4.5 py-2 text-sm font-medium text-white"
                     >
                       <GradientIcon icon={platformIcons[index] ?? Activity} tone="cyan" className="h-5 w-5" size={10} />
                       {platform}
@@ -960,7 +978,7 @@ export function LandingPage() {
                 <h3 className="text-xl font-semibold tracking-tight">{t.platforms.roadmapTitle}</h3>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {t.platforms.roadmap.map((platform, index) => (
-                    <span key={platform} className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-1.5 text-sm text-[#AAB4C2]">
+                    <span key={platform} className="inline-flex items-center gap-2 rounded-full border border-white/24 px-4.5 py-2 text-sm font-medium text-[#AAB4C2]">
                       <GradientIcon icon={platformIcons[index] ?? Radar} tone="purple" className="h-5 w-5" size={10} />
                       {platform}
                     </span>
@@ -974,14 +992,40 @@ export function LandingPage() {
         <footer className="relative z-10 pb-12 pt-10">
           <div className="section-wrap">
             <div className="mx-auto mb-8 h-px w-full max-w-5xl bg-[linear-gradient(90deg,transparent,rgba(154,51,255,0.62),rgba(36,107,255,0.48),transparent)]" />
-            <div className="text-center text-sm text-[#AAB4C2]">
-              <div className="mx-auto mb-3 flex w-fit items-center gap-2">
-                <span className="relative inline-flex h-4 w-4 items-center justify-center">
-                  <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.5)_0%,rgba(154,51,255,0)_72%)] blur-sm" />
-                  <Image src="/logo.png" alt="SocialPulse" width={14} height={14} className="relative h-3.5 w-3.5 rounded object-contain" />
-                </span>
-                <span className="font-semibold tracking-tight text-white">SocialPulse</span>
+            <div className="grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <span className="relative inline-flex h-8 w-8 items-center justify-center">
+                    <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.5)_0%,rgba(154,51,255,0)_72%)] blur-sm" />
+                    <Image src="/logo.png" alt="SocialPulse" width={26} height={26} className="relative h-6.5 w-6.5 rounded object-contain" />
+                  </span>
+                  <span className="text-lg font-semibold tracking-tight text-white">SocialPulse</span>
+                </div>
+                <p className="max-w-md text-sm leading-relaxed text-[#AAB4C2]">
+                  Emotional Signal Intelligence for the digital conversation economy.
+                </p>
+                <a href="mailto:contact@socialpulse.ai" className="inline-flex text-sm text-[#D2D9E2] transition hover:text-white">
+                  contact@socialpulse.ai
+                </a>
               </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">Product</p>
+                <div className="mt-3 space-y-2 text-sm text-[#D2D9E2]">
+                  <p>Signal Engine</p>
+                  <p>Emotional Index</p>
+                  <p>Narrative Detection</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">Company</p>
+                <div className="mt-3 space-y-2 text-sm text-[#D2D9E2]">
+                  <p>About</p>
+                  <p>Research</p>
+                  <p>Press</p>
+                </div>
+              </div>
+            </div>
+            <div className="mt-8 border-t border-white/10 pt-4 text-sm text-[#AAB4C2]">
               <p>{t.footer}</p>
             </div>
           </div>
@@ -992,3 +1036,4 @@ export function LandingPage() {
     </>
   );
 }
+
