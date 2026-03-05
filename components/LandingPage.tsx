@@ -105,78 +105,87 @@ const content: Record<Language, LocalizedContent> = {
     },
     hero: {
       title: 'Emotional Intelligence for Social Media.',
-      subtitle: 'Transforming public conversations into structured emotional insights.',
-      thesis: 'Engagement shows activity. SocialPulse reveals how people actually feel.',
+      subtitle: 'Turning public conversations into clear emotional signals for decision-making.',
+      thesis: 'Engagement shows activity. SocialPulse reveals intention and emotional pressure.',
       ctaPrimary: 'Request Investor / Press Access',
       ctaShort: 'Request Access',
       ctaSecondary: 'Explore the framework'
     },
     heroMetrics: [
-      { label: 'Public conversations analyzed', value: 'Real-time' },
-      { label: 'Emotional dimensions', value: 'Multiple' },
-      { label: 'Analysis speed', value: 'Instant insights' }
+      { label: 'Emotional pulse', value: 'Live analysis' },
+      { label: 'Emotion + narrative', value: 'Context detected' },
+      { label: 'Decision signals', value: 'Actionable alerts' }
     ],
     problem: {
       title: 'The Problem',
       intro:
-        'Traditional social media metrics measure activity — likes, views and engagement. But they do not explain how people actually feel.',
+        'Traditional social metrics measure activity — likes, views and engagement — but they do not explain emotional intent or narrative pressure.',
       points: [
-        'Markets and audiences often react before formal reports are published.',
-        'Emotion is frequently the first signal, yet it remains invisible in most decision systems.',
-        'Narrative shifts can reshape perception faster than conventional dashboards can explain.',
-        'Deciding without emotional context means working with incomplete information.'
+        'Perception shifts before dashboards or reports detect it.',
+        'Emotion is often the first signal, yet it remains invisible in most decision systems.',
+        'Narrative shifts can reshape trust and reputation in hours.',
+        'Without emotional context, decisions are made with incomplete information.'
       ],
-      conclusion: 'Without emotional context, digital decisions are made with incomplete information.'
+      conclusion:
+        'Understanding audience emotion is becoming essential for digital decision-making.'
     },
     solution: {
       title: 'The Solution',
-      intro: 'SocialPulse analyzes public conversations and translates them into clear emotional intelligence:',
+      intro:
+        'SocialPulse transforms public discourse into structured emotional intelligence:',
       outputs: [
-        'Structured emotional indices',
+        'Audience emotional mapping by topic and narrative',
         'Narrative shift detection',
-        'Inflection alerts',
-        'Clear, decision-ready dashboards'
+        'Reputational risk and tension alerts',
+        'Executive-ready dashboards and insights'
       ],
-      closing: 'The goal is simple: understand how audiences truly feel before making decisions.',
-      frameworkTitle: 'Emotional Pulse Framework',
-      frameworkSubtitle: 'Quantifying intensity, volatility, clarity and narrative pressure.',
+      closing:
+        'Less noise. Clear emotional context for faster and better decisions.',
+      frameworkTitle: 'Audience Emotional Map',
+      frameworkSubtitle:
+        'Understanding how audiences emotionally react to narratives in real time.',
       radarLabels: {
-        top: 'Intensity',
-        right: 'Volatility',
-        bottom: 'Clarity',
-        left: 'Pressure'
+        top: 'Trust',
+        right: 'Enthusiasm',
+        bottom: 'Rejection',
+        left: 'Fear'
       }
     },
     opportunity: {
       title: 'Market Opportunity',
       intro:
-        'SocialPulse operates at the intersection of Social Media Analytics and Applied Emotional Intelligence.',
+        'SocialPulse sits at the intersection of Social Media Analytics and Applied Emotional Intelligence.',
       stats: [
         { value: '>$60B', label: 'Social Media Analytics Market', detail: 'Projected by 2032' },
-        { value: '>$25B', label: 'Addressable SME Segment', detail: 'Serviceable demand profile' },
-        { value: '2', label: 'Primary initial markets', detail: 'SMEs and creators' }
+        { value: '>$25B', label: 'Addressable SME Segment', detail: 'Businesses managing brand perception online' },
+        { value: '2', label: 'Primary Markets', detail: 'SMEs and professional creators' }
       ],
       thesis: 'One platform. Two expanding global markets.'
     },
     model: {
       title: 'Scalable SaaS Model',
-      intro: 'The model is designed for disciplined growth, efficient expansion, and strong SaaS economics.',
+      intro:
+        'A freemium model designed to demonstrate value quickly and convert through real product usage.',
       items: [
         {
           title: 'Freemium discovery',
-          detail: 'Users experience the full product with limited daily searches.'
+          detail:
+            'Users see the full analytical power with limited daily searches.'
         },
         {
-          title: 'EUR 11.99 to Enterprise',
-          detail: 'Accessible pricing for creators and scalable plans for professional teams.'
+          title: 'From €11.99 to Enterprise',
+          detail:
+            'Accessible entry pricing for creators, scalable tiers for professional teams.'
         },
         {
           title: 'Expansion by usage',
-          detail: 'Accounts naturally grow as monitoring scope and workflow depth increase.'
+          detail:
+            'Accounts grow naturally as monitoring scope and team usage increase.'
         },
         {
-          title: '>70% gross margin alignment',
-          detail: 'Economics consistent with scalable SaaS operations.'
+          title: 'SaaS margin structure',
+          detail:
+            'Efficient infrastructure aligned with scalable software economics.'
         }
       ]
     },
@@ -184,49 +193,58 @@ const content: Record<Language, LocalizedContent> = {
       title: 'Strategic Roadmap',
       phases: [
         {
-          title: 'Phase 1 - Validation & Traction',
+          title: 'Phase 1 – Validation & Traction',
           horizon: 'Current',
           items: [
-            'Core emotional engine optimization',
-            'Freemium conversion validation',
-            'Early adopter growth'
+            'Product stabilization and core emotional engine',
+            'Freemium validation and first paying users',
+            'Early adopters: creators and SMEs'
           ]
         },
         {
-          title: 'Phase 2 - Scalability',
-          horizon: '12-18 months',
-          items: ['Multi-platform integration', 'Predictive layers', 'API integrations']
+          title: 'Phase 2 – Expansion',
+          horizon: '3–9 months',
+          items: [
+            'Industry-specific templates and workflows',
+            'Pricing optimization and onboarding improvements',
+            'Additional platform integrations'
+          ]
         },
         {
-          title: 'Phase 3 - Category Standard',
-          horizon: 'Long-term',
-          items: ['Emotional Intelligence as digital decision layer', 'Media and fund partnerships']
+          title: 'Phase 3 – Scale',
+          horizon: '9–15 months',
+          items: [
+            'Advanced alert systems and executive reporting',
+            'API integrations and B2B partnerships',
+            'Operational scaling and infrastructure growth'
+          ]
         }
       ]
     },
     positioning: {
       title: 'Category Positioning',
       body:
-        'Emotional Intelligence applied to social media is becoming a competitive advantage for brands, creators and organizations.',
+        'Emotional intelligence applied to social media is rapidly becoming a competitive advantage for brands and organizations.',
       thesis:
-        'SocialPulse transforms emotion from intuition into structured signal.'
+        'SocialPulse turns emotional signals from intuition into structured intelligence.'
     },
     platforms: {
       title: 'Supported Platforms',
-      intro: 'Coverage starts with high-signal platforms and expands through a staged integration roadmap.',
+      intro:
+        'Coverage begins with high-signal platforms and expands through a staged integration roadmap.',
       availableTitle: 'Available Now',
       roadmapTitle: 'Roadmap',
       available: ['X', 'Threads'],
-      roadmap: ['Instagram', 'TikTok', 'YouTube', 'Reddit', 'URL', 'Google Reviews']
+      roadmap: ['Instagram', 'TikTok', 'YouTube', 'Reddit']
     },
     footer: 'Early access available for investors, press and strategic partners.'
   },
 
   es: {
-    brandTagline: 'Inteligencia de Senal Emocional',
+    brandTagline: 'Inteligencia de Señal Emocional',
     nav: [
       { label: 'Problema', href: '#problem' },
-      { label: 'Solucion', href: '#solution' },
+      { label: 'Solución', href: '#solution' },
       { label: 'Mercado', href: '#opportunity' },
       { label: 'Roadmap', href: '#roadmap' }
     ],
@@ -236,123 +254,144 @@ const content: Record<Language, LocalizedContent> = {
     },
     hero: {
       title: 'Inteligencia Emocional para Social Media.',
-      subtitle: 'Transformamos conversaciones publicas en insights emocionales estructurados.',
-      thesis: 'El engagement muestra actividad. SocialPulse revela como se siente realmente la audiencia.',
-      ctaPrimary: 'Solicitar acceso para inversion / prensa',
+      subtitle: 'Convertimos conversación pública en señal emocional clara para decidir.',
+      thesis:
+        'El engagement muestra actividad. SocialPulse revela intención y presión emocional.',
+      ctaPrimary: 'Solicitar acceso para inversión / prensa',
       ctaShort: 'Solicitar acceso',
       ctaSecondary: 'Explorar el framework'
     },
     heroMetrics: [
-      { label: 'Conversaciones publicas analizadas', value: 'Tiempo real' },
-      { label: 'Dimensiones emocionales', value: 'Multiples' },
-      { label: 'Velocidad de analisis', value: 'Insights inmediatos' }
+      { label: 'Pulso emocional', value: 'Análisis en vivo' },
+      { label: 'Emoción + narrativa', value: 'Contexto detectado' },
+      { label: 'Señales de decisión', value: 'Alertas accionables' }
     ],
     problem: {
       title: 'El Problema',
       intro:
-        'Las metricas tradicionales de redes sociales miden actividad — likes, views y engagement — pero no explican como se siente realmente la audiencia.',
+        'Las métricas tradicionales de redes sociales miden actividad — likes, views y engagement — pero no explican intención emocional ni presión narrativa.',
       points: [
-        'Los mercados y las audiencias reaccionan antes de que existan reportes formales.',
-        'La emocion suele ser la primera senal, pero permanece invisible en la mayoria de los sistemas de decision.',
-        'Los cambios narrativos pueden transformar percepcion y confianza rapidamente.',
-        'Decidir sin contexto emocional implica operar con informacion incompleta.'
+        'La percepción cambia antes que cualquier dashboard.',
+        'La emoción suele ser la primera señal, pero hoy no se mide.',
+        'Un giro narrativo puede destruir confianza en horas.',
+        'Decidir sin contexto emocional implica operar con información incompleta.'
       ],
-      conclusion: 'Sin contexto emocional, las decisiones digitales se toman con informacion incompleta.'
+      conclusion:
+        'Comprender el estado emocional del público es clave para tomar decisiones digitales.'
     },
     solution: {
-      title: 'La Solucion',
-      intro: 'SocialPulse analiza conversaciones publicas y las convierte en inteligencia emocional clara:',
+      title: 'La Solución',
+      intro:
+        'SocialPulse transforma conversaciones públicas en inteligencia emocional estructurada:',
       outputs: [
-        'Indices emocionales estructurados',
-        'Deteccion de cambios narrativos',
-        'Alertas de inflexion',
-        'Dashboards claros y listos para decision'
+        'Mapa emocional del público por tema y narrativa',
+        'Detección de cambios narrativos',
+        'Alertas de tensión y riesgo reputacional',
+        'Dashboards ejecutivos listos para decidir'
       ],
-      closing: 'El objetivo es simple: entender como se siente realmente la audiencia antes de decidir.',
-      frameworkTitle: 'Framework de Pulso Emocional',
-      frameworkSubtitle: 'Cuantificando intensidad, volatilidad, claridad y presion narrativa.',
+      closing:
+        'Menos ruido. Más contexto para actuar.',
+      frameworkTitle: 'Mapa Emocional del Público',
+      frameworkSubtitle:
+        'Distribución y evolución de emociones en cada narrativa.',
       radarLabels: {
-        top: 'Intensidad',
-        right: 'Volatilidad',
-        bottom: 'Claridad',
-        left: 'Presion'
+        top: 'Confianza',
+        right: 'Entusiasmo',
+        bottom: 'Rechazo',
+        left: 'Miedo'
       }
     },
     opportunity: {
       title: 'Oportunidad de Mercado',
       intro:
-        'SocialPulse opera en la interseccion entre analitica de social media e inteligencia emocional aplicada.',
+        'SocialPulse se posiciona entre la analítica de social media y la inteligencia emocional aplicada.',
       stats: [
-        { value: '>$60B', label: 'Mercado de Social Media Analytics', detail: 'Proyeccion al 2032' },
-        { value: '>$25B', label: 'Segmento PyME direccionable', detail: 'Demanda potencial atendible' },
-        { value: '2', label: 'Mercados iniciales', detail: 'PyMEs y economia creator' }
+        { value: '>$60B', label: 'Mercado de Social Media Analytics', detail: 'Proyección al 2032' },
+        { value: '>$25B', label: 'Segmento PyME direccionable', detail: 'Empresas que gestionan reputación digital' },
+        { value: '2', label: 'Mercados iniciales', detail: 'PyMEs y economía creator' }
       ],
-      thesis: 'Una plataforma. Dos mercados globales en expansion.'
+      thesis: 'Una plataforma. Dos mercados globales en expansión.'
     },
     model: {
       title: 'Modelo SaaS Escalable',
-      intro: 'El modelo esta disenado para crecimiento disciplinado y economia SaaS sostenible.',
+      intro:
+        'Un modelo freemium diseñado para demostrar valor rápidamente y convertir mediante uso real del producto.',
       items: [
         {
-          title: 'Descubrimiento freemium',
-          detail: 'Los usuarios experimentan el producto completo con limites diarios de uso.'
+          title: 'Freemium: valor completo con límites',
+          detail:
+            'Los usuarios experimentan el producto completo con búsquedas limitadas por día.'
         },
         {
           title: 'Desde €11.99 hasta Enterprise',
-          detail: 'Precios accesibles para creators y escalables para equipos profesionales.'
+          detail:
+            'Precio accesible para creators y escalable para equipos profesionales.'
         },
         {
-          title: 'Expansion por uso',
-          detail: 'Las cuentas crecen naturalmente a medida que aumentan las necesidades de monitoreo.'
+          title: 'Expansión por uso',
+          detail:
+            'Las cuentas crecen a medida que aumentan necesidades de monitoreo y usuarios.'
         },
         {
-          title: '>70% margen bruto',
-          detail: 'Economia alineada con operaciones SaaS escalables.'
+          title: 'Economía SaaS',
+          detail:
+            'Infraestructura eficiente alineada con software escalable.'
         }
       ]
     },
     roadmap: {
-      title: 'Roadmap Estrategico',
+      title: 'Roadmap Estratégico',
       phases: [
         {
-          title: 'Fase 1 - Validacion y Traccion',
+          title: 'Fase 1 – Validación y Tracción',
           horizon: 'Actual',
           items: [
-            'Optimizacion del motor emocional core',
-            'Validacion de conversion freemium',
-            'Crecimiento de early adopters'
+            'Producto estable y motor emocional optimizado',
+            'Validación del modelo freemium',
+            'Primeros usuarios pagos: creators y PyMEs'
           ]
         },
         {
-          title: 'Fase 2 - Escalabilidad',
-          horizon: '12-18 meses',
-          items: ['Integracion multiplataforma', 'Capas predictivas', 'Integraciones API']
+          title: 'Fase 2 – Expansión',
+          horizon: '3–9 meses',
+          items: [
+            'Plantillas por industria',
+            'Optimización de onboarding y pricing',
+            'Integración con nuevas plataformas'
+          ]
         },
         {
-          title: 'Fase 3 - Estandar de Categoria',
-          horizon: 'Largo plazo',
-          items: ['Inteligencia Emocional como capa de decision digital', 'Partnerships con medios y fondos']
+          title: 'Fase 3 – Escala',
+          horizon: '9–15 meses',
+          items: [
+            'Alertas avanzadas y reporting ejecutivo',
+            'API e integraciones B2B',
+            'Escalado de infraestructura'
+          ]
         }
       ]
     },
     positioning: {
-      title: 'Posicionamiento de Categoria',
+      title: 'Posicionamiento de Categoría',
       body:
-        'La inteligencia emocional aplicada a social media se esta convirtiendo en una ventaja competitiva para marcas, creators y organizaciones.',
+        'La inteligencia emocional aplicada a social media se está convirtiendo en una ventaja competitiva.',
       thesis:
-        'SocialPulse transforma la emocion de intuicion en senal estructurada.'
+        'SocialPulse transforma la emoción de intuición en señal estructurada.'
     },
     platforms: {
       title: 'Plataformas Soportadas',
-      intro: 'La cobertura comienza con plataformas de alta senal y se expande progresivamente.',
+      intro:
+        'La cobertura comienza con plataformas de alta señal y se expande progresivamente.',
       availableTitle: 'Disponible ahora',
       roadmapTitle: 'Roadmap',
       available: ['X', 'Threads'],
-      roadmap: ['Instagram', 'TikTok', 'YouTube', 'Reddit', 'URL', 'Google Reviews']
+      roadmap: ['Instagram', 'TikTok', 'YouTube', 'Reddit']
     },
-    footer: 'Acceso temprano disponible para inversionistas, prensa y partners estrategicos.'
+    footer:
+      'Acceso temprano disponible para inversores, prensa y partners estratégicos.'
   }
 };
+
 
 const primaryButtonClass =
   'button-primary rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(58,49,255,0.35)] transition hover:brightness-105';
