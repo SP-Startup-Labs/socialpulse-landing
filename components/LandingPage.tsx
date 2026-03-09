@@ -40,9 +40,15 @@ type LocalizedContent = {
   heroMetrics: Array<{ label: string; value: string }>;
   problem: {
     title: string;
-    intro: string;
-    points: string[];
-    conclusion: string;
+    thesisLead: string;
+    thesisBody: string;
+    traditionalLabel: string;
+    traditionalItems: string[];
+    transitionLabel: string;
+    emotionalLabel: string;
+    emotionalItems: string[];
+    conclusionLead: string;
+    conclusionBody: string;
   };
   solution: {
     title: string;
@@ -127,17 +133,17 @@ const content: Record<Language, LocalizedContent> = {
       { label: 'Signal Momentum', value: 'Actionable alerts' }
     ],
     problem: {
-      title: 'The Problem',
-      intro:
-        'Traditional social metrics measure activity — likes, views and engagement — but they do not explain emotional intent or narrative pressure.',
-      points: [
-        'Perception shifts before dashboards or reports detect it.',
-        'Emotion is often the first signal, yet it remains invisible in most decision systems.',
-        'Narrative shifts can reshape trust and reputation in hours.',
-        'Without emotional context, decisions are made with incomplete information.'
-      ],
-      conclusion:
-        'Understanding audience emotion is becoming essential for digital decision-making.'
+      title: 'The Hidden Signal in Digital Markets',
+      thesisLead: 'Markets react to emotion long before metrics reflect it.',
+      thesisBody:
+        'Traditional analytics measure activity - likes, views and engagement. But they fail to capture the emotional pressure shaping narratives in real time.',
+      traditionalLabel: 'Traditional Metrics',
+      traditionalItems: ['Likes', 'Views', 'Engagement', 'Volume', 'Velocity'],
+      transitionLabel: 'Activity -> Emotion -> Market Reaction',
+      emotionalLabel: 'Emotional Signals',
+      emotionalItems: ['Emotional Intensity', 'Narrative Pressure', 'Audience Activation', 'Trust Volatility'],
+      conclusionLead: 'Emotion is often the first signal.',
+      conclusionBody: 'Yet it remains invisible in most decision systems.'
     },
     solution: {
       title: 'The Solution',
@@ -316,17 +322,17 @@ const content: Record<Language, LocalizedContent> = {
       { label: 'Signal Momentum', value: 'Alertas accionables' }
     ],
     problem: {
-      title: 'El Problema',
-      intro:
-        'Las metricas tradicionales de redes sociales miden actividad - likes, views y engagement - pero no explican intencion emocional ni presion narrativa.',
-      points: [
-        'La percepcion cambia antes que cualquier dashboard.',
-        'La emocion suele ser la primera senal, pero hoy no se mide.',
-        'Un giro narrativo puede destruir confianza en horas.',
-        'Decidir sin contexto emocional implica operar con informacion incompleta.'
-      ],
-      conclusion:
-        'Comprender el estado emocional del publico es clave para tomar decisiones digitales.'
+      title: 'La Senal Oculta en los Mercados Digitales',
+      thesisLead: 'Los mercados reaccionan a la emocion mucho antes de que las metricas la reflejen.',
+      thesisBody:
+        'La analitica tradicional mide actividad - likes, views y engagement. Pero no captura la presion emocional que moldea las narrativas en tiempo real.',
+      traditionalLabel: 'Metricas Tradicionales',
+      traditionalItems: ['Likes', 'Views', 'Engagement', 'Volumen', 'Velocidad'],
+      transitionLabel: 'Actividad -> Emocion -> Reaccion de Mercado',
+      emotionalLabel: 'Senales Emocionales',
+      emotionalItems: ['Intensidad Emocional', 'Presion Narrativa', 'Activacion de Audiencia', 'Volatilidad de Confianza'],
+      conclusionLead: 'La emocion suele ser la primera senal.',
+      conclusionBody: 'Sin embargo, sigue siendo invisible en la mayoria de los sistemas de decision.'
     },
     solution: {
       title: 'La Solucion',
@@ -681,70 +687,88 @@ export function LandingPage() {
           </section>
 
           <section id="problem" className="section-wrap section-space">
-            <div className="grid gap-5 lg:grid-cols-[1.15fr_1fr]">
-              <article className="floating-panel double-layer-panel animate-fade-up p-7 md:p-10">
-                <SectionHeaderAccent icon={Activity} tone="pink" />
-                <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.problem.title}</h2>
-                <p className="mt-6 text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.problem.intro}</p>
-                <p className="mt-6 text-base font-medium tracking-tight text-white/90 md:text-lg">{t.problem.conclusion}</p>
-                <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="grid gap-4 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                        <GradientIcon icon={BarChart3} tone="purple" className="h-7 w-7" size={12} />
-                        <span className="text-xs text-[#AAB4C2]">{visualLabels.volume}</span>
-                      </div>
-                      <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                        <GradientIcon icon={TrendingUp} tone="blue" className="h-7 w-7" size={12} />
-                        <span className="text-xs text-[#AAB4C2]">{visualLabels.velocity}</span>
-                      </div>
+            <article className="floating-panel double-layer-panel animate-fade-up p-7 md:p-10">
+              <SectionHeaderAccent icon={Activity} tone="pink" />
+              <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.problem.title}</h2>
+              <div className="mt-6 max-w-4xl space-y-4">
+                <p className="text-lg font-medium leading-relaxed text-white/95 md:text-2xl md:leading-[1.35]">{t.problem.thesisLead}</p>
+                <p className="text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.problem.thesisBody}</p>
+              </div>
+
+              <div className="mt-10 rounded-3xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-6">
+                <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
+                  <div className="space-y-3">
+                    <p className="text-xs uppercase tracking-[0.18em] text-[#8C97A8]">{t.problem.traditionalLabel}</p>
+                    <div className="flex flex-wrap gap-2.5">
+                      {t.problem.traditionalItems.map((item) => (
+                        <span key={item} className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1.5 text-xs text-[#96A2B2]">
+                          {item}
+                        </span>
+                      ))}
                     </div>
+                  </div>
+
+                  <div className="mx-auto flex w-full max-w-[250px] flex-col items-center gap-3 text-center">
+                    <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#AAB4C2]">{t.problem.transitionLabel}</p>
                     <svg
-                      className="mx-auto hidden sm:block"
-                      width="96"
-                      height="56"
-                      viewBox="0 0 96 56"
+                      className="hidden md:block"
+                      width="180"
+                      height="30"
+                      viewBox="0 0 180 30"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       aria-hidden="true"
                     >
-                      <path d="M4 28 H92" stroke="url(#problemLine)" strokeWidth="1.5" strokeDasharray="4 4" />
-                      <circle cx="28" cy="28" r="2.5" fill="#9A33FF" />
-                      <circle cx="48" cy="28" r="2.5" fill="#3A31FF" />
-                      <circle cx="68" cy="28" r="2.5" fill="#14C7E5" />
+                      <path d="M4 15 H172" stroke="url(#problemFlowDesktop)" strokeWidth="1.5" strokeDasharray="5 6" />
+                      <path d="M172 15 L164 10 V20 L172 15Z" fill="#9A33FF" />
                       <defs>
-                        <linearGradient id="problemLine" x1="4" y1="28" x2="92" y2="28" gradientUnits="userSpaceOnUse">
-                          <stop stopColor="#F2398A" stopOpacity="0.3" />
-                          <stop offset="0.5" stopColor="#9A33FF" stopOpacity="0.9" />
-                          <stop offset="1" stopColor="#14C7E5" stopOpacity="0.4" />
+                        <linearGradient id="problemFlowDesktop" x1="4" y1="15" x2="172" y2="15" gradientUnits="userSpaceOnUse">
+                          <stop stopColor="#AAB4C2" stopOpacity="0.25" />
+                          <stop offset="0.5" stopColor="#9A33FF" stopOpacity="0.78" />
+                          <stop offset="1" stopColor="#14C7E5" stopOpacity="0.25" />
                         </linearGradient>
                       </defs>
                     </svg>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 rounded-xl border border-[#246BFF]/35 bg-[#246BFF]/10 px-3 py-2">
-                        <GradientIcon icon={BrainCircuit} tone="cyan" className="h-7 w-7" size={12} />
-                        <span className="text-xs text-white/90">{visualLabels.emotionalIntent}</span>
-                      </div>
-                      <div className="flex items-center gap-2 rounded-xl border border-[#F2398A]/35 bg-[#F2398A]/10 px-3 py-2">
-                        <GradientIcon icon={Radar} tone="pink" className="h-7 w-7" size={12} />
-                        <span className="text-xs text-white/90">{visualLabels.narrativePressure}</span>
-                      </div>
+                    <svg
+                      className="md:hidden"
+                      width="36"
+                      height="46"
+                      viewBox="0 0 36 46"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 4 V40" stroke="url(#problemFlowMobile)" strokeWidth="1.5" strokeDasharray="4 5" />
+                      <path d="M18 42 L12 34 H24 L18 42Z" fill="#9A33FF" />
+                      <defs>
+                        <linearGradient id="problemFlowMobile" x1="18" y1="4" x2="18" y2="40" gradientUnits="userSpaceOnUse">
+                          <stop stopColor="#AAB4C2" stopOpacity="0.3" />
+                          <stop offset="0.5" stopColor="#9A33FF" stopOpacity="0.78" />
+                          <stop offset="1" stopColor="#14C7E5" stopOpacity="0.25" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+
+                  <div className="space-y-3 md:text-right">
+                    <p className="text-xs uppercase tracking-[0.18em] text-[#DCE2EC]">{t.problem.emotionalLabel}</p>
+                    <div className="flex flex-wrap gap-2.5 md:justify-end">
+                      {t.problem.emotionalItems.map((item) => (
+                        <span key={item} className="rounded-full border border-[#9A33FF]/45 bg-[linear-gradient(120deg,rgba(242,57,138,0.14),rgba(154,51,255,0.16),rgba(36,107,255,0.14))] px-3 py-1.5 text-xs text-white/95">
+                          {item}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
-              </article>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {t.problem.points.map((point, index) => (
-                  <article
-                    key={point}
-                    className="floating-panel floating-panel-hover double-layer-panel animate-fade-up p-5"
-                    style={{ animationDelay: `${index * 70}ms` }}
-                  >
-                    <p className="text-sm leading-relaxed text-[#D2D9E2]">{point}</p>
-                  </article>
-                ))}
               </div>
-            </div>
+
+              <div className="relative mt-10 text-center">
+                <div className="pointer-events-none absolute inset-x-[20%] -top-3 h-16 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.34)_0%,rgba(154,51,255,0)_72%)] blur-xl" />
+                <p className="relative text-lg font-semibold tracking-tight text-white md:text-2xl">{t.problem.conclusionLead}</p>
+                <p className="relative mt-2 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.problem.conclusionBody}</p>
+              </div>
+            </article>
           </section>
 
           <section id="solution" className="section-wrap section-space">
