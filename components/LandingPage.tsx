@@ -69,7 +69,12 @@ type LocalizedContent = {
   model: {
     title: string;
     intro: string;
-    items: Array<{ title: string; detail: string }>;
+    freemiumCard: {
+      title: string;
+      descriptions: string[];
+    };
+    items: Array<{ title: string; price: string; detail: string }>;
+    highlights: string[];
   };
   roadmap: {
     title: string;
@@ -185,30 +190,46 @@ const content: Record<Language, LocalizedContent> = {
       thesis: 'One platform. Two expanding global markets.'
     },
     model: {
-      title: 'Scalable SaaS Model',
+      title: 'Business Model',
       intro:
-        'A freemium model designed to demonstrate value quickly and convert through real product usage.',
+        'Recurring SaaS revenue with organic expansion driven by analytical value.',
+      freemiumCard: {
+        title: 'Freemium Discovery Layer',
+        descriptions: [
+          'Designed to demonstrate the platform\'s analytical value quickly while maintaining controlled daily usage limits.',
+          'Users experience the full intelligence capability early, creating natural upgrade pressure once continuous monitoring becomes necessary.'
+        ]
+      },
       items: [
         {
-          title: 'Freemium discovery',
+          title: 'Freemium',
+          price: 'Free',
           detail:
-            'Users see the full analytical power with limited daily searches.'
+            'Entry tier for first-time users validating emotional signal workflows before moving into continuous monitoring.'
         },
         {
-          title: 'From €11.99 to Enterprise',
+          title: 'Rising Creators',
+          price: '\u20AC11.99 / month',
           detail:
-            'Accessible entry pricing for creators, scalable tiers for professional teams.'
+            'Built for micro-influencers, independent creators and early adopters who need regular insight into audience sentiment and narrative momentum. Provides consistent emotional signal monitoring for emerging digital brands and creators building their online presence.',
         },
         {
-          title: 'Expansion by usage',
+          title: 'Pulse Pro',
+          price: '\u20AC49.99 / month',
           detail:
-            'Accounts grow naturally as monitoring scope and team usage increase.'
+            'Advanced monitoring designed for professional creators, research teams and organizations that rely on continuous narrative tracking. Unlocks higher analysis volumes, deeper emotional signal layers and expanded monitoring capacity.',
         },
         {
-          title: 'SaaS margin structure',
+          title: 'Agency / Enterprise',
+          price: 'starting at \u20AC124.99 / month',
           detail:
-            'Efficient infrastructure aligned with scalable software economics.'
+            'Designed for agencies, corporate teams and institutional users that require large-scale narrative monitoring and collaborative intelligence workflows. Includes expanded capacity, multi-topic monitoring and customizable analytical layers.',
         }
+      ],
+      highlights: [
+        'Organic Product Growth',
+        'Recurring Subscription Revenue',
+        'Software-Level Margins (>70%)'
       ]
     },
     roadmap: {
@@ -356,30 +377,46 @@ const content: Record<Language, LocalizedContent> = {
       thesis: 'Una plataforma. Dos mercados globales en expansion.'
     },
     model: {
-      title: 'Modelo SaaS Escalable',
+      title: 'Modelo de Negocio',
       intro:
-        'Un modelo freemium disenado para demostrar valor rapidamente y convertir mediante uso real del producto.',
+        'Ingresos SaaS recurrentes con expansion organica impulsada por valor analitico.',
+      freemiumCard: {
+        title: 'Capa de Descubrimiento Freemium',
+        descriptions: [
+          'Disenada para demostrar rapidamente el valor analitico de la plataforma, manteniendo limites de uso diario controlados.',
+          'Los usuarios acceden temprano a la capacidad completa de inteligencia, generando una presion natural de upgrade cuando el monitoreo continuo se vuelve necesario.'
+        ]
+      },
       items: [
         {
-          title: 'Freemium: valor completo con limites',
+          title: 'Freemium',
+          price: 'Gratis',
           detail:
-            'Los usuarios experimentan el producto completo con busquedas limitadas por dia.'
+            'Capa de entrada para validar el flujo de senales emocionales antes de pasar a monitoreo continuo.',
         },
         {
-          title: 'Desde EUR11.99 hasta Enterprise',
+          title: 'Rising Creators',
+          price: '\u20AC11.99 / mes',
           detail:
-            'Precio accesible para creators y escalable para equipos profesionales.'
+            'Pensado para microinfluencers, creadores independientes y early adopters que necesitan lectura continua de sentimiento y momentum narrativo. Aporta monitoreo emocional consistente para marcas digitales emergentes y creadores que construyen su presencia online.',
         },
         {
-          title: 'Expansion por uso',
+          title: 'Pulse Pro',
+          price: '\u20AC49.99 / mes',
           detail:
-            'Las cuentas crecen a medida que aumentan necesidades de monitoreo y usuarios.'
+            'Monitoreo avanzado para creadores profesionales, equipos de research y organizaciones que dependen de seguimiento narrativo continuo. Habilita mayor volumen de analisis, capas emocionales mas profundas y mas capacidad de monitoreo.',
         },
         {
-          title: 'Economia SaaS',
+          title: 'Agency / Enterprise',
+          price: 'desde \u20AC124.99 / mes',
           detail:
-            'Infraestructura eficiente alineada con software escalable.'
+            'Dirigido a agencias, equipos corporativos y usuarios institucionales que requieren monitoreo narrativo a escala y flujos colaborativos de inteligencia. Incluye capacidad expandida, monitoreo multi-tema y capas analiticas personalizables.',
         }
+      ],
+      highlights: [
+        'Crecimiento organico del producto',
+        'Ingresos recurrentes por suscripcion',
+        'Margenes de software (>70%)'
       ]
     },
     roadmap: {
@@ -821,8 +858,10 @@ export function LandingPage() {
                   <GradientIcon icon={TrendingUp} tone="cyan" />
                   <SignalSparkline tone="cyan" className="h-8 w-24" />
                 </div>
+                <h3 className="mt-4 text-lg font-semibold tracking-tight">{t.model.freemiumCard.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#AAB4C2]">{t.model.freemiumCard.descriptions[0]}</p>
                 <svg
-                  className="mt-4 w-full"
+                  className="mt-5 w-full"
                   viewBox="0 0 360 120"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -844,6 +883,7 @@ export function LandingPage() {
                     </linearGradient>
                   </defs>
                 </svg>
+                <p className="mt-2 text-sm leading-relaxed text-[#AAB4C2]">{t.model.freemiumCard.descriptions[1]}</p>
               </article>
               <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
                 {[TrendingUp, LayoutDashboard, LineChart].map((Icon, index) => (
@@ -852,6 +892,12 @@ export function LandingPage() {
                       <GradientIcon icon={Icon} tone={index === 0 ? 'pink' : index === 1 ? 'blue' : 'cyan'} />
                       <SignalSparkline tone={index === 0 ? 'pink' : index === 1 ? 'blue' : 'cyan'} variant={index === 2 ? 'step' : 'smooth'} className="h-6 w-16" />
                     </div>
+                    <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{t.model.highlights[index]}</p>
+                    {t.model.highlights[index]?.includes('70%') ? (
+                      <div className="mt-3 rounded-full border border-white/10 bg-white/5 p-1">
+                        <div className="h-1.5 w-[72%] rounded-full bg-[linear-gradient(90deg,#14C7E5,#246BFF,#9A33FF)]" />
+                      </div>
+                    ) : null}
                   </article>
                 ))}
               </div>
@@ -868,12 +914,8 @@ export function LandingPage() {
                     <SignalSparkline tone={index === 0 ? 'pink' : index === 1 ? 'purple' : index === 2 ? 'blue' : 'cyan'} variant={index === 3 ? 'spike' : 'smooth'} className="h-6 w-16" />
                   </div>
                   <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
+                  <p className="mt-2 text-sm font-medium text-white/90">{item.price}</p>
                   <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{item.detail}</p>
-                  {item.title.includes('70%') ? (
-                    <div className="mt-4 rounded-full border border-white/10 bg-white/5 p-1">
-                      <div className="h-1.5 w-[72%] rounded-full bg-[linear-gradient(90deg,#14C7E5,#246BFF,#9A33FF)]" />
-                    </div>
-                  ) : null}
                 </article>
               ))}
             </div>
