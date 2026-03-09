@@ -19,8 +19,8 @@ import {
 import { type Language } from '@/lib/content';
 import { LeadModal } from './LeadModal';
 import { GradientIcon } from './visuals/GradientIcon';
-import { NoiseToSignalIllustration } from './visuals/NoiseToSignalIllustration';
 import { RadarPulse } from './visuals/RadarPulse';
+import { SignalEngine } from './visuals/SignalEngine';
 import { SignalSparkline } from './visuals/SignalSparkline';
 
 type LocalizedContent = {
@@ -32,6 +32,7 @@ type LocalizedContent = {
     title: string;
     subtitle: string;
     thesis: string;
+    credibility: string;
     ctaPrimary: string;
     ctaShort: string;
     ctaSecondary: string;
@@ -111,12 +112,14 @@ const content: Record<Language, LocalizedContent> = {
     },
     heroSignals: ['Emotional Pulse', 'Narrative Context', 'Decision Signals'],
     hero: {
-      title: 'Emotional Intelligence for Social Media.',
-      subtitle: 'Turning public conversations into clear emotional signals for decision-making.',
-      thesis: 'Engagement shows activity. SocialPulse reveals intention and emotional pressure.',
-      ctaPrimary: 'Request Investor / Press Access',
+      title: 'Understand the emotion moving the market.',
+      subtitle:
+        'SocialPulse transforms public conversations into structured emotional signals - revealing direction, intensity, narrative pressure and momentum.',
+      thesis: 'Metrics measure activity. Emotion reveals intent.',
+      credibility: 'Backed by XXX · Advised by XXX · Supported by XXX',
+      ctaPrimary: 'Request Investor Access',
       ctaShort: 'Request Access',
-      ctaSecondary: 'Explore the framework'
+      ctaSecondary: 'Explore the Emotional Index'
     },
     heroMetrics: [
       { label: 'Emotion Index', value: 'Live analysis' },
@@ -297,13 +300,15 @@ const content: Record<Language, LocalizedContent> = {
     },
     heroSignals: ['Pulso Emocional', 'Contexto Narrativo', 'Senales de Decision'],
     hero: {
-      title: 'Inteligencia Emocional para Social Media.',
-      subtitle: 'Convertimos conversacion publica en senal emocional clara para decidir.',
+      title: 'Comprende la emocion que mueve el mercado.',
+      subtitle:
+        'SocialPulse transforma conversaciones publicas en senales emocionales estructuradas: revela direccion, intensidad, presion narrativa y momentum.',
       thesis:
-        'El engagement muestra actividad. SocialPulse revela intencion y presion emocional.',
-      ctaPrimary: 'Solicitar acceso para inversion / prensa',
+        'Las metricas miden actividad. La emocion revela intencion.',
+      credibility: 'Respaldado por XXX · Asesorado por XXX · Impulsado por XXX',
+      ctaPrimary: 'Solicitar acceso para inversion',
       ctaShort: 'Solicitar acceso',
-      ctaSecondary: 'Explorar el framework'
+      ctaSecondary: 'Explorar el Indice Emocional'
     },
     heroMetrics: [
       { label: 'Indice Emocional', value: 'Analisis en vivo' },
@@ -503,10 +508,14 @@ export function LandingPage() {
           velocity: 'velocity',
           emotionalIntent: 'emotional intent',
           narrativePressure: 'narrative pressure',
-          heroMicroOne: 'Narrative Pressure',
-          heroMicroOneValue: 'Elevated',
-          heroMicroTwo: 'Volatility Lens',
-          heroMicroTwoValue: 'Watching',
+          engineTitle: 'Signal Engine',
+          engineInput: 'Public Conversations',
+          engineCore: 'Emotion Engine',
+          enginePressure: 'Narrative Pressure',
+          engineIndex: 'Signal Index',
+          outputEmotionIndex: 'Emotion Index',
+          outputNarrativePressure: 'Narrative Pressure',
+          outputSignalMomentum: 'Signal Momentum',
           socialAnalytics: 'social media analytics',
           appliedEI: 'applied emotional intelligence',
           funnelFreemium: 'Freemium',
@@ -518,10 +527,14 @@ export function LandingPage() {
           velocity: 'velocidad',
           emotionalIntent: 'intencion emocional',
           narrativePressure: 'presion narrativa',
-          heroMicroOne: 'Presion Narrativa',
-          heroMicroOneValue: 'Elevada',
-          heroMicroTwo: 'Lente de Volatilidad',
-          heroMicroTwoValue: 'Seguimiento',
+          engineTitle: 'Motor de Senal',
+          engineInput: 'Conversaciones Publicas',
+          engineCore: 'Motor Emocional',
+          enginePressure: 'Presion Narrativa',
+          engineIndex: 'Indice de Senal',
+          outputEmotionIndex: 'Indice Emocional',
+          outputNarrativePressure: 'Presion Narrativa',
+          outputSignalMomentum: 'Momentum de Senal',
           socialAnalytics: 'analitica de social media',
           appliedEI: 'inteligencia emocional aplicada',
           funnelFreemium: 'Freemium',
@@ -592,78 +605,77 @@ export function LandingPage() {
         </header>
 
         <main className="relative z-10">
-          <section className="section-wrap pb-28 pt-20 md:pb-36 md:pt-28">
-            <div className="grid items-center gap-16 lg:min-h-[78vh] lg:grid-cols-[1.03fr_1fr]">
+          <section className="section-wrap relative isolate overflow-hidden pb-28 pt-20 md:pb-36 md:pt-28">
+            <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+              <div className="absolute -left-24 top-0 h-[280px] w-[280px] rounded-full bg-[#F2398A]/22 blur-[140px]" />
+              <div className="absolute left-[35%] top-[8%] h-[220px] w-[300px] rounded-full bg-[#9A33FF]/18 blur-[120px]" />
+              <div className="absolute right-[-8%] top-[12%] h-[380px] w-[560px] rounded-[42%_58%_60%_40%/44%_42%_58%_56%] bg-[linear-gradient(124deg,rgba(154,51,255,0.22),rgba(36,107,255,0.16),rgba(20,199,229,0.12))] blur-[130px]" />
+              <svg
+                className="absolute inset-0 h-full w-full opacity-[0.16]"
+                viewBox="0 0 1200 640"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M-24 428 C148 372, 248 402, 368 354 C492 304, 614 300, 742 248 C862 198, 988 226, 1224 118" stroke="url(#heroWaveA)" strokeWidth="1.2" />
+                <path d="M-24 478 C132 444, 256 448, 392 414 C528 380, 650 336, 790 328 C938 320, 1040 276, 1224 236" stroke="url(#heroWaveB)" strokeWidth="1" strokeDasharray="7 8" />
+                <defs>
+                  <linearGradient id="heroWaveA" x1="-24" y1="428" x2="1224" y2="118" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#F2398A" stopOpacity="0.14" />
+                    <stop offset="0.48" stopColor="#9A33FF" stopOpacity="0.36" />
+                    <stop offset="1" stopColor="#246BFF" stopOpacity="0.14" />
+                  </linearGradient>
+                  <linearGradient id="heroWaveB" x1="-24" y1="478" x2="1224" y2="236" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#14C7E5" stopOpacity="0.08" />
+                    <stop offset="0.5" stopColor="#9A33FF" stopOpacity="0.25" />
+                    <stop offset="1" stopColor="#F2398A" stopOpacity="0.08" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div className="grid items-center gap-14 lg:min-h-[78vh] lg:grid-cols-[1.02fr_0.98fr]">
               <div className="animate-fade-up">
-                <div className="mb-8 flex flex-wrap gap-2 text-xs font-medium">
-                  {t.heroSignals.map((badge) => (
-                    <span key={badge} className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[#AAB4C2]">
+                <div className="mb-8 flex flex-wrap gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[#AAB4C2]">
+                  {[t.badges.early, t.badges.live, t.brandTagline].map((badge) => (
+                    <span key={badge} className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5">
                       {badge}
                     </span>
                   ))}
                 </div>
-                <h1 className="max-w-2xl text-4xl font-bold leading-[1.04] tracking-[-0.025em] md:text-6xl">{t.hero.title}</h1>
-                <p className="mt-7 max-w-2xl text-base leading-relaxed text-[#AAB4C2] md:text-xl">{t.hero.subtitle}</p>
-                <NoiseToSignalIllustration className="mt-6 h-auto w-full max-w-[250px] opacity-90" />
-                <p className="mt-5 text-base font-medium tracking-tight text-white/90 md:text-lg">{t.hero.thesis}</p>
-                <div className="mt-11 flex flex-wrap gap-3">
-                  <button onClick={() => setIsModalOpen(true)} className={primaryButtonClass}>
-                    {t.hero.ctaPrimary}
-                  </button>
-                  <a href="#solution" className={secondaryButtonClass}>
+                <h1 className="max-w-2xl text-[2.65rem] font-bold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl xl:text-[4.25rem]">
+                  {t.hero.title}
+                </h1>
+                <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#AAB4C2] md:text-xl">{t.hero.subtitle}</p>
+                <p className="mt-5 text-base font-semibold tracking-tight text-white/90 md:text-lg">{t.hero.thesis}</p>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <a href="#solution" className={`${primaryButtonClass} inline-flex items-center gap-2`}>
                     {t.hero.ctaSecondary}
                     <ArrowRight className="h-4 w-4" />
                   </a>
+                  <button onClick={() => setIsModalOpen(true)} className={secondaryButtonClass}>
+                    {t.hero.ctaPrimary}
+                  </button>
                 </div>
+                <p className="mt-8 inline-flex rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 text-xs tracking-[0.01em] text-[#AAB4C2]">
+                  {t.hero.credibility}
+                </p>
               </div>
 
-              <div className="relative mx-auto w-full max-w-[560px] animate-fade-up" style={{ animationDelay: '120ms' }}>
-                <article className="double-layer-panel absolute -left-10 top-16 z-20 rounded-2xl border border-white/10 bg-[#0D1A31]/85 px-3 py-2 backdrop-blur sm:-left-16">
-                  <div className="flex items-center gap-2">
-                    <GradientIcon icon={Activity} tone="cyan" className="h-7 w-7" size={12} />
-                    <p className="text-[10px] text-[#AAB4C2]">{visualLabels.heroMicroOne}</p>
-                  </div>
-                  <div className="mt-1 flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold">{visualLabels.heroMicroOneValue}</p>
-                    <SignalSparkline tone="cyan" className="h-5 w-12" />
-                  </div>
-                </article>
-                <article className="double-layer-panel absolute -right-8 bottom-10 z-20 rounded-2xl border border-white/10 bg-[#0D1A31]/85 px-3 py-2 backdrop-blur sm:-right-12">
-                  <div className="flex items-center gap-2">
-                    <GradientIcon icon={LineChart} tone="pink" className="h-7 w-7" size={12} />
-                    <p className="text-[10px] text-[#AAB4C2]">{visualLabels.heroMicroTwo}</p>
-                  </div>
-                  <div className="mt-1 flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold">{visualLabels.heroMicroTwoValue}</p>
-                    <SignalSparkline tone="pink" variant="spike" className="h-5 w-12" />
-                  </div>
-                </article>
-                <div className="absolute inset-5 translate-x-8 translate-y-8 rotate-[1.8deg] rounded-[34px] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] opacity-60 blur-[1px] shadow-[0_25px_80px_rgba(0,0,0,0.45),0_0_60px_rgba(58,49,255,0.2)]" />
-                <article className="hero-shell double-layer-panel relative rotate-[-1deg] p-5 sm:p-6">
-                  <div className="relative overflow-hidden rounded-[26px] border border-white/10">
-                    <Image
-                      src="/dashboard-mock.svg"
-                      alt="SocialPulse dashboard preview"
-                      width={1200}
-                      height={720}
-                      className="h-auto w-full"
-                      priority
-                    />
-                    <div className="signal-particles pointer-events-none absolute inset-0" />
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(242,57,138,0.14),rgba(154,51,255,0.16),rgba(36,107,255,0.18),rgba(20,199,229,0.08))]" />
-                  </div>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                    {t.heroMetrics.map((metric) => (
-                      <div
-                        key={metric.label}
-                        className="rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] px-3.5 py-3"
-                      >
-                        <p className="text-xs text-[#AAB4C2]">{metric.label}</p>
-                        <p className="mt-1 text-lg font-semibold tracking-tight">{metric.value}</p>
-                      </div>
-                    ))}
-                  </div>
-                </article>
+              <div className="relative mx-auto w-full max-w-[620px] animate-fade-up" style={{ animationDelay: '120ms' }}>
+                <SignalEngine
+                  labels={{
+                    title: visualLabels.engineTitle,
+                    input: visualLabels.engineInput,
+                    core: visualLabels.engineCore,
+                    pressure: visualLabels.enginePressure,
+                    index: visualLabels.engineIndex,
+                    outputs: [
+                      visualLabels.outputEmotionIndex,
+                      visualLabels.outputNarrativePressure,
+                      visualLabels.outputSignalMomentum
+                    ]
+                  }}
+                />
               </div>
             </div>
           </section>

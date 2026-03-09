@@ -109,6 +109,95 @@ body {
   }
 }
 
+.hero-signal-trails {
+  background-image:
+    radial-gradient(circle at 24% 42%, rgba(242, 57, 138, 0.2) 0, rgba(242, 57, 138, 0) 44%),
+    radial-gradient(circle at 62% 30%, rgba(154, 51, 255, 0.2) 0, rgba(154, 51, 255, 0) 42%),
+    linear-gradient(120deg, rgba(170, 180, 194, 0.05) 1px, transparent 1px),
+    linear-gradient(30deg, rgba(170, 180, 194, 0.04) 1px, transparent 1px);
+  background-size: auto, auto, 34px 34px, 54px 54px;
+  background-position: center, center, center, center;
+  opacity: 0.55;
+}
+
+.engine-particle {
+  position: absolute;
+  left: 0;
+  border-radius: 9999px;
+  background: linear-gradient(120deg, #14c7e5, #9a33ff);
+  opacity: var(--engine-opacity, 0.45);
+  box-shadow: 0 0 16px rgba(154, 51, 255, 0.38);
+  animation: engineParticleFlow var(--engine-duration, 9s) linear infinite;
+  animation-delay: var(--engine-delay, 0s);
+}
+
+@keyframes engineParticleFlow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.75);
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--engine-opacity, 0.45);
+  }
+  100% {
+    transform: translate3d(210px, var(--engine-end-y, 0px), 0) scale(1);
+    opacity: 0;
+  }
+}
+
+.engine-core-breath {
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45), 0 0 42px rgba(154, 51, 255, 0.28);
+  animation: engineCoreBreath 4.8s ease-in-out infinite;
+}
+
+@keyframes engineCoreBreath {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.03);
+    filter: brightness(1.08);
+  }
+}
+
+.engine-pulse-line {
+  stroke-dasharray: 7 10;
+  animation: enginePulseLine 4.4s linear infinite;
+}
+
+@keyframes enginePulseLine {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -68;
+  }
+}
+
+.engine-output-card {
+  animation: engineOutputFloat 7s ease-in-out infinite;
+}
+
+.engine-output-card:nth-child(2) {
+  animation-delay: 0.9s;
+}
+
+.engine-output-card:nth-child(3) {
+  animation-delay: 1.8s;
+}
+
+@keyframes engineOutputFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 .button-primary {
   background-image: linear-gradient(120deg, #f2398a 0%, #9a33ff 52%, #246bff 100%);
   box-shadow: 0 14px 45px rgba(58, 49, 255, 0.35), 0 0 44px rgba(154, 51, 255, 0.28);
@@ -138,6 +227,14 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up {
+    animation: none;
+  }
+
+  .signal-particles,
+  .engine-particle,
+  .engine-core-breath,
+  .engine-pulse-line,
+  .engine-output-card {
     animation: none;
   }
 }
