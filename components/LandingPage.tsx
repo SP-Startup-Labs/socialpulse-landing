@@ -8,12 +8,16 @@ import {
   BarChart3,
   BrainCircuit,
   BriefcaseBusiness,
+  Eye,
   LayoutDashboard,
   LineChart,
+  MessageCircle,
   Radar,
   Target,
+  ThumbsUp,
   TrendingUp,
   Users,
+  Zap,
   type LucideIcon
 } from 'lucide-react';
 import { type Language } from '@/lib/content';
@@ -40,6 +44,7 @@ type LocalizedContent = {
   };
   heroMetrics: Array<{ label: string; value: string }>;
   problem: {
+    eyebrow: string;
     title: string;
     thesisLead: string;
     thesisBody: string;
@@ -134,6 +139,7 @@ const content: Record<Language, LocalizedContent> = {
       { label: 'Signal Momentum', value: 'Actionable alerts' }
     ],
     problem: {
+      eyebrow: 'THE PROBLEM',
       title: 'The Hidden Signal in Digital Markets',
       thesisLead: 'Markets react to emotion long before metrics reflect it.',
       thesisBody:
@@ -323,6 +329,7 @@ const content: Record<Language, LocalizedContent> = {
       { label: 'Signal Momentum', value: 'Alertas accionables' }
     ],
     problem: {
+      eyebrow: 'EL PROBLEMA',
       title: 'La Senal Oculta en los Mercados Digitales',
       thesisLead: 'Los mercados reaccionan a la emocion mucho antes de que las metricas la reflejen.',
       thesisBody:
@@ -491,6 +498,7 @@ const secondaryButtonClass =
   'button-secondary inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm text-white transition';
 
 const opportunityIcons: LucideIcon[] = [TrendingUp, BriefcaseBusiness, Users];
+const traditionalMetricIcons: LucideIcon[] = [ThumbsUp, Eye, MessageCircle, BarChart3, Zap];
 const modelIcons: LucideIcon[] = [TrendingUp, BarChart3, Activity, LineChart];
 const roadmapIcons: LucideIcon[] = [Activity, LineChart, Target];
 const platformIcons: LucideIcon[] = [Activity, Radar, LineChart, Target];
@@ -690,6 +698,7 @@ export function LandingPage() {
           <section id="problem" className="section-wrap section-space">
             <article className="floating-panel double-layer-panel animate-fade-up p-7 md:p-10">
               <SectionHeaderAccent icon={Activity} tone="pink" />
+              <p className="text-[11px] uppercase tracking-[0.2em] text-[#8C97A8]">{t.problem.eyebrow}</p>
               <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.problem.title}</h2>
               <div className="mt-6 max-w-4xl space-y-4">
                 <p className="text-lg font-medium leading-relaxed text-white/95 md:text-2xl md:leading-[1.35]">{t.problem.thesisLead}</p>
@@ -698,23 +707,27 @@ export function LandingPage() {
 
               <div className="mt-10 rounded-3xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-6">
                 <div className="grid gap-7 md:grid-cols-[1fr_auto_1fr] md:items-center">
-                  <div className="space-y-3 animate-fade-up" style={{ animationDelay: '40ms' }}>
+                  <div className="space-y-3 animate-fade-up" style={{ animationDelay: '30ms' }}>
                     <p className="text-xs uppercase tracking-[0.18em] text-[#8C97A8]">{t.problem.traditionalLabel}</p>
                     <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
-                      {t.problem.traditionalItems.map((item, index) => (
-                        <div key={item} className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#AAB4C2]/[0.06] px-3 py-2.5 text-xs text-[#8C97A8]">
-                          <span className="text-sm opacity-80">{['👍', '👁', '💬', '📈', '⚡'][index] ?? '•'}</span>
-                          <span>{item}</span>
-                        </div>
-                      ))}
+                      {t.problem.traditionalItems.map((item, index) => {
+                        const Icon = traditionalMetricIcons[index] ?? Activity;
+                        return (
+                          <div key={item} className="flex items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] px-3 py-2.5 text-xs text-[#7F8B9A]">
+                            <Icon className="h-3.5 w-3.5 text-[#7F8B9A]/90" />
+                            <span>{item}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
-                  <div className="mx-auto flex w-full max-w-[250px] flex-col items-center gap-3 text-center animate-fade-up" style={{ animationDelay: '140ms' }}>
+                  <div className="mx-auto flex w-full max-w-[250px] flex-col items-center gap-3 text-center animate-fade-up" style={{ animationDelay: '150ms' }}>
                     <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#AAB4C2]">{t.problem.transitionLabel}</p>
                     <div className="relative hidden h-9 w-[220px] md:block">
                       <div className="problem-flow-track absolute left-2 right-8 top-1/2 h-px -translate-y-1/2" />
-                      <span className="problem-flow-emotion-glow absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+                      <span className="problem-flow-emotion-glow absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+                      <span className="problem-flow-emotion-core absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full" />
                       <span className="problem-flow-dot problem-flow-dot-a" />
                       <span className="problem-flow-dot problem-flow-dot-b" />
                       <span className="problem-flow-dot problem-flow-dot-c" />
@@ -722,7 +735,8 @@ export function LandingPage() {
                     </div>
                     <div className="relative h-16 w-8 md:hidden">
                       <div className="problem-flow-track-vertical absolute bottom-2 left-1/2 top-1 -translate-x-1/2 w-px" />
-                      <span className="problem-flow-emotion-glow absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+                      <span className="problem-flow-emotion-glow absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+                      <span className="problem-flow-emotion-core absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full" />
                       <span className="problem-flow-dot-v problem-flow-dot-v-a" />
                       <span className="problem-flow-dot-v problem-flow-dot-v-b" />
                       <span className="problem-flow-dot-v problem-flow-dot-v-c" />
@@ -730,7 +744,7 @@ export function LandingPage() {
                     </div>
                   </div>
 
-                  <div className="animate-fade-up" style={{ animationDelay: '230ms' }}>
+                  <div className="animate-fade-up" style={{ animationDelay: '280ms' }}>
                     <ProblemSignalField title={t.problem.emotionalLabel} labels={t.problem.emotionalItems} />
                   </div>
                 </div>
