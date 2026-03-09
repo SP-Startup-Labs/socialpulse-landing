@@ -19,6 +19,7 @@ import {
 import { type Language } from '@/lib/content';
 import { LeadModal } from './LeadModal';
 import { GradientIcon } from './visuals/GradientIcon';
+import { ProblemSignalField } from './visuals/ProblemSignalField';
 import { RadarPulse } from './visuals/RadarPulse';
 import { SignalEngine } from './visuals/SignalEngine';
 import { SignalSparkline } from './visuals/SignalSparkline';
@@ -696,69 +697,41 @@ export function LandingPage() {
               </div>
 
               <div className="mt-10 rounded-3xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-6">
-                <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
-                  <div className="space-y-3">
+                <div className="grid gap-7 md:grid-cols-[1fr_auto_1fr] md:items-center">
+                  <div className="space-y-3 animate-fade-up" style={{ animationDelay: '40ms' }}>
                     <p className="text-xs uppercase tracking-[0.18em] text-[#8C97A8]">{t.problem.traditionalLabel}</p>
-                    <div className="flex flex-wrap gap-2.5">
-                      {t.problem.traditionalItems.map((item) => (
-                        <span key={item} className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1.5 text-xs text-[#96A2B2]">
-                          {item}
-                        </span>
+                    <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
+                      {t.problem.traditionalItems.map((item, index) => (
+                        <div key={item} className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#AAB4C2]/[0.06] px-3 py-2.5 text-xs text-[#8C97A8]">
+                          <span className="text-sm opacity-80">{['👍', '👁', '💬', '📈', '⚡'][index] ?? '•'}</span>
+                          <span>{item}</span>
+                        </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="mx-auto flex w-full max-w-[250px] flex-col items-center gap-3 text-center">
+                  <div className="mx-auto flex w-full max-w-[250px] flex-col items-center gap-3 text-center animate-fade-up" style={{ animationDelay: '140ms' }}>
                     <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#AAB4C2]">{t.problem.transitionLabel}</p>
-                    <svg
-                      className="hidden md:block"
-                      width="180"
-                      height="30"
-                      viewBox="0 0 180 30"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                    >
-                      <path d="M4 15 H172" stroke="url(#problemFlowDesktop)" strokeWidth="1.5" strokeDasharray="5 6" />
-                      <path d="M172 15 L164 10 V20 L172 15Z" fill="#9A33FF" />
-                      <defs>
-                        <linearGradient id="problemFlowDesktop" x1="4" y1="15" x2="172" y2="15" gradientUnits="userSpaceOnUse">
-                          <stop stopColor="#AAB4C2" stopOpacity="0.25" />
-                          <stop offset="0.5" stopColor="#9A33FF" stopOpacity="0.78" />
-                          <stop offset="1" stopColor="#14C7E5" stopOpacity="0.25" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <svg
-                      className="md:hidden"
-                      width="36"
-                      height="46"
-                      viewBox="0 0 36 46"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                    >
-                      <path d="M18 4 V40" stroke="url(#problemFlowMobile)" strokeWidth="1.5" strokeDasharray="4 5" />
-                      <path d="M18 42 L12 34 H24 L18 42Z" fill="#9A33FF" />
-                      <defs>
-                        <linearGradient id="problemFlowMobile" x1="18" y1="4" x2="18" y2="40" gradientUnits="userSpaceOnUse">
-                          <stop stopColor="#AAB4C2" stopOpacity="0.3" />
-                          <stop offset="0.5" stopColor="#9A33FF" stopOpacity="0.78" />
-                          <stop offset="1" stopColor="#14C7E5" stopOpacity="0.25" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
+                    <div className="relative hidden h-9 w-[220px] md:block">
+                      <div className="problem-flow-track absolute left-2 right-8 top-1/2 h-px -translate-y-1/2" />
+                      <span className="problem-flow-emotion-glow absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+                      <span className="problem-flow-dot problem-flow-dot-a" />
+                      <span className="problem-flow-dot problem-flow-dot-b" />
+                      <span className="problem-flow-dot problem-flow-dot-c" />
+                      <ArrowRight className="absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9A33FF]/85" />
+                    </div>
+                    <div className="relative h-16 w-8 md:hidden">
+                      <div className="problem-flow-track-vertical absolute bottom-2 left-1/2 top-1 -translate-x-1/2 w-px" />
+                      <span className="problem-flow-emotion-glow absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+                      <span className="problem-flow-dot-v problem-flow-dot-v-a" />
+                      <span className="problem-flow-dot-v problem-flow-dot-v-b" />
+                      <span className="problem-flow-dot-v problem-flow-dot-v-c" />
+                      <ArrowRight className="absolute bottom-0 left-1/2 h-4 w-4 -translate-x-1/2 rotate-90 text-[#9A33FF]/85" />
+                    </div>
                   </div>
 
-                  <div className="space-y-3 md:text-right">
-                    <p className="text-xs uppercase tracking-[0.18em] text-[#DCE2EC]">{t.problem.emotionalLabel}</p>
-                    <div className="flex flex-wrap gap-2.5 md:justify-end">
-                      {t.problem.emotionalItems.map((item) => (
-                        <span key={item} className="rounded-full border border-[#9A33FF]/45 bg-[linear-gradient(120deg,rgba(242,57,138,0.14),rgba(154,51,255,0.16),rgba(36,107,255,0.14))] px-3 py-1.5 text-xs text-white/95">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="animate-fade-up" style={{ animationDelay: '230ms' }}>
+                    <ProblemSignalField title={t.problem.emotionalLabel} labels={t.problem.emotionalItems} />
                   </div>
                 </div>
               </div>
