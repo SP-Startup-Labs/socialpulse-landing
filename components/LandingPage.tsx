@@ -104,12 +104,9 @@ type LocalizedContent = {
   model: {
     title: string;
     intro: string;
-    freemiumCard: {
-      title: string;
-      descriptions: string[];
-    };
-    items: Array<{ title: string; price: string; detail: string }>;
-    highlights: string[];
+    loop: Array<{ title: string; detail: string }>;
+    segments: Array<{ title: string; price: string; detail: string }>;
+    economics: string[];
   };
   roadmap: {
     title: string;
@@ -295,43 +292,48 @@ const content: Record<Language, LocalizedContent> = {
       thesis: 'One platform capturing value across two rapidly expanding global markets.'
     },
     model: {
-      title: 'Business Model',
-      intro:
-        'Recurring SaaS revenue with organic expansion driven by analytical value.',
-      freemiumCard: {
-        title: 'Freemium Discovery Layer',
-        descriptions: [
-          'Designed to demonstrate the platform\'s analytical value quickly while maintaining controlled daily usage limits.',
-          'Users experience the full intelligence capability early, creating natural upgrade pressure once continuous monitoring becomes necessary.'
-        ]
-      },
-      items: [
+      title: 'REVENUE ENGINE',
+      intro: 'Freemium discovery powering subscription expansion.',
+      loop: [
         {
-          title: 'Freemium',
-          price: 'Free',
-          detail:
-            'Entry tier for first-time users validating emotional signal workflows before moving into continuous monitoring.'
+          title: 'Discovery',
+          detail: 'Free searches and topic exploration.'
         },
         {
-          title: 'Rising Creators',
-          price: '\u20AC11.99 / month',
-          detail:
-            'Built for micro-influencers, independent creators and early adopters who need regular insight into audience sentiment and narrative momentum. Provides consistent emotional signal monitoring for emerging digital brands and creators building their online presence.',
+          title: 'Insight',
+          detail: 'Users discover emotional signal intelligence.'
         },
         {
-          title: 'Pulse Pro',
-          price: '\u20AC49.99 / month',
-          detail:
-            'Advanced monitoring designed for professional creators, research teams and organizations that rely on continuous narrative tracking. Unlocks higher analysis volumes, deeper emotional signal layers and expanded monitoring capacity.',
+          title: 'Monitoring',
+          detail: 'Users begin tracking narratives continuously.'
         },
         {
-          title: 'Agency / Enterprise',
-          price: 'starting at \u20AC124.99 / month',
-          detail:
-            'Designed for agencies, corporate teams and institutional users that require large-scale narrative monitoring and collaborative intelligence workflows. Includes expanded capacity, multi-topic monitoring and customizable analytical layers.',
+          title: 'Subscription',
+          detail: 'Upgrade to unlock deeper monitoring.'
+        },
+        {
+          title: 'Expansion',
+          detail: 'More topics, more teams, higher plans.'
         }
       ],
-      highlights: [
+      segments: [
+        {
+          title: 'Creators',
+          price: '\u20AC11.99 / month',
+          detail: 'Micro-influencers and early adopters monitoring audience sentiment.'
+        },
+        {
+          title: 'Professional',
+          price: '\u20AC49.99 / month',
+          detail: 'Advanced monitoring for creators, analysts and research teams.'
+        },
+        {
+          title: 'Enterprise',
+          price: 'Starting \u20AC124.99 / month',
+          detail: 'Agencies, corporations and institutions requiring multi-topic monitoring.'
+        }
+      ],
+      economics: [
         'Organic Product Growth',
         'Recurring Subscription Revenue',
         'Software-Level Margins (>70%)'
@@ -552,43 +554,48 @@ const content: Record<Language, LocalizedContent> = {
       thesis: 'Una plataforma que captura valor en dos mercados globales de rapido crecimiento.'
     },
     model: {
-      title: 'Modelo de Negocio',
-      intro:
-        'Ingresos SaaS recurrentes con expansion organica impulsada por valor analitico.',
-      freemiumCard: {
-        title: 'Capa de Descubrimiento Freemium',
-        descriptions: [
-          'Disenada para demostrar rapidamente el valor analitico de la plataforma, manteniendo limites de uso diario controlados.',
-          'Los usuarios acceden temprano a la capacidad completa de inteligencia, generando una presion natural de upgrade cuando el monitoreo continuo se vuelve necesario.'
-        ]
-      },
-      items: [
+      title: 'MOTOR DE INGRESOS',
+      intro: 'Descubrimiento freemium que impulsa expansion por suscripcion.',
+      loop: [
         {
-          title: 'Freemium',
-          price: 'Gratis',
-          detail:
-            'Capa de entrada para validar el flujo de senales emocionales antes de pasar a monitoreo continuo.',
+          title: 'Discovery',
+          detail: 'Busquedas gratuitas y exploracion de temas.'
         },
         {
-          title: 'Rising Creators',
-          price: '\u20AC11.99 / mes',
-          detail:
-            'Pensado para microinfluencers, creadores independientes y early adopters que necesitan lectura continua de sentimiento y momentum narrativo. Aporta monitoreo emocional consistente para marcas digitales emergentes y creadores que construyen su presencia online.',
+          title: 'Insight',
+          detail: 'Los usuarios descubren inteligencia emocional accionable.'
         },
         {
-          title: 'Pulse Pro',
-          price: '\u20AC49.99 / mes',
-          detail:
-            'Monitoreo avanzado para creadores profesionales, equipos de research y organizaciones que dependen de seguimiento narrativo continuo. Habilita mayor volumen de analisis, capas emocionales mas profundas y mas capacidad de monitoreo.',
+          title: 'Monitoring',
+          detail: 'Comienzan a seguir narrativas de forma continua.'
         },
         {
-          title: 'Agency / Enterprise',
-          price: 'desde \u20AC124.99 / mes',
-          detail:
-            'Dirigido a agencias, equipos corporativos y usuarios institucionales que requieren monitoreo narrativo a escala y flujos colaborativos de inteligencia. Incluye capacidad expandida, monitoreo multi-tema y capas analiticas personalizables.',
+          title: 'Subscription',
+          detail: 'Actualizan para desbloquear monitoreo mas profundo.'
+        },
+        {
+          title: 'Expansion',
+          detail: 'Mas temas, mas equipos, planes superiores.'
         }
       ],
-      highlights: [
+      segments: [
+        {
+          title: 'Creators',
+          price: '\u20AC11.99 / mes',
+          detail: 'Microinfluencers y early adopters monitoreando sentimiento de audiencia.'
+        },
+        {
+          title: 'Professional',
+          price: '\u20AC49.99 / mes',
+          detail: 'Monitoreo avanzado para creators, analistas y equipos de research.'
+        },
+        {
+          title: 'Enterprise',
+          price: 'Desde \u20AC124.99 / mes',
+          detail: 'Agencias, corporaciones e instituciones con monitoreo multi-tema.'
+        }
+      ],
+      economics: [
         'Crecimiento organico del producto',
         'Ingresos recurrentes por suscripcion',
         'Margenes de software (>70%)'
@@ -656,7 +663,6 @@ const secondaryButtonClass =
 const opportunityIcons: LucideIcon[] = [TrendingUp, BriefcaseBusiness, Users];
 const adoptionIcons: LucideIcon[] = [Users, Activity, BriefcaseBusiness, Radar, TrendingUp];
 const traditionalMetricIcons: LucideIcon[] = [ThumbsUp, Eye, MessageCircle, BarChart3, Zap];
-const modelIcons: LucideIcon[] = [TrendingUp, BarChart3, Activity, LineChart];
 const roadmapIcons: LucideIcon[] = [Activity, LineChart, Target];
 const platformIcons: LucideIcon[] = [Activity, Radar, LineChart, Target];
 
@@ -673,11 +679,22 @@ function PipelineMicroVisual({ stepIndex }: { stepIndex: number }) {
   if (stepIndex === 0) {
     return (
       <div className="relative mt-4 h-16 overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
-        <span className="solution-social-left-glow absolute inset-y-1 left-0 w-7 rounded-r-full" />
-        <span className="solution-social-bubble solution-social-bubble-a absolute left-4 top-3 h-4 w-16 rounded-full bg-white/[0.06]" />
-        <span className="solution-social-bubble solution-social-bubble-b absolute left-8 bottom-3 h-4 w-11 rounded-full bg-white/[0.05]" />
-        <span className="solution-social-flow absolute left-5 top-3 h-1.5 w-2 rounded-full bg-white/35" />
-        <span className="absolute right-4 top-1/2 inline-flex -translate-y-1/2 items-center gap-1">
+        <span className="solution-thread-glow absolute inset-y-1 left-0 w-8 rounded-r-full" />
+        <div className="solution-thread-feed absolute inset-x-2 bottom-2 top-2">
+          <article className="solution-thread-message solution-thread-message-a">
+            <p className="solution-thread-user">User A</p>
+            <p className="solution-thread-text solution-thread-text-a">"This brand is gaining momentum"</p>
+          </article>
+          <article className="solution-thread-message solution-thread-message-b">
+            <p className="solution-thread-user">User B</p>
+            <p className="solution-thread-text solution-thread-text-b">"I see a lot of excitement around this launch"</p>
+          </article>
+          <article className="solution-thread-message solution-thread-message-c">
+            <p className="solution-thread-user">User C</p>
+            <p className="solution-thread-text solution-thread-text-c">"Some skepticism in the replies though"</p>
+          </article>
+        </div>
+        <span className="solution-thread-typing absolute bottom-2.5 right-3 inline-flex items-center gap-1">
           <span className="solution-typing-dot h-1.5 w-1.5 rounded-full bg-white/55" />
           <span className="solution-typing-dot solution-typing-dot-b h-1.5 w-1.5 rounded-full bg-white/45" />
           <span className="solution-typing-dot solution-typing-dot-c h-1.5 w-1.5 rounded-full bg-white/35" />
@@ -749,6 +766,40 @@ function PipelineMicroVisual({ stepIndex }: { stepIndex: number }) {
         <span className="solution-decision-dot solution-decision-dot-a" />
         <span className="solution-decision-dot solution-decision-dot-b" />
       </div>
+    </div>
+  );
+}
+
+function RevenueMetricMiniGraph({ index }: { index: number }) {
+  if (index === 0) {
+    return (
+      <div className="revenue-metric-graph revenue-metric-graph-line">
+        <svg className="h-full w-full" viewBox="0 0 160 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path className="revenue-metric-line-glow" d="M2 38 C16 34, 26 30, 38 32 C50 34, 62 42, 78 34 C94 26, 108 16, 124 20 C138 23, 150 28, 158 18" />
+          <path className="revenue-metric-line-main" d="M2 38 C16 34, 26 30, 38 32 C50 34, 62 42, 78 34 C94 26, 108 16, 124 20 C138 23, 150 28, 158 18" />
+        </svg>
+        <span className="revenue-metric-line-dot" />
+      </div>
+    );
+  }
+
+  if (index === 1) {
+    return (
+      <div className="revenue-metric-graph revenue-metric-graph-bars">
+        {[42, 64, 56, 74, 62].map((height, barIndex) => (
+          <span key={height} className="revenue-metric-bar-wrap">
+            <span className="revenue-metric-bar" style={{ height: `${height}%`, animationDelay: `${barIndex * 180}ms` }} />
+          </span>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="revenue-metric-graph revenue-metric-graph-band">
+      <span className="revenue-metric-band-base" />
+      <span className="revenue-metric-band-fill" />
+      <span className="revenue-metric-band-pulse" />
     </div>
   );
 }
@@ -1222,70 +1273,64 @@ export function LandingPage() {
               <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.model.title}</h2>
               <p className="mt-5 text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.model.intro}</p>
             </div>
-            <div className="mb-6 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
-              <article className="floating-panel double-layer-panel animate-fade-up p-6">
-                <div className="flex items-center justify-between">
-                  <GradientIcon icon={TrendingUp} tone="cyan" />
-                  <SignalSparkline tone="cyan" className="h-8 w-24" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold tracking-tight">{t.model.freemiumCard.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#AAB4C2]">{t.model.freemiumCard.descriptions[0]}</p>
-                <svg
-                  className="mt-5 w-full"
-                  viewBox="0 0 360 120"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <rect x="10" y="22" width="92" height="24" rx="12" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" />
-                  <rect x="134" y="46" width="92" height="24" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" />
-                  <rect x="258" y="70" width="92" height="24" rx="12" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" />
-                  <path d="M102 34 H128 V58" stroke="url(#funnelLine)" strokeWidth="2" />
-                  <path d="M226 58 H252 V82" stroke="url(#funnelLine)" strokeWidth="2" />
-                  <text x="56" y="38" fill="rgba(255,255,255,0.8)" fontSize="10" textAnchor="middle">{visualLabels.funnelFreemium}</text>
-                  <text x="180" y="62" fill="rgba(255,255,255,0.8)" fontSize="10" textAnchor="middle">{visualLabels.funnelPaid}</text>
-                  <text x="304" y="86" fill="rgba(255,255,255,0.8)" fontSize="10" textAnchor="middle">{visualLabels.funnelExpansion}</text>
-                  <defs>
-                    <linearGradient id="funnelLine" x1="102" y1="34" x2="252" y2="82" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#F2398A" />
-                      <stop offset="0.5" stopColor="#9A33FF" />
-                      <stop offset="1" stopColor="#14C7E5" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <p className="mt-2 text-sm leading-relaxed text-[#AAB4C2]">{t.model.freemiumCard.descriptions[1]}</p>
-              </article>
-              <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-                {[TrendingUp, LayoutDashboard, LineChart].map((Icon, index) => (
-                  <article key={index} className="floating-panel double-layer-panel animate-fade-up p-4" style={{ animationDelay: `${index * 70}ms` }}>
-                    <div className="flex items-center gap-3">
-                      <GradientIcon icon={Icon} tone={index === 0 ? 'pink' : index === 1 ? 'blue' : 'cyan'} />
-                      <SignalSparkline tone={index === 0 ? 'pink' : index === 1 ? 'blue' : 'cyan'} variant={index === 2 ? 'step' : 'smooth'} className="h-6 w-16" />
+            <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-6 md:p-8">
+              <div className="grid gap-4 md:grid-cols-5 md:gap-5">
+                {t.model.loop.map((step, index) => {
+                  const isLast = index === t.model.loop.length - 1;
+                  return (
+                    <div key={step.title} className="relative">
+                      <article className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-5">
+                        <div className="mb-3 flex items-start gap-2.5">
+                          <GradientIcon
+                            icon={[Activity, BrainCircuit, Radar, LayoutDashboard, TrendingUp][index] ?? Activity}
+                            tone={(['pink', 'purple', 'blue', 'cyan', 'purple'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
+                            className="h-7 w-7"
+                            size={12}
+                          />
+                          <h3 className="text-sm font-semibold tracking-tight">{step.title}</h3>
+                        </div>
+                        <p className="text-xs leading-relaxed text-[#AAB4C2]">{step.detail}</p>
+                      </article>
+                      {!isLast ? (
+                        <>
+                          <div className="pointer-events-none absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center gap-1 md:flex">
+                            <span className="revenue-loop-connector-line h-px w-5" />
+                            <ArrowRight className="revenue-loop-connector-arrow h-3.5 w-3.5" />
+                          </div>
+                          <div className="pointer-events-none mt-3 flex justify-center md:hidden">
+                            <ArrowRight className="h-4 w-4 rotate-90 text-[#9A33FF]/80" />
+                          </div>
+                        </>
+                      ) : null}
                     </div>
-                    <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{t.model.highlights[index]}</p>
-                    {t.model.highlights[index]?.includes('70%') ? (
-                      <div className="mt-3 rounded-full border border-white/10 bg-white/5 p-1">
-                        <div className="h-1.5 w-[72%] rounded-full bg-[linear-gradient(90deg,#14C7E5,#246BFF,#9A33FF)]" />
-                      </div>
-                    ) : null}
-                  </article>
-                ))}
+                  );
+                })}
               </div>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2">
-              {t.model.items.map((item, index) => (
+            </article>
+
+            <div className="mt-6 grid gap-5 md:grid-cols-3">
+              {t.model.segments.map((segment, index) => (
                 <article
-                  key={item.title}
+                  key={segment.title}
                   className="floating-panel floating-panel-hover double-layer-panel animate-fade-up p-6"
                   style={{ animationDelay: `${index * 90}ms` }}
                 >
                   <div className="mb-4 flex items-center justify-between">
-                    <GradientIcon icon={modelIcons[index] ?? Activity} tone={index === 0 ? 'pink' : index === 1 ? 'purple' : index === 2 ? 'blue' : 'cyan'} />
-                    <SignalSparkline tone={index === 0 ? 'pink' : index === 1 ? 'purple' : index === 2 ? 'blue' : 'cyan'} variant={index === 3 ? 'spike' : 'smooth'} className="h-6 w-16" />
+                    <GradientIcon icon={[Users, LineChart, BriefcaseBusiness][index] ?? Users} tone={(['pink', 'blue', 'cyan'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'} />
+                    <SignalSparkline tone={(['pink', 'blue', 'cyan'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'} variant={index === 2 ? 'step' : 'smooth'} className="h-6 w-16" />
                   </div>
-                  <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
-                  <p className="mt-2 text-sm font-medium text-white/90">{item.price}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{item.detail}</p>
+                  <h3 className="text-lg font-semibold tracking-tight">{segment.title}</h3>
+                  <p className="mt-2 text-sm font-medium text-white/90">{segment.price}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{segment.detail}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              {t.model.economics.map((item, index) => (
+                <article key={item} className="floating-panel double-layer-panel animate-fade-up p-4" style={{ animationDelay: `${index * 70}ms` }}>
+                  <RevenueMetricMiniGraph index={index} />
+                  <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{item}</p>
                 </article>
               ))}
             </div>

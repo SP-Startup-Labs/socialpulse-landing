@@ -578,27 +578,72 @@ body {
   }
 }
 
-.solution-social-bubble {
-  opacity: 0.28;
-}
-
-.solution-social-left-glow {
+.solution-thread-glow {
   background: linear-gradient(90deg, rgba(20, 199, 229, 0.34), rgba(20, 199, 229, 0));
   filter: blur(6px);
-  animation: solutionSocialLeftGlow 8.8s ease-in-out infinite;
+  animation: solutionThreadGlow 9.8s ease-in-out infinite;
 }
 
-.solution-social-bubble-a {
-  animation: solutionSocialBubbleShift 9.4s ease-in-out infinite;
+.solution-thread-feed {
+  position: relative;
+  overflow: hidden;
 }
 
-.solution-social-bubble-b {
-  animation: solutionSocialBubbleFade 9.4s ease-in-out infinite 1.2s;
+.solution-thread-message {
+  position: absolute;
+  left: 0;
+  right: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(154, 51, 255, 0.14), rgba(36, 107, 255, 0.09), rgba(20, 199, 229, 0.08));
+  padding: 3px 6px;
+  opacity: 0;
 }
 
-.solution-social-flow {
-  box-shadow: 0 0 12px rgba(154, 51, 255, 0.4);
-  animation: solutionSocialFlow 7.4s linear infinite;
+.solution-thread-message-a {
+  animation: solutionThreadMessageA 12.6s ease-in-out infinite;
+}
+
+.solution-thread-message-b {
+  animation: solutionThreadMessageB 12.6s ease-in-out infinite;
+}
+
+.solution-thread-message-c {
+  animation: solutionThreadMessageC 12.6s ease-in-out infinite;
+}
+
+.solution-thread-user {
+  font-size: 8px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.solution-thread-text {
+  margin-top: 2px;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 7px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.solution-thread-text-a {
+  animation: solutionThreadTypingA 12.6s linear infinite;
+}
+
+.solution-thread-text-b {
+  animation: solutionThreadTypingB 12.6s linear infinite;
+}
+
+.solution-thread-text-c {
+  animation: solutionThreadTypingC 12.6s linear infinite;
+}
+
+.solution-thread-typing {
+  opacity: 0.78;
+  animation: solutionThreadTypingWrap 4.8s ease-in-out infinite;
 }
 
 .solution-typing-dot {
@@ -613,67 +658,125 @@ body {
   animation-delay: 0.48s;
 }
 
-@keyframes solutionSocialLeftGlow {
-  0%,
-  100% {
-    opacity: 0.12;
-    transform: scaleY(0.94);
-  }
-  50% {
-    opacity: 0.3;
-    transform: scaleY(1.04);
-  }
-}
-
-@keyframes solutionSocialBubbleShift {
-  0% {
-    opacity: 0.24;
-    transform: translateX(-2px);
-  }
-  45% {
-    opacity: 0.5;
-    transform: translateX(2px);
-  }
-  80% {
-    opacity: 0.42;
-    transform: translateX(4px);
-  }
-  100% {
-    opacity: 0.24;
-    transform: translateX(-2px);
-  }
-}
-
-@keyframes solutionSocialBubbleFade {
+@keyframes solutionThreadGlow {
   0%,
   100% {
     opacity: 0.14;
-    transform: translateX(-1px);
+    transform: scaleY(0.95);
   }
-  40% {
-    opacity: 0.48;
-    transform: translateX(3px);
-  }
-  70% {
-    opacity: 0.22;
-    transform: translateX(5px);
+  50% {
+    opacity: 0.28;
+    transform: scaleY(1.03);
   }
 }
 
-@keyframes solutionSocialFlow {
+@keyframes solutionThreadMessageA {
   0% {
-    transform: translateX(-2px);
-    opacity: 0.1;
+    opacity: 0;
+    transform: translateY(24px) translateX(-2px);
   }
-  20% {
-    opacity: 0.85;
+  10% {
+    opacity: 0.78;
+    transform: translateY(14px) translateX(0);
   }
-  80% {
-    opacity: 0.8;
+  34% {
+    opacity: 0.86;
+    transform: translateY(2px) translateX(2px);
+  }
+  62% {
+    opacity: 0.42;
+    transform: translateY(-16px) translateX(3px);
   }
   100% {
-    transform: translateX(84px);
+    opacity: 0.18;
+    transform: translateY(-22px) translateX(3px);
+  }
+}
+
+@keyframes solutionThreadMessageB {
+  0%,
+  20% {
     opacity: 0;
+    transform: translateY(24px) translateX(-2px);
+  }
+  30% {
+    opacity: 0.74;
+    transform: translateY(14px) translateX(0);
+  }
+  56% {
+    opacity: 0.85;
+    transform: translateY(2px) translateX(2px);
+  }
+  82% {
+    opacity: 0.44;
+    transform: translateY(-16px) translateX(3px);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translateY(-22px) translateX(3px);
+  }
+}
+
+@keyframes solutionThreadMessageC {
+  0%,
+  44% {
+    opacity: 0;
+    transform: translateY(24px) translateX(-2px);
+  }
+  54% {
+    opacity: 0.7;
+    transform: translateY(14px) translateX(0);
+  }
+  78% {
+    opacity: 0.84;
+    transform: translateY(2px) translateX(2px);
+  }
+  100% {
+    opacity: 0.4;
+    transform: translateY(-10px) translateX(2px);
+  }
+}
+
+@keyframes solutionThreadTypingA {
+  0%,
+  4% {
+    max-width: 0;
+  }
+  16%,
+  100% {
+    max-width: 30ch;
+  }
+}
+
+@keyframes solutionThreadTypingB {
+  0%,
+  24% {
+    max-width: 0;
+  }
+  40%,
+  100% {
+    max-width: 40ch;
+  }
+}
+
+@keyframes solutionThreadTypingC {
+  0%,
+  48% {
+    max-width: 0;
+  }
+  66%,
+  100% {
+    max-width: 36ch;
+  }
+}
+
+@keyframes solutionThreadTypingWrap {
+  0%,
+  100% {
+    opacity: 0.52;
+  }
+  50% {
+    opacity: 0.9;
   }
 }
 
@@ -930,6 +1033,235 @@ body {
   }
 }
 
+.revenue-loop-connector-line {
+  background: linear-gradient(90deg, rgba(154, 51, 255, 0.2), rgba(20, 199, 229, 0.75));
+  animation: revenueConnectorFlow 4.2s ease-in-out infinite;
+}
+
+.revenue-loop-connector-arrow {
+  color: rgba(154, 51, 255, 0.85);
+  filter: drop-shadow(0 0 10px rgba(154, 51, 255, 0.45));
+  animation: revenueConnectorArrow 4.2s ease-in-out infinite;
+}
+
+@keyframes revenueConnectorFlow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}
+
+@keyframes revenueConnectorArrow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(1.5px);
+  }
+}
+
+.revenue-metric-graph {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.revenue-metric-graph-line {
+  padding: 5px 6px;
+}
+
+.revenue-metric-line-main,
+.revenue-metric-line-glow {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.revenue-metric-line-main {
+  stroke: rgba(154, 51, 255, 0.9);
+  stroke-width: 1.8;
+  stroke-dasharray: 210;
+  stroke-dashoffset: 0;
+  animation: revenueMetricLineDash 6.8s linear infinite;
+}
+
+.revenue-metric-line-glow {
+  stroke: rgba(20, 199, 229, 0.44);
+  stroke-width: 3.4;
+  filter: blur(1.8px);
+  opacity: 0.6;
+  animation: revenueMetricLineGlow 6.8s ease-in-out infinite;
+}
+
+.revenue-metric-line-dot {
+  position: absolute;
+  left: 8px;
+  top: 30px;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: #14c7e5;
+  box-shadow: 0 0 10px rgba(20, 199, 229, 0.6);
+  animation: revenueMetricLineDot 6.8s ease-in-out infinite;
+}
+
+@keyframes revenueMetricLineDash {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -44;
+  }
+}
+
+@keyframes revenueMetricLineGlow {
+  0%,
+  100% {
+    opacity: 0.34;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes revenueMetricLineDot {
+  0% {
+    left: 8px;
+    top: 30px;
+    opacity: 0.2;
+  }
+  25% {
+    left: 44px;
+    top: 26px;
+    opacity: 0.85;
+  }
+  50% {
+    left: 80px;
+    top: 34px;
+    opacity: 1;
+  }
+  75% {
+    left: 118px;
+    top: 20px;
+    opacity: 0.85;
+  }
+  100% {
+    left: 148px;
+    top: 18px;
+    opacity: 0.2;
+  }
+}
+
+.revenue-metric-graph-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 8px;
+}
+
+.revenue-metric-bar-wrap {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.revenue-metric-bar {
+  width: 76%;
+  transform-origin: bottom;
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(20, 199, 229, 0.75), rgba(154, 51, 255, 0.25));
+  animation: revenueMetricBarPulse 5.2s ease-in-out infinite;
+}
+
+@keyframes revenueMetricBarPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scaleY(0.88);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.08);
+  }
+}
+
+.revenue-metric-graph-band {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.revenue-metric-band-base {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 50%;
+  height: 6px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.revenue-metric-band-fill {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  height: 6px;
+  width: 62%;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(20, 199, 229, 0.62), rgba(154, 51, 255, 0.72));
+  animation: revenueMetricBandFill 5.8s ease-in-out infinite;
+}
+
+.revenue-metric-band-pulse {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: rgba(20, 199, 229, 0.74);
+  box-shadow: 0 0 14px rgba(20, 199, 229, 0.58);
+  animation: revenueMetricBandPulse 5.8s ease-in-out infinite;
+}
+
+@keyframes revenueMetricBandFill {
+  0%,
+  100% {
+    width: 54%;
+  }
+  50% {
+    width: 74%;
+  }
+}
+
+@keyframes revenueMetricBandPulse {
+  0%,
+  100% {
+    left: 10px;
+    opacity: 0.3;
+  }
+  50% {
+    left: calc(10px + 74%);
+    opacity: 1;
+  }
+}
+
 .radar-aura {
   background: radial-gradient(circle, rgba(154, 51, 255, 0.3), rgba(36, 107, 255, 0.14) 48%, rgba(9, 20, 38, 0) 76%);
   filter: blur(18px);
@@ -1105,10 +1437,10 @@ body {
   .problem-volatility-line-jitter,
   .problem-volatility-line,
   .problem-volatility-line-soft,
-  .solution-social-left-glow,
-  .solution-social-glow,
-  .solution-social-bubble,
-  .solution-social-flow,
+  .solution-thread-glow,
+  .solution-thread-message,
+  .solution-thread-text,
+  .solution-thread-typing,
   .solution-typing-dot,
   .solution-emotion-core,
   .solution-emotion-orbit,
@@ -1121,6 +1453,14 @@ body {
   .solution-decision-bar,
   .solution-decision-cap,
   .solution-decision-dot,
+  .revenue-loop-connector-line,
+  .revenue-loop-connector-arrow,
+  .revenue-metric-line-main,
+  .revenue-metric-line-glow,
+  .revenue-metric-line-dot,
+  .revenue-metric-bar,
+  .revenue-metric-band-fill,
+  .revenue-metric-band-pulse,
   .radar-aura,
   .radar-polygon-breath,
   .radar-polygon-morph,
