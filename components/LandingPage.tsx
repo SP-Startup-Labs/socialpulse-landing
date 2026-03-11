@@ -673,12 +673,11 @@ function PipelineMicroVisual({ stepIndex }: { stepIndex: number }) {
   if (stepIndex === 0) {
     return (
       <div className="relative mt-4 h-16 overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
-        <span className="solution-social-glow absolute inset-x-3 top-2 h-9 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.22)_0%,rgba(154,51,255,0)_70%)] blur-md" />
-        <span className="solution-social-bubble solution-social-bubble-a absolute left-2 top-2 h-5 w-16 rounded-full bg-white/[0.06] blur-[0.2px]" />
-        <span className="solution-social-bubble solution-social-bubble-b absolute right-3 top-4 h-4 w-12 rounded-full bg-white/[0.05]" />
-        <span className="solution-social-bubble solution-social-bubble-c absolute left-4 bottom-2 h-4 w-14 rounded-full bg-white/[0.05]" />
-        <span className="solution-social-flow absolute left-3 top-3 h-1.5 w-2 rounded-full bg-white/35" />
-        <span className="absolute bottom-3 right-6 inline-flex items-center gap-1">
+        <span className="solution-social-left-glow absolute inset-y-1 left-0 w-7 rounded-r-full" />
+        <span className="solution-social-bubble solution-social-bubble-a absolute left-4 top-3 h-4 w-16 rounded-full bg-white/[0.06]" />
+        <span className="solution-social-bubble solution-social-bubble-b absolute left-8 bottom-3 h-4 w-11 rounded-full bg-white/[0.05]" />
+        <span className="solution-social-flow absolute left-5 top-3 h-1.5 w-2 rounded-full bg-white/35" />
+        <span className="absolute right-4 top-1/2 inline-flex -translate-y-1/2 items-center gap-1">
           <span className="solution-typing-dot h-1.5 w-1.5 rounded-full bg-white/55" />
           <span className="solution-typing-dot solution-typing-dot-b h-1.5 w-1.5 rounded-full bg-white/45" />
           <span className="solution-typing-dot solution-typing-dot-c h-1.5 w-1.5 rounded-full bg-white/35" />

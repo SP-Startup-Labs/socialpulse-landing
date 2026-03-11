@@ -27,15 +27,15 @@ export function RadarPulse({ className = '', labels, compact = false }: RadarPul
       <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-white/12" />
       <div className="absolute left-1/2 top-1/2 h-px w-[135%] -translate-x-1/2 -translate-y-1/2 rotate-45 bg-white/10" />
       <div className="absolute left-1/2 top-1/2 h-px w-[135%] -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-white/10" />
-      <div
-        className="radar-polygon-breath absolute inset-[16%] bg-[radial-gradient(circle_at_30%_28%,rgba(242,57,138,0.5),rgba(154,51,255,0.4)_45%,rgba(36,107,255,0.32)_72%,rgba(20,199,229,0.08)_100%)] opacity-90"
-        style={{ clipPath: 'polygon(50% 8%, 84% 31%, 76% 80%, 50% 94%, 22% 72%, 14% 31%)' }}
-      />
+      <div className="radar-polygon-fill radar-polygon-breath radar-polygon-morph absolute inset-[16%]" />
+      <div className="radar-polygon-sheen radar-polygon-morph absolute inset-[16%]" />
       <div className="radar-center-pulse absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#9A33FF]/70" />
       <span className="radar-particle radar-particle-a absolute left-[22%] top-[26%]" />
       <span className="radar-particle radar-particle-b absolute right-[22%] top-[32%]" />
       <span className="radar-particle radar-particle-c absolute left-[30%] bottom-[24%]" />
       <span className="radar-particle radar-particle-d absolute right-[30%] bottom-[20%]" />
+      <span className="radar-particle radar-particle-e absolute left-[44%] top-[14%]" />
+      <span className="radar-particle radar-particle-f absolute right-[42%] bottom-[14%]" />
       {labels ? (
         <>
           <p className={`absolute left-1/2 top-4 -translate-x-1/2 ${labelToneClass} ${labelClass}`}>{labels.top}</p>

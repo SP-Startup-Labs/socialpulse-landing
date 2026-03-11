@@ -578,33 +578,31 @@ body {
   }
 }
 
-.solution-social-glow {
-  animation: solutionSocialGlow 7.2s ease-in-out infinite;
-}
-
 .solution-social-bubble {
   opacity: 0.28;
 }
 
+.solution-social-left-glow {
+  background: linear-gradient(90deg, rgba(20, 199, 229, 0.34), rgba(20, 199, 229, 0));
+  filter: blur(6px);
+  animation: solutionSocialLeftGlow 8.8s ease-in-out infinite;
+}
+
 .solution-social-bubble-a {
-  animation: solutionSocialBubble 8.4s ease-in-out infinite;
+  animation: solutionSocialBubbleShift 9.4s ease-in-out infinite;
 }
 
 .solution-social-bubble-b {
-  animation: solutionSocialBubble 8.4s ease-in-out infinite 1.2s;
-}
-
-.solution-social-bubble-c {
-  animation: solutionSocialBubble 8.4s ease-in-out infinite 2.4s;
+  animation: solutionSocialBubbleFade 9.4s ease-in-out infinite 1.2s;
 }
 
 .solution-social-flow {
   box-shadow: 0 0 12px rgba(154, 51, 255, 0.4);
-  animation: solutionSocialFlow 5.8s linear infinite;
+  animation: solutionSocialFlow 7.4s linear infinite;
 }
 
 .solution-typing-dot {
-  animation: solutionTypingDot 1.9s ease-in-out infinite;
+  animation: solutionTypingDot 2.2s ease-in-out infinite;
 }
 
 .solution-typing-dot-b {
@@ -615,34 +613,50 @@ body {
   animation-delay: 0.48s;
 }
 
-@keyframes solutionSocialGlow {
+@keyframes solutionSocialLeftGlow {
   0%,
   100% {
-    opacity: 0.14;
-    transform: translateX(-3px);
+    opacity: 0.12;
+    transform: scaleY(0.94);
   }
   50% {
-    opacity: 0.34;
-    transform: translateX(3px);
+    opacity: 0.3;
+    transform: scaleY(1.04);
   }
 }
 
-@keyframes solutionSocialBubble {
+@keyframes solutionSocialBubbleShift {
   0% {
-    opacity: 0.18;
-    transform: translateX(-6px);
+    opacity: 0.24;
+    transform: translateX(-2px);
   }
-  35% {
-    opacity: 0.58;
-    transform: translateX(0);
+  45% {
+    opacity: 0.5;
+    transform: translateX(2px);
   }
-  70% {
-    opacity: 0.44;
-    transform: translateX(5px);
+  80% {
+    opacity: 0.42;
+    transform: translateX(4px);
   }
   100% {
-    opacity: 0.2;
-    transform: translateX(8px);
+    opacity: 0.24;
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes solutionSocialBubbleFade {
+  0%,
+  100% {
+    opacity: 0.14;
+    transform: translateX(-1px);
+  }
+  40% {
+    opacity: 0.48;
+    transform: translateX(3px);
+  }
+  70% {
+    opacity: 0.22;
+    transform: translateX(5px);
   }
 }
 
@@ -658,7 +672,7 @@ body {
     opacity: 0.8;
   }
   100% {
-    transform: translateX(112px);
+    transform: translateX(84px);
     opacity: 0;
   }
 }
@@ -924,7 +938,21 @@ body {
 
 .radar-polygon-breath {
   transform-origin: center;
-  animation: radarPolygonBreath 6.4s ease-in-out infinite;
+}
+
+.radar-polygon-fill {
+  background: radial-gradient(circle_at_30%_28%, rgba(242, 57, 138, 0.5), rgba(154, 51, 255, 0.4) 45%, rgba(36, 107, 255, 0.32) 72%, rgba(20, 199, 229, 0.08) 100%);
+  opacity: 0.88;
+}
+
+.radar-polygon-sheen {
+  background: linear-gradient(140deg, rgba(242, 57, 138, 0.16), rgba(154, 51, 255, 0.14), rgba(20, 199, 229, 0.1));
+  opacity: 0.5;
+}
+
+.radar-polygon-morph {
+  clip-path: polygon(50% 8%, 84% 31%, 76% 80%, 50% 94%, 22% 72%, 14% 31%);
+  animation: radarPolygonBreath 6.4s ease-in-out infinite, radarPolygonMorph 13s ease-in-out infinite;
 }
 
 .radar-center-pulse {
@@ -957,6 +985,14 @@ body {
   animation: radarParticleFloat 9.2s ease-in-out infinite 6.3s;
 }
 
+.radar-particle-e {
+  animation: radarParticleFloat 9.2s ease-in-out infinite 1.1s;
+}
+
+.radar-particle-f {
+  animation: radarParticleFloat 9.2s ease-in-out infinite 4.8s;
+}
+
 @keyframes radarAuraBreath {
   0%,
   100% {
@@ -978,6 +1014,19 @@ body {
   50% {
     transform: scale(1.03);
     opacity: 0.95;
+  }
+}
+
+@keyframes radarPolygonMorph {
+  0%,
+  100% {
+    clip-path: polygon(50% 8%, 84% 31%, 76% 80%, 50% 94%, 22% 72%, 14% 31%);
+  }
+  33% {
+    clip-path: polygon(50% 10%, 82% 30%, 78% 78%, 50% 92%, 24% 74%, 16% 32%);
+  }
+  66% {
+    clip-path: polygon(50% 9%, 85% 33%, 74% 81%, 50% 93%, 21% 70%, 13% 30%);
   }
 }
 
@@ -1056,6 +1105,7 @@ body {
   .problem-volatility-line-jitter,
   .problem-volatility-line,
   .problem-volatility-line-soft,
+  .solution-social-left-glow,
   .solution-social-glow,
   .solution-social-bubble,
   .solution-social-flow,
@@ -1073,6 +1123,7 @@ body {
   .solution-decision-dot,
   .radar-aura,
   .radar-polygon-breath,
+  .radar-polygon-morph,
   .radar-center-pulse,
   .radar-particle {
     animation: none;
