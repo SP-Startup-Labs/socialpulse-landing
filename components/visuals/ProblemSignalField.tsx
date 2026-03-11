@@ -18,17 +18,17 @@ export function ProblemSignalField({ title, labels, className = '' }: ProblemSig
     <div className={`space-y-3 ${className}`}>
       <p className="text-xs uppercase tracking-[0.18em] text-[#DCE2EC]">{title}</p>
       <div className="grid items-stretch gap-3 sm:grid-cols-2">
-        <article className="problem-signal-tile flex h-full flex-col rounded-2xl px-3 py-3.5">
+        <article className="problem-signal-tile flex h-full min-h-[124px] flex-col rounded-2xl px-3 py-3.5">
           <div className="mb-2 flex h-12 items-center justify-center">
-            <div className="relative h-11 w-11">
+            <div className="relative h-10 w-10">
               <span className="problem-intensity-halo absolute inset-0 rounded-full" />
-              <span className="problem-intensity-orb absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+              <span className="problem-intensity-orb absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full" />
             </div>
           </div>
           <p className="text-center text-[11px] font-medium tracking-tight text-white/92">{signalLabels[0]}</p>
         </article>
 
-        <article className="problem-signal-tile flex h-full flex-col rounded-2xl px-3 py-3.5">
+        <article className="problem-signal-tile flex h-full min-h-[124px] flex-col rounded-2xl px-3 py-3.5">
           <div className="mb-2 flex h-12 items-center justify-center">
             <div className="problem-pressure-shell relative h-10 w-10 overflow-hidden rounded-xl border border-white/12 bg-white/[0.02]">
               <div className="problem-pressure-fill absolute inset-x-1 bottom-1 rounded-md bg-[linear-gradient(180deg,rgba(20,199,229,0.85),rgba(154,51,255,0.95),rgba(242,57,138,0.88))]" />
@@ -41,7 +41,7 @@ export function ProblemSignalField({ title, labels, className = '' }: ProblemSig
           <p className="text-center text-[11px] font-medium tracking-tight text-white/92">{signalLabels[1]}</p>
         </article>
 
-        <article className="problem-signal-tile flex h-full flex-col rounded-2xl px-3 py-3.5">
+        <article className="problem-signal-tile flex h-full min-h-[124px] flex-col rounded-2xl px-3 py-3.5">
           <div className="mb-2 flex h-12 items-center justify-center">
             <div className="relative h-10 w-10">
               <span className="problem-activation-core absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full" />
@@ -56,7 +56,7 @@ export function ProblemSignalField({ title, labels, className = '' }: ProblemSig
           <p className="text-center text-[11px] font-medium tracking-tight text-white/92">{signalLabels[2]}</p>
         </article>
 
-        <article className="problem-signal-tile flex h-full flex-col rounded-2xl px-3 py-3.5">
+        <article className="problem-signal-tile flex h-full min-h-[124px] flex-col rounded-2xl px-3 py-3.5">
           <div className="mb-2 flex h-12 items-center justify-center">
             <svg className="h-10 w-12" viewBox="0 0 78 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M2 30 H76" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />

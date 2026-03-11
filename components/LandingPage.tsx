@@ -60,7 +60,7 @@ type LocalizedContent = {
     title: string;
     intro: string;
     outputs: string[];
-    pipeline: Array<{ title: string; description: string }>;
+    pipeline: Array<{ title: string; subtitle: string; description: string }>;
     closing: string;
     frameworkTitle: string;
     frameworkSubtitle: string;
@@ -155,7 +155,7 @@ const content: Record<Language, LocalizedContent> = {
     solution: {
       title: 'The Solution',
       intro:
-        'SocialPulse transforms public discourse into structured emotional intelligence:',
+        'SocialPulse works as a structured signal pipeline from raw conversation to decision-ready intelligence.',
       outputs: [
         'Audience emotional mapping by topic and narrative',
         'Narrative shift detection',
@@ -164,34 +164,42 @@ const content: Record<Language, LocalizedContent> = {
       ],
       pipeline: [
         {
-          title: 'Capture Layer',
-          description: 'Real-time ingestion of public discourse across social platforms.'
+          title: 'Social Conversations',
+          subtitle: 'Signal Capture',
+          description:
+            'Collects public conversations around any topic, brand or narrative across connected social platforms in real time.'
         },
         {
-          title: 'Emotion Modeling',
-          description: 'Multi-dimensional emotional signal extraction.'
+          title: 'Emotion Engine',
+          subtitle: 'Emotion Modeling',
+          description:
+            'Transforms public discourse into structured emotional signals.'
         },
         {
-          title: 'Narrative Detection',
-          description: 'Identifies shifts in public framing and narrative pressure.'
+          title: 'Narrative Pressure',
+          subtitle: 'Narrative Detection',
+          description:
+            'Detects shifts in framing, sentiment momentum and narrative pressure.'
         },
         {
           title: 'Decision Signals',
-          description: 'Structured signals designed for investors and strategic teams.'
+          subtitle: 'Actionable Insights',
+          description:
+            'Converts emotional dynamics into clear signals for investors, brands and strategic teams.'
         }
       ],
       closing:
-        'Less noise. Clear emotional context for faster and better decisions.',
+        'From signal capture to decision signals, every layer is designed for clarity and strategic action.',
       frameworkTitle: 'Emotional Signal Map',
       frameworkSubtitle:
-        'Multi-dimensional emotional profiling of public narratives.',
+        'Real-emotion mapping across live public narratives.',
       radarLabels: {
-        top: 'Intensity',
-        topRight: 'Sentiment',
-        right: 'Volatility',
-        bottom: 'Activation',
-        bottomLeft: 'Clarity',
-        left: 'Trust'
+        top: 'Anger',
+        topRight: 'Excitement',
+        right: 'Support',
+        bottom: 'Hope',
+        bottomLeft: 'Skepticism',
+        left: 'Disappointment'
       }
     },
     opportunity: {
@@ -345,7 +353,7 @@ const content: Record<Language, LocalizedContent> = {
     solution: {
       title: 'La Solucion',
       intro:
-        'SocialPulse transforma conversaciones publicas en inteligencia emocional estructurada:',
+        'SocialPulse funciona como un pipeline estructurado que convierte conversacion publica en inteligencia accionable.',
       outputs: [
         'Mapa emocional del publico por tema y narrativa',
         'Deteccion de cambios narrativos',
@@ -354,34 +362,42 @@ const content: Record<Language, LocalizedContent> = {
       ],
       pipeline: [
         {
-          title: 'Capa de Captura',
-          description: 'Ingestion en tiempo real de discurso publico en plataformas sociales.'
+          title: 'Conversaciones Sociales',
+          subtitle: 'Signal Capture',
+          description:
+            'Recoge conversaciones publicas sobre cualquier tema, marca o narrativa en plataformas sociales conectadas, en tiempo real.'
         },
         {
-          title: 'Modelado Emocional',
-          description: 'Extraccion multidimensional de senales emocionales.'
+          title: 'Motor Emocional',
+          subtitle: 'Modelado Emocional',
+          description:
+            'Transforma el discurso publico en senales emocionales estructuradas.'
         },
         {
-          title: 'Deteccion Narrativa',
-          description: 'Identifica cambios en framing publico y presion narrativa.'
+          title: 'Presion Narrativa',
+          subtitle: 'Deteccion Narrativa',
+          description:
+            'Detecta cambios de framing, momentum de sentimiento y presion narrativa.'
         },
         {
           title: 'Senales de Decision',
-          description: 'Senales estructuradas para inversores y equipos estrategicos.'
+          subtitle: 'Insights Accionables',
+          description:
+            'Convierte la dinamica emocional en senales claras para inversores, marcas y equipos estrategicos.'
         }
       ],
       closing:
-        'Menos ruido. Mas contexto para actuar.',
+        'Del capture de senal a la decision, cada capa esta disenada para claridad estrategica.',
       frameworkTitle: 'Mapa de Senal Emocional',
       frameworkSubtitle:
-        'Perfilado emocional multidimensional de narrativas publicas.',
+        'Mapeo de emociones reales sobre narrativas publicas en vivo.',
       radarLabels: {
-        top: 'Intensidad',
-        topRight: 'Sentimiento',
-        right: 'Volatilidad',
-        bottom: 'Activacion',
-        bottomLeft: 'Claridad',
-        left: 'Confianza'
+        top: 'Enojo',
+        topRight: 'Entusiasmo',
+        right: 'Apoyo',
+        bottom: 'Esperanza',
+        bottomLeft: 'Escepticismo',
+        left: 'Decepcion'
       }
     },
     opportunity: {
@@ -701,8 +717,8 @@ export function LandingPage() {
               <p className="text-[11px] uppercase tracking-[0.2em] text-[#8C97A8]">{t.problem.eyebrow}</p>
               <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.problem.title}</h2>
               <div className="mt-6 max-w-4xl space-y-4">
-                <p className="text-lg font-medium leading-relaxed text-white/95 md:text-2xl md:leading-[1.35]">{t.problem.thesisLead}</p>
-                <p className="text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.problem.thesisBody}</p>
+                <p className="text-lg font-medium leading-relaxed text-white/95 md:text-xl md:leading-[1.4]">{t.problem.thesisLead}</p>
+                <p className="text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.problem.thesisBody}</p>
               </div>
 
               <div className="mt-10 rounded-3xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-6">
@@ -764,23 +780,42 @@ export function LandingPage() {
                 <SectionHeaderAccent icon={BrainCircuit} tone="cyan" />
                 <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.solution.title}</h2>
                 <p className="mt-6 text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.solution.intro}</p>
-                <div className="mt-7 grid gap-4 sm:grid-cols-2">
-                  {t.solution.pipeline.map((step, index) => (
-                    <article key={step.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                      <div className="mb-3 flex items-center gap-2">
-                        <GradientIcon
-                          icon={[Activity, BrainCircuit, Radar, Target][index] ?? Activity}
-                          tone={(['cyan', 'purple', 'pink', 'blue'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
-                          className="h-7 w-7"
-                          size={12}
-                        />
-                        <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
+                <div className="mt-8 grid gap-4 md:grid-cols-4">
+                  {t.solution.pipeline.map((step, index) => {
+                    const isLast = index === t.solution.pipeline.length - 1;
+                    return (
+                      <div key={step.title} className="relative">
+                        <article className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                          <div className="mb-3 flex items-start gap-2.5">
+                            <GradientIcon
+                              icon={[MessageCircle, BrainCircuit, Radar, Target][index] ?? Activity}
+                              tone={(['blue', 'purple', 'pink', 'cyan'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
+                              className="h-7 w-7"
+                              size={12}
+                            />
+                            <div>
+                              <p className="text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">{step.subtitle}</p>
+                              <h3 className="mt-1 text-sm font-semibold tracking-tight text-white">{step.title}</h3>
+                            </div>
+                          </div>
+                          <p className="text-xs leading-relaxed text-[#AAB4C2] md:text-sm">{step.description}</p>
+                        </article>
+                        {!isLast ? (
+                          <>
+                            <div className="pointer-events-none absolute -right-5 top-1/2 hidden -translate-y-1/2 items-center gap-1 md:flex">
+                              <span className="h-px w-5 bg-[linear-gradient(90deg,rgba(154,51,255,0.24),rgba(20,199,229,0.78))]" />
+                              <ArrowRight className="h-3.5 w-3.5 text-[#9A33FF]/85 drop-shadow-[0_0_10px_rgba(154,51,255,0.45)]" />
+                            </div>
+                            <div className="pointer-events-none mt-3 flex justify-center md:hidden">
+                              <ArrowRight className="h-4 w-4 rotate-90 text-[#9A33FF]/80" />
+                            </div>
+                          </>
+                        ) : null}
                       </div>
-                      <p className="text-xs leading-relaxed text-[#AAB4C2] md:text-sm">{step.description}</p>
-                    </article>
-                  ))}
+                    );
+                  })}
                 </div>
-                <p className="mt-7 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.closing}</p>
+                <p className="mt-8 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.closing}</p>
               </article>
 
               <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-6 md:p-8" style={{ animationDelay: '80ms' }}>
