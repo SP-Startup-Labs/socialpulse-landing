@@ -35,7 +35,6 @@ import { GradientIcon } from './visuals/GradientIcon';
 import { ProblemSignalField } from './visuals/ProblemSignalField';
 import { RadarPulse } from './visuals/RadarPulse';
 import { SignalEngine } from './visuals/SignalEngine';
-import { SignalSparkline } from './visuals/SignalSparkline';
 
 type LocalizedContent = {
   brandTagline: string;
@@ -362,7 +361,7 @@ const content: Record<Language, LocalizedContent> = {
           items: [
             'Functional MVP with real-time sentiment analysis, first dashboard and reputation comparison.',
             'Languages supported: English and Spanish.',
-            '\u{1F3AF} Target: 500 active users'
+            'Target: 500 active users'
           ]
         },
         {
@@ -370,7 +369,7 @@ const content: Record<Language, LocalizedContent> = {
           horizon: '3-9 months',
           items: [
             'User personalization and new NLP models trained by sector: sports, brands, politics, entertainment and research.',
-            '\u{1F3AF} Target: 10K active users'
+            'Target: 10K active users'
           ]
         },
         {
@@ -378,7 +377,7 @@ const content: Record<Language, LocalizedContent> = {
           horizon: '9-15 months',
           items: [
             'Launch of reputation prediction engine and public B2B API.',
-            '\u{1F3AF} Target: 25K users + 500 paying members'
+            'Target: 25K users + 500 paying members'
           ]
         },
         {
@@ -386,7 +385,7 @@ const content: Record<Language, LocalizedContent> = {
           horizon: '15-24 months',
           items: [
             'International expansion and multilingual platform (portuguese, italian, french and asian languages).',
-            '\u{1F3AF} Target: 50K users + 3K paying members'
+            'Target: 50K users + 3K paying members'
           ]
         }
       ]
@@ -635,7 +634,7 @@ const content: Record<Language, LocalizedContent> = {
           items: [
             'MVP funcional con analisis de sentimiento en tiempo real, primer dashboard y comparacion de reputacion.',
             'Idiomas soportados: ingles y espanol.',
-            '\u{1F3AF} Meta: 500 usuarios activos'
+            'Meta: 500 usuarios activos'
           ]
         },
         {
@@ -643,7 +642,7 @@ const content: Record<Language, LocalizedContent> = {
           horizon: '3-9 meses',
           items: [
             'Personalizacion de usuario y nuevos modelos NLP entrenados por sector: deportes, marcas, politica, entretenimiento e investigacion.',
-            '\u{1F3AF} Meta: 10K usuarios activos'
+            'Meta: 10K usuarios activos'
           ]
         },
         {
@@ -651,7 +650,7 @@ const content: Record<Language, LocalizedContent> = {
           horizon: '9-15 meses',
           items: [
             'Lanzamiento del motor de prediccion reputacional y API B2B publica.',
-            '\u{1F3AF} Meta: 25K usuarios + 500 miembros de pago'
+            'Meta: 25K usuarios + 500 miembros de pago'
           ]
         },
         {
@@ -659,7 +658,7 @@ const content: Record<Language, LocalizedContent> = {
           horizon: '15-24 meses',
           items: [
             'Expansion internacional y plataforma multilingue (portugues, italiano, frances y lenguas asiaticas).',
-            '\u{1F3AF} Meta: 50K usuarios + 3K miembros de pago'
+            'Meta: 50K usuarios + 3K miembros de pago'
           ]
         }
       ]
@@ -753,13 +752,13 @@ function PipelineMicroVisual({ stepIndex }: { stepIndex: number }) {
           <div className="capture-post-head">
             <span className="capture-avatar" />
             <div className="flex-1 space-y-1">
-              <span className="capture-line capture-line-user" />
-              <span className="capture-line capture-line-handle" />
+              <span className="capture-line capture-line-type capture-line-type-user capture-line-user" />
+              <span className="capture-line capture-line-type capture-line-type-handle capture-line-handle" />
             </div>
           </div>
           <div className="mt-2 space-y-1.5">
-            <span className="capture-line capture-line-body-a" />
-            <span className="capture-line capture-line-body-b" />
+            <span className="capture-line capture-line-type capture-line-type-body-a capture-line-body-a" />
+            <span className="capture-line capture-line-type capture-line-type-body-b capture-line-body-b" />
           </div>
           <div className="capture-post-foot">
             <span className="capture-line capture-line-time" />
@@ -775,7 +774,7 @@ function PipelineMicroVisual({ stepIndex }: { stepIndex: number }) {
         <article className="capture-reply-row">
           <span className="capture-reply-avatar" />
           <div className="capture-reply-compose">
-            <span className="capture-line capture-reply-line" />
+            <span className="capture-line capture-line-type capture-line-type-reply capture-reply-line" />
             <span className="capture-reply-cursor" />
             <span className="capture-reply-typing">
               <span className="capture-reply-dot" />
@@ -856,92 +855,6 @@ function PipelineMicroVisual({ stepIndex }: { stepIndex: number }) {
   );
 }
 
-function RevenueMetricMiniGraph({ index }: { index: number }) {
-  if (index === 0) {
-    return (
-      <div className="revenue-metric-graph revenue-metric-graph-line">
-        <svg className="h-full w-full" viewBox="0 0 160 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path className="revenue-metric-line-glow" d="M2 38 C16 34, 26 30, 38 32 C50 34, 62 42, 78 34 C94 26, 108 16, 124 20 C138 23, 150 28, 158 18" />
-          <path className="revenue-metric-line-main" d="M2 38 C16 34, 26 30, 38 32 C50 34, 62 42, 78 34 C94 26, 108 16, 124 20 C138 23, 150 28, 158 18" />
-        </svg>
-        <span className="revenue-metric-line-dot" />
-      </div>
-    );
-  }
-
-  if (index === 1) {
-    return (
-      <div className="revenue-metric-graph revenue-metric-graph-bars">
-        {[42, 64, 56, 74, 62].map((height, barIndex) => (
-          <span key={height} className="revenue-metric-bar-wrap">
-            <span className="revenue-metric-bar" style={{ height: `${height}%`, animationDelay: `${barIndex * 180}ms` }} />
-          </span>
-        ))}
-      </div>
-    );
-  }
-
-  return (
-    <div className="revenue-metric-graph revenue-metric-graph-band">
-      <span className="revenue-metric-band-base" />
-      <span className="revenue-metric-band-fill" />
-      <span className="revenue-metric-band-pulse" />
-    </div>
-  );
-}
-
-function OpportunitySignalLogo({ label, leftLabel, rightLabel }: { label: string; leftLabel: string; rightLabel: string }) {
-  const wavePath = 'M92 46 C106 24, 122 68, 138 46 C154 24, 170 68, 186 46 C196 32, 204 56, 208 46';
-
-  return (
-    <div className="opportunity-signal-lockup" aria-hidden="true">
-      <svg className="h-[72px] w-[260px] md:w-[300px]" viewBox="0 0 300 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="opportunitySignalGradient" x1="92" y1="46" x2="208" y2="46" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#F2398A" />
-            <stop offset="0.3" stopColor="#9A33FF" />
-            <stop offset="0.56" stopColor="#3A31FF" />
-            <stop offset="0.78" stopColor="#246BFF" />
-            <stop offset="1" stopColor="#14C7E5" />
-          </linearGradient>
-          <linearGradient id="opportunitySignalRailLeft" x1="6" y1="46" x2="92" y2="46" gradientUnits="userSpaceOnUse">
-            <stop stopColor="rgba(170,180,194,0.14)" />
-            <stop offset="1" stopColor="rgba(154,51,255,0.9)" />
-          </linearGradient>
-          <linearGradient id="opportunitySignalRailRight" x1="208" y1="46" x2="294" y2="46" gradientUnits="userSpaceOnUse">
-            <stop stopColor="rgba(20,199,229,0.85)" />
-            <stop offset="1" stopColor="rgba(170,180,194,0.14)" />
-          </linearGradient>
-        </defs>
-        <text className="opportunity-signal-side-label opportunity-signal-side-label-left" x="6" y="24">
-          {leftLabel}
-        </text>
-        <text className="opportunity-signal-side-label opportunity-signal-side-label-right" x="294" y="24" textAnchor="end">
-          {rightLabel}
-        </text>
-        <path id="opportunityWaveTrack" d={wavePath} fill="none" stroke="none" />
-        <path className="opportunity-signal-rail opportunity-signal-rail-left" d="M6 46 H92" />
-        <path className="opportunity-signal-rail opportunity-signal-rail-right" d="M208 46 H294" />
-
-        <g className="opportunity-wave-group">
-          <path className="opportunity-wave-base" d={wavePath} />
-          <path className="opportunity-wave-build" d={wavePath} />
-          <path className="opportunity-wave-glow" d={wavePath} />
-        </g>
-
-        {['#F2398A', '#9A33FF', '#3A31FF', '#246BFF', '#14C7E5'].map((color, index) => (
-          <circle key={color} className="opportunity-signal-node" r="2.4" fill={color}>
-            <animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.22;0.86;1" dur="4s" begin={`${index * 0.52}s`} repeatCount="indefinite" />
-            <animateMotion dur="4s" begin={`${index * 0.52}s`} rotate="auto" repeatCount="indefinite">
-              <mpath href="#opportunityWaveTrack" />
-            </animateMotion>
-          </circle>
-        ))}
-      </svg>
-      <p className="opportunity-signal-wordmark">{label}</p>
-    </div>
-  );
-}
 export function LandingPage() {
   const [lang, setLang] = useState<Language>('en');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -1012,8 +925,6 @@ export function LandingPage() {
           outputEmotionIndex: 'Emotion Index',
           outputNarrativePressure: 'Narrative Pressure',
           outputSignalMomentum: 'Signal Momentum',
-          socialAnalytics: 'social media analytics',
-          appliedEI: 'applied emotional intelligence',
           funnelFreemium: 'Freemium',
           funnelPaid: 'Paid',
           funnelExpansion: 'Expansion'
@@ -1031,8 +942,6 @@ export function LandingPage() {
           outputEmotionIndex: 'Indice Emocional',
           outputNarrativePressure: 'Presion Narrativa',
           outputSignalMomentum: 'Momentum de Senal',
-          socialAnalytics: 'analitica de social media',
-          appliedEI: 'inteligencia emocional aplicada',
           funnelFreemium: 'Freemium',
           funnelPaid: 'Pago',
           funnelExpansion: 'Expansion'
@@ -1180,15 +1089,15 @@ export function LandingPage() {
             <article className="floating-panel double-layer-panel animate-fade-up p-7 md:p-10">
               <SectionHeaderAccent icon={Activity} tone="pink" />
               <p className="text-[11px] uppercase tracking-[0.2em] text-[#8C97A8]">{t.problem.eyebrow}</p>
-              <h2 className="mt-2 text-4xl font-bold tracking-[-0.02em] md:text-5xl">{t.problem.title}</h2>
-              <div className="mt-7 max-w-4xl space-y-4">
+              <h2 className="mt-2 text-[2.6rem] font-bold leading-[1.05] tracking-[-0.02em] md:text-5xl">{t.problem.title}</h2>
+              <div className="mt-6 max-w-4xl space-y-3.5">
                 <p className="text-lg font-medium leading-relaxed text-white/95 md:text-xl md:leading-[1.4]">{t.problem.thesisLead}</p>
-                <p className="text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.problem.thesisBody}</p>
+                <p className="text-sm leading-relaxed text-[#AAB4C2] md:text-[15px]">{t.problem.thesisBody}</p>
               </div>
 
               <div className="mt-10 rounded-3xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-6">
-                <div className="grid gap-7 md:grid-cols-[1fr_auto_1fr] md:items-center">
-                  <div className="space-y-3 animate-fade-up" style={{ animationDelay: '30ms' }}>
+                <div className="grid gap-7 md:grid-cols-[0.86fr_1.16fr_1fr] md:items-center">
+                  <div className="space-y-3 animate-fade-up md:pr-2" style={{ animationDelay: '30ms' }}>
                     <p className="text-xs uppercase tracking-[0.18em] text-[#8C97A8]">{t.problem.traditionalLabel}</p>
                     <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
                       {t.problem.traditionalItems.map((item, index) => {
@@ -1203,7 +1112,7 @@ export function LandingPage() {
                     </div>
                   </div>
 
-                  <div className="mx-auto flex w-full max-w-[250px] flex-col items-center gap-3 text-center animate-fade-up" style={{ animationDelay: '150ms' }}>
+                  <div className="mx-auto flex w-full max-w-[320px] flex-col items-center gap-3 text-center animate-fade-up" style={{ animationDelay: '150ms' }}>
                     <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#AAB4C2]">{t.problem.transitionLabel}</p>
                     <div className="relative hidden h-9 w-[220px] md:block">
                       <div className="problem-flow-track absolute left-2 right-8 top-1/2 h-px -translate-y-1/2" />
@@ -1377,30 +1286,7 @@ export function LandingPage() {
                     ))}
                   </div>
                 </div>
-
-                <article className="floating-panel double-layer-panel mt-8 p-4 md:p-5">
-                  <div className="grid items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3">
-                      <div className="h-1 rounded-full bg-[linear-gradient(90deg,#F2398A,#9A33FF)]" />
-                      <p className="mt-2 text-xs font-medium text-white">{t.opportunity.positioning.leftTitle}</p>
-                      <p className="mt-1 text-[11px] text-[#AAB4C2]">{t.opportunity.positioning.leftSub}</p>
-                    </div>
-                    <div className="mx-auto flex items-center justify-center">
-                      <OpportunitySignalLogo
-                        label={t.opportunity.positioning.centerTitle}
-                        leftLabel={visualLabels.socialAnalytics}
-                        rightLabel={visualLabels.appliedEI}
-                      />
-                    </div>
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3">
-                      <div className="h-1 rounded-full bg-[linear-gradient(90deg,#246BFF,#14C7E5)]" />
-                      <p className="mt-2 text-xs font-medium text-white">{t.opportunity.positioning.rightTitle}</p>
-                      <p className="mt-1 text-[11px] text-[#AAB4C2]">{t.opportunity.positioning.rightSub}</p>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-center text-sm text-[#D2D9E2]">{t.opportunity.positioning.centerSub}</p>
-                </article>
-                <p className="mt-8 text-lg font-medium tracking-tight md:text-xl">{t.opportunity.thesis}</p>
+                <p className="mt-9 text-lg font-medium tracking-tight md:text-xl">{t.opportunity.thesis}</p>
               </div>
             </article>
           </section>
@@ -1450,27 +1336,32 @@ export function LandingPage() {
               {t.model.segments.map((segment, index) => (
                 <article
                   key={segment.title}
-                  className="floating-panel floating-panel-hover double-layer-panel animate-fade-up p-6"
+                  className="floating-panel floating-panel-hover double-layer-panel animate-fade-up p-5 md:p-6"
                   style={{ animationDelay: `${index * 90}ms` }}
                 >
-                  <div className="mb-4 flex items-center justify-between">
-                    <GradientIcon icon={[Users, LineChart, BriefcaseBusiness][index] ?? Users} tone={(['pink', 'blue', 'cyan'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'} />
-                    <SignalSparkline tone={(['pink', 'blue', 'cyan'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'} variant={index === 2 ? 'step' : 'smooth'} className="h-6 w-16" />
+                  <div className="mb-3 flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-lg font-semibold tracking-tight">{segment.title}</h3>
+                      <p className="mt-1.5 text-sm font-medium text-white/90">{segment.price}</p>
+                    </div>
+                    <GradientIcon
+                      icon={[Users, LineChart, BriefcaseBusiness][index] ?? Users}
+                      tone={(['pink', 'blue', 'cyan'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
+                      className="h-9 w-9 shrink-0"
+                      size={14}
+                    />
                   </div>
-                  <h3 className="text-lg font-semibold tracking-tight">{segment.title}</h3>
-                  <p className="mt-2 text-sm font-medium text-white/90">{segment.price}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{segment.detail}</p>
+                  <p className="text-sm leading-relaxed text-[#AAB4C2]">{segment.detail}</p>
                 </article>
               ))}
             </div>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              {t.model.economics.map((item, index) => (
-                <article key={item} className="floating-panel double-layer-panel animate-fade-up p-4" style={{ animationDelay: `${index * 70}ms` }}>
-                  <RevenueMetricMiniGraph index={index} />
-                  <p className="mt-3 text-sm leading-relaxed text-[#AAB4C2]">{item}</p>
-                </article>
-              ))}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#AAB4C2]">
+              <span>{visualLabels.funnelFreemium}</span>
+              <ArrowRight className="h-3.5 w-3.5 text-[#9A33FF]/80" />
+              <span>{visualLabels.funnelPaid}</span>
+              <ArrowRight className="h-3.5 w-3.5 text-[#9A33FF]/80" />
+              <span>{visualLabels.funnelExpansion}</span>
             </div>
           </section>
 

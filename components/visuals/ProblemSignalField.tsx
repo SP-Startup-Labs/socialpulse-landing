@@ -20,9 +20,9 @@ export function ProblemSignalField({ title, labels, className = '' }: ProblemSig
       <div className="grid items-stretch gap-3 sm:grid-cols-2">
         <article className="problem-signal-tile flex h-full min-h-[124px] flex-col rounded-2xl px-3 py-3.5">
           <div className="mb-2 flex h-12 items-center justify-center">
-            <div className="relative h-10 w-10">
-              <span className="problem-intensity-halo absolute inset-0 rounded-full" />
-              <span className="problem-intensity-orb absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+            <div className="problem-intensity-shell">
+              <span className="problem-intensity-halo" />
+              <span className="problem-intensity-orb" />
             </div>
           </div>
           <p className="text-center text-[11px] font-medium tracking-tight text-white/92">{signalLabels[0]}</p>

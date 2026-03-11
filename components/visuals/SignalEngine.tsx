@@ -16,19 +16,21 @@ const outputTones = ['pink', 'purple', 'blue'] as const;
 const outputSparklines = ['smooth', 'step', 'spike'] as const;
 
 const outputSignalIcons = [Radar, Activity, TrendingUp] as const;
-const inputParticles = Array.from({ length: 28 }, (_, index) => {
-  const row = index % 7;
-  const lane = Math.floor(index / 7);
-  const top = 7 + row * 12 + (lane % 2 === 0 ? 0 : 2);
-  const left = 4 + lane * 12 + (row % 2 === 0 ? 0 : 2);
-  const size = 2.8 + (index % 3) * 1.2;
-  const duration = 6.4 + (index % 6) * 0.55;
+const inputParticles = Array.from({ length: 44 }, (_, index) => {
+  const row = index % 11;
+  const lane = Math.floor(index / 11);
+  const top = 4 + row * 8.6 + (lane % 2 === 0 ? 0 : 1.8);
+  const left = 2 + lane * 9.4 + (row % 3) * 1.15;
+  const tier = index % 9;
+  const size = tier === 0 ? 7.2 : tier <= 2 ? 5.7 : tier <= 5 ? 4.2 : 2.8;
+  const duration = 6 + (index % 7) * 0.48;
   const delay = (index % 8) * 0.36;
-  const opacity = 0.28 + (index % 5) * 0.09;
-  const targetX = 150 + lane * 10 + (row % 3) * 4;
-  const targetY = (44 - top) * 1.3;
+  const opacity = tier === 0 ? 0.96 : tier <= 2 ? 0.78 : 0.38 + (index % 4) * 0.12;
+  const glow = tier === 0 ? 24 : tier <= 2 ? 18 : 10 + (index % 3) * 3;
+  const targetX = 158 + lane * 12 + (row % 4) * 2.4;
+  const targetY = (44 - top) * 1.22;
   const tone = ['#14C7E5', '#9A33FF', '#F2398A'][index % 3];
-  return { top, left, size, duration, delay, opacity, targetX, targetY, tone };
+  return { top, left, size, duration, delay, opacity, glow, targetX, targetY, tone };
 });
 
 function MiniRadarSignal({ className = '' }: { className?: string }) {
@@ -186,6 +188,7 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                     '--engine-target-x-near': `${(particle.targetX * 0.96).toFixed(2)}px`,
                     '--engine-target-y-near': `${(particle.targetY * 0.92).toFixed(2)}px`,
                     '--engine-opacity': particle.opacity,
+                    '--engine-glow': `${particle.glow}px`,
                     '--engine-tone': particle.tone
                   } as CSSProperties
                 }
@@ -218,7 +221,7 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
             <p className="mt-3 text-center text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">{labels.core}</p>
           </div>
 
-          <div className="absolute inset-x-2 bottom-12 grid grid-cols-3 gap-2 sm:inset-x-auto sm:bottom-auto sm:right-1 sm:top-14 sm:w-[188px] sm:grid-cols-1 sm:gap-3">
+          <div className="absolute inset-x-2 bottom-5 grid grid-cols-3 gap-2 sm:inset-x-auto sm:bottom-auto sm:right-1 sm:top-14 sm:w-[188px] sm:grid-cols-1 sm:gap-3">
             {labels.outputs.map((output, index) => (
               <article
                 key={output}
@@ -235,13 +238,6 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                 )}
               </article>
             ))}
-          </div>
-
-          <div className="absolute inset-x-3 bottom-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 backdrop-blur">
-            <p className="text-center text-[9px] uppercase tracking-[0.14em] text-[#AAB4C2]">
-              {labels.input} <span className="text-white/35">{'->'}</span> {labels.core} <span className="text-white/35">{'->'}</span> {labels.pressure}{' '}
-              <span className="text-white/35">{'->'}</span> {labels.index}
-            </p>
           </div>
         </div>
       </article>

@@ -133,7 +133,8 @@ body {
   border-radius: 9999px;
   background: radial-gradient(circle, var(--engine-tone, #14c7e5) 0%, rgba(9, 20, 38, 0) 68%);
   opacity: var(--engine-opacity, 0.45);
-  box-shadow: 0 0 16px rgba(154, 51, 255, 0.24);
+  mix-blend-mode: screen;
+  box-shadow: 0 0 var(--engine-glow, 14px) rgba(154, 51, 255, 0.35);
   animation: engineIngest var(--engine-duration, 7.2s) cubic-bezier(0.32, 0.72, 0.16, 1) infinite;
   animation-delay: var(--engine-delay, 0s);
 }
@@ -555,12 +556,27 @@ body {
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.33), 0 0 24px rgba(58, 49, 255, 0.16);
 }
 
+.problem-intensity-shell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 40px;
+  width: 40px;
+  margin: 0 auto;
+}
+
 .problem-intensity-halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
   background: radial-gradient(circle, rgba(154, 51, 255, 0.38) 0%, rgba(154, 51, 255, 0) 72%);
   animation: problemIntensityHalo 4.2s ease-in-out infinite;
 }
 
 .problem-intensity-orb {
+  position: absolute;
+  inset: 3px;
+  border-radius: 9999px;
   background: radial-gradient(circle, rgba(242, 57, 138, 0.8) 0%, rgba(154, 51, 255, 0.74) 45%, rgba(36, 107, 255, 0.4) 100%);
   box-shadow: 0 0 28px rgba(154, 51, 255, 0.46);
   animation: problemIntensityBreath 4.2s ease-in-out infinite;
@@ -1057,6 +1073,31 @@ body {
   animation: captureLinePulse 4.2s ease-in-out infinite;
 }
 
+.capture-line-type {
+  transform-origin: left center;
+  animation: captureLinePulse 4.2s ease-in-out infinite, captureTypeGrow 8.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.capture-line-type-user {
+  animation-delay: 0s, 0.1s;
+}
+
+.capture-line-type-handle {
+  animation-delay: 0.2s, 0.35s;
+}
+
+.capture-line-type-body-a {
+  animation-delay: 0.35s, 0.6s;
+}
+
+.capture-line-type-body-b {
+  animation-delay: 0.55s, 0.92s;
+}
+
+.capture-line-type-reply {
+  animation-delay: 0.25s, 1.35s;
+}
+
 .capture-line-user {
   width: 34%;
   height: 3px;
@@ -1184,6 +1225,27 @@ body {
   }
   50% {
     opacity: 0.88;
+  }
+}
+
+@keyframes captureTypeGrow {
+  0%,
+  12% {
+    transform: scaleX(0.08);
+    opacity: 0.32;
+  }
+  34% {
+    transform: scaleX(0.56);
+    opacity: 0.78;
+  }
+  55%,
+  72% {
+    transform: scaleX(1);
+    opacity: 0.92;
+  }
+  100% {
+    transform: scaleX(0.94);
+    opacity: 0.62;
   }
 }
 
