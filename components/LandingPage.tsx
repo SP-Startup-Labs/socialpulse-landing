@@ -340,33 +340,39 @@ const content: Record<Language, LocalizedContent> = {
       ]
     },
     roadmap: {
-      title: 'Strategic Roadmap',
+      title: 'Roadmap & Traction',
       phases: [
         {
-          title: 'Phase 1 – Validation & Traction',
-          horizon: 'Current',
+          title: 'MVP Launch',
+          horizon: '0-3 months',
           items: [
-            'Product stabilization and core emotional engine',
-            'Freemium validation and first paying users',
-            'Early adopters: creators and SMEs'
+            'Functional MVP with real-time sentiment analysis, first dashboard and reputation comparison.',
+            'Languages supported: English and Spanish.',
+            '\u{1F3AF} Target: 500 active users'
           ]
         },
         {
-          title: 'Phase 2 – Expansion',
-          horizon: '3–9 months',
+          title: 'Product Personalization',
+          horizon: '3-9 months',
           items: [
-            'Industry-specific templates and workflows',
-            'Pricing optimization and onboarding improvements',
-            'Additional platform integrations'
+            'User personalization and new NLP models trained by sector: sports, brands, politics, entertainment and research.',
+            '\u{1F3AF} Target: 10K active users'
           ]
         },
         {
-          title: 'Phase 3 – Scale',
-          horizon: '9–15 months',
+          title: 'Predictive Intelligence',
+          horizon: '9-15 months',
           items: [
-            'Advanced alert systems and executive reporting',
-            'API integrations and B2B partnerships',
-            'Operational scaling and infrastructure growth'
+            'Launch of reputation prediction engine and public B2B API.',
+            '\u{1F3AF} Target: 25K users + 500 paying members'
+          ]
+        },
+        {
+          title: 'Global Scale',
+          horizon: '15-24 months',
+          items: [
+            'International expansion and multilingual platform (portuguese, italian, french and asian languages).',
+            '\u{1F3AF} Target: 50K users + 3K paying members'
           ]
         }
       ]
@@ -602,33 +608,39 @@ const content: Record<Language, LocalizedContent> = {
       ]
     },
     roadmap: {
-      title: 'Roadmap Estrategico',
+      title: 'Roadmap y Traccion',
       phases: [
         {
-          title: 'Fase 1 - Validacion y Traccion',
-          horizon: 'Actual',
+          title: 'Lanzamiento MVP',
+          horizon: '0-3 meses',
           items: [
-            'Producto estable y motor emocional optimizado',
-            'Validacion del modelo freemium',
-            'Primeros usuarios pagos: creators y PyMEs'
+            'MVP funcional con analisis de sentimiento en tiempo real, primer dashboard y comparacion de reputacion.',
+            'Idiomas soportados: ingles y espanol.',
+            '\u{1F3AF} Meta: 500 usuarios activos'
           ]
         },
         {
-          title: 'Fase 2 - Expansion',
+          title: 'Personalizacion del Producto',
           horizon: '3-9 meses',
           items: [
-            'Plantillas por industria',
-            'Optimizacion de onboarding y pricing',
-            'Integracion con nuevas plataformas'
+            'Personalizacion de usuario y nuevos modelos NLP entrenados por sector: deportes, marcas, politica, entretenimiento e investigacion.',
+            '\u{1F3AF} Meta: 10K usuarios activos'
           ]
         },
         {
-          title: 'Fase 3 - Escala',
+          title: 'Inteligencia Predictiva',
           horizon: '9-15 meses',
           items: [
-            'Alertas avanzadas y reporting ejecutivo',
-            'API e integraciones B2B',
-            'Escalado de infraestructura'
+            'Lanzamiento del motor de prediccion reputacional y API B2B publica.',
+            '\u{1F3AF} Meta: 25K usuarios + 500 miembros de pago'
+          ]
+        },
+        {
+          title: 'Escala Global',
+          horizon: '15-24 meses',
+          items: [
+            'Expansion internacional y plataforma multilingue (portugues, italiano, frances y lenguas asiaticas).',
+            '\u{1F3AF} Meta: 50K usuarios + 3K miembros de pago'
           ]
         }
       ]
@@ -663,7 +675,9 @@ const secondaryButtonClass =
 const opportunityIcons: LucideIcon[] = [TrendingUp, BriefcaseBusiness, Users];
 const adoptionIcons: LucideIcon[] = [Users, Activity, BriefcaseBusiness, Radar, TrendingUp];
 const traditionalMetricIcons: LucideIcon[] = [ThumbsUp, Eye, MessageCircle, BarChart3, Zap];
-const roadmapIcons: LucideIcon[] = [Activity, LineChart, Target];
+const categoryTraditionalIcons: LucideIcon[] = [ThumbsUp, Eye, Users, Target];
+const categorySignalIcons: LucideIcon[] = [BrainCircuit, Activity, Radar, TrendingUp];
+const roadmapIcons: LucideIcon[] = [Activity, LineChart, Target, Target];
 const platformIcons: LucideIcon[] = [Activity, Radar, LineChart, Target];
 
 function SectionHeaderAccent({ icon, tone }: { icon: LucideIcon; tone: 'pink' | 'purple' | 'blue' | 'cyan' }) {
@@ -900,6 +914,35 @@ export function LandingPage() {
           funnelExpansion: 'Expansion'
         };
 
+  const categoryPositioningCopy =
+    lang === 'en'
+      ? {
+          title: 'CATEGORY POSITIONING',
+          headlineLine1: 'Most platforms measure engagement.',
+          headlineLine2: 'SocialPulse reveals emotional signals.',
+          subheadline:
+            'This is the moment that defines who will understand their audience - and who will only measure it.',
+          supporting:
+            'The next generation of social intelligence will separate those who measure audiences from those who understand them.',
+          traditional: ['Likes', 'Views', 'Reach', 'CTR'],
+          emotional: ['Emotion', 'Trust', 'Narrative Pressure', 'Momentum'],
+          bottomLead: 'From Social Media Analytics to',
+          bottomHighlight: 'Emotional Signal Intelligence.'
+        }
+      : {
+          title: 'POSICIONAMIENTO DE CATEGORIA',
+          headlineLine1: 'La mayoria de plataformas mide engagement.',
+          headlineLine2: 'SocialPulse revela senales emocionales.',
+          subheadline:
+            'Este es el momento que define quien entendera a su audiencia y quien solo la medira.',
+          supporting:
+            'La proxima generacion de inteligencia social separara a quienes miden audiencias de quienes realmente las entienden.',
+          traditional: ['Likes', 'Views', 'Alcance', 'CTR'],
+          emotional: ['Emocion', 'Confianza', 'Presion Narrativa', 'Momentum'],
+          bottomLead: 'De Social Media Analytics a',
+          bottomHighlight: 'Inteligencia de Senales Emocionales.'
+        };
+
   return (
     <>
       <div className="relative min-h-screen overflow-hidden bg-[#091426] text-white">
@@ -1097,6 +1140,96 @@ export function LandingPage() {
                 <div className="pointer-events-none absolute inset-x-[20%] -top-3 h-16 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.34)_0%,rgba(154,51,255,0)_72%)] blur-xl" />
                 <p className="relative text-lg font-semibold tracking-tight text-white md:text-2xl">{t.problem.conclusionLead}</p>
                 <p className="relative mt-2 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.problem.conclusionBody}</p>
+              </div>
+            </article>
+          </section>
+
+          <section id="category-positioning" className="section-wrap section-space">
+            <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-7 text-center md:p-10">
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(154,51,255,0.08),rgba(36,107,255,0.06),rgba(9,20,38,0.04))]" />
+              <div className="relative">
+                <p className="text-xs uppercase tracking-[0.2em] text-[#AAB4C2]">{categoryPositioningCopy.title}</p>
+                <h2 className="mx-auto mt-4 max-w-4xl text-3xl font-bold tracking-[-0.02em] md:text-5xl">
+                  {categoryPositioningCopy.headlineLine1}
+                  <span className="block">{categoryPositioningCopy.headlineLine2}</span>
+                </h2>
+                <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-[#AAB4C2] md:text-lg">{categoryPositioningCopy.subheadline}</p>
+                <p className="mx-auto mt-5 max-w-4xl text-sm leading-relaxed text-white/90 md:text-base">{categoryPositioningCopy.supporting}</p>
+
+                <div className="mt-10 rounded-3xl border border-white/10 bg-[linear-gradient(155deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-7">
+                  <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
+                    <div className="grid gap-2.5 sm:grid-cols-2 md:grid-cols-1">
+                      {categoryPositioningCopy.traditional.map((label, index) => {
+                        const Icon = categoryTraditionalIcons[index] ?? Activity;
+                        return (
+                          <div
+                            key={label}
+                            className="flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] px-3 py-2.5 text-xs text-[#7F8B9A] md:justify-start"
+                          >
+                            <Icon className="h-3.5 w-3.5 text-[#7F8B9A]/90" />
+                            <span>{label}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="mx-auto flex w-full max-w-[320px] items-center justify-center md:max-w-[360px]">
+                      <div className="category-signal-bridge relative hidden h-24 w-[340px] md:block">
+                        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 340 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <defs>
+                            <linearGradient id="categorySignalGradient" x1="0" y1="48" x2="340" y2="48" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="rgba(170,180,194,0.36)" />
+                              <stop offset="0.38" stopColor="rgba(170,180,194,0.22)" />
+                              <stop offset="0.62" stopColor="#9A33FF" />
+                              <stop offset="0.82" stopColor="#246BFF" />
+                              <stop offset="1" stopColor="#14C7E5" />
+                            </linearGradient>
+                          </defs>
+                          <path className="category-signal-wave-glow" d="M8 48 C52 36, 86 60, 128 48 C170 36, 212 60, 256 48 C286 40, 314 52, 332 48" />
+                          <path className="category-signal-wave" d="M8 48 C52 36, 86 60, 128 48 C170 36, 212 60, 256 48 C286 40, 314 52, 332 48" />
+                        </svg>
+                        <span className="category-signal-dot" />
+                      </div>
+
+                      <div className="category-signal-bridge-vertical relative h-24 w-10 md:hidden">
+                        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 40 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <defs>
+                            <linearGradient id="categorySignalGradientVertical" x1="20" y1="0" x2="20" y2="96" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="rgba(170,180,194,0.34)" />
+                              <stop offset="0.42" stopColor="rgba(170,180,194,0.2)" />
+                              <stop offset="0.68" stopColor="#9A33FF" />
+                              <stop offset="1" stopColor="#14C7E5" />
+                            </linearGradient>
+                          </defs>
+                          <path className="category-signal-wave-glow-v" d="M20 8 C14 22, 28 32, 20 48 C12 64, 30 72, 20 88" />
+                          <path className="category-signal-wave-v" d="M20 8 C14 22, 28 32, 20 48 C12 64, 30 72, 20 88" />
+                        </svg>
+                        <span className="category-signal-dot-v" />
+                      </div>
+                    </div>
+
+                    <div className="grid gap-2.5 sm:grid-cols-2 md:grid-cols-1">
+                      {categoryPositioningCopy.emotional.map((label, index) => {
+                        const Icon = categorySignalIcons[index] ?? Activity;
+                        return (
+                          <div
+                            key={label}
+                            className="category-emotional-chip flex items-center justify-center gap-2.5 rounded-xl border border-white/12 bg-white/[0.04] px-3 py-2.5 text-xs text-white md:justify-start"
+                            style={{ animationDelay: `${index * 480}ms` }}
+                          >
+                            <Icon className="h-3.5 w-3.5 text-white/90" />
+                            <span>{label}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                <p className="mt-8 text-lg font-medium tracking-tight md:text-2xl">
+                  {categoryPositioningCopy.bottomLead}{' '}
+                  <span className="gradient-text font-semibold">{categoryPositioningCopy.bottomHighlight}</span>
+                </p>
               </div>
             </article>
           </section>
@@ -1341,8 +1474,8 @@ export function LandingPage() {
               <SectionHeaderAccent icon={Target} tone="blue" />
               <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.roadmap.title}</h2>
             </div>
-            <div className="relative grid gap-5 md:grid-cols-3">
-              <div className="pointer-events-none absolute left-[8%] right-[8%] top-10 hidden h-px bg-[linear-gradient(90deg,rgba(242,57,138,0.2),rgba(154,51,255,0.75),rgba(20,199,229,0.2))] md:block" />
+            <div className="relative grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              <div className="pointer-events-none absolute left-[8%] right-[8%] top-10 hidden h-px bg-[linear-gradient(90deg,rgba(242,57,138,0.2),rgba(154,51,255,0.75),rgba(20,199,229,0.2))] xl:block" />
               {t.roadmap.phases.map((phase, index) => (
                 <article
                   key={phase.title}
@@ -1493,4 +1626,5 @@ export function LandingPage() {
     </>
   );
 }
+
 
