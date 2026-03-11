@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   Activity,
@@ -75,8 +75,30 @@ type LocalizedContent = {
   };
   opportunity: {
     title: string;
+    subtitle: string;
     intro: string;
-    stats: Array<{ value: string; label: string; detail: string }>;
+    categoryLead: string;
+    categorySub: string;
+    rows: Array<{
+      label: string;
+      cards: Array<{
+        value: string;
+        label: string;
+        detail: string;
+        countTo?: number;
+        countSuffix?: string;
+      }>;
+    }>;
+    adoptionTitle: string;
+    adoptionSegments: string[];
+    positioning: {
+      leftTitle: string;
+      leftSub: string;
+      rightTitle: string;
+      rightSub: string;
+      centerTitle: string;
+      centerSub: string;
+    };
     thesis: string;
   };
   model: {
@@ -203,15 +225,74 @@ const content: Record<Language, LocalizedContent> = {
       }
     },
     opportunity: {
-      title: 'Market Opportunity',
+      title: 'Emotion Is the Next Data Layer',
+      subtitle:
+        'Understanding audiences will define the next generation of digital intelligence.',
       intro:
-        'SocialPulse sits at the intersection of Social Media Analytics and Applied Emotional Intelligence.',
-      stats: [
-        { value: '>$60B', label: 'Social Media Analytics Market', detail: 'Projected by 2032' },
-        { value: '>$25B', label: 'Addressable SME Segment', detail: 'Businesses managing brand perception online' },
-        { value: '2', label: 'Primary Markets', detail: 'SMEs and professional creators' }
+        'SocialPulse defines a new category: Emotional Signal Intelligence.',
+      categoryLead:
+        'SocialPulse defines a new category: Emotional Signal Intelligence.',
+      categorySub:
+        'Positioned at the intersection of Social Media Analytics and Applied Emotional Intelligence.',
+      rows: [
+        {
+          label: 'SMEs and Agencies',
+          cards: [
+            {
+              value: '$61.9B',
+              label: 'Global Social Media Analytics Market',
+              detail: 'Projected by 2032',
+              countTo: 61.9,
+              countSuffix: 'B'
+            },
+            {
+              value: '$25.5B',
+              label: 'Serviceable Market',
+              detail: '(SMEs & Agencies managing brand perception)',
+              countTo: 25.5,
+              countSuffix: 'B'
+            },
+            {
+              value: '$25-50M',
+              label: 'Initial Target Market',
+              detail: 'Expected capture within 24-36 months'
+            }
+          ]
+        },
+        {
+          label: 'Creators & Influencers',
+          cards: [
+            {
+              value: '$14.9B',
+              label: 'Creator Economy Spending',
+              detail: 'Projected by 2032',
+              countTo: 14.9,
+              countSuffix: 'B'
+            },
+            {
+              value: '$0.6-1.2B',
+              label: 'Serviceable Analytics Market for Creators',
+              detail: ''
+            },
+            {
+              value: '$3-18M',
+              label: 'Initial Creator Segment Capture',
+              detail: ''
+            }
+          ]
+        }
       ],
-      thesis: 'One platform. Two expanding global markets.'
+      adoptionTitle: 'Primary Adoption Segments',
+      adoptionSegments: ['Creators', 'Brands', 'Agencies', 'Media', 'Investors'],
+      positioning: {
+        leftTitle: 'Traditional Social Analytics',
+        leftSub: '(Measures engagement)',
+        rightTitle: 'Applied Emotional Intelligence',
+        rightSub: '(Measures audience sentiment)',
+        centerTitle: 'SocialPulse',
+        centerSub: 'Transforms emotion into decision signals.'
+      },
+      thesis: 'One platform capturing value across two rapidly expanding global markets.'
     },
     model: {
       title: 'Business Model',
@@ -401,15 +482,74 @@ const content: Record<Language, LocalizedContent> = {
       }
     },
     opportunity: {
-      title: 'Oportunidad de Mercado',
+      title: 'La Emocion Es la Proxima Capa de Datos',
+      subtitle:
+        'Entender audiencias definira la proxima generacion de inteligencia digital.',
       intro:
-        'SocialPulse se posiciona entre la analitica de social media y la inteligencia emocional aplicada.',
-      stats: [
-        { value: '>$60B', label: 'Mercado de Social Media Analytics', detail: 'Proyeccion al 2032' },
-        { value: '>$25B', label: 'Segmento PyME direccionable', detail: 'Empresas que gestionan reputacion digital' },
-        { value: '2', label: 'Mercados iniciales', detail: 'PyMEs y economia creator' }
+        'SocialPulse define una nueva categoria: Inteligencia de Senales Emocionales.',
+      categoryLead:
+        'SocialPulse define una nueva categoria: Inteligencia de Senales Emocionales.',
+      categorySub:
+        'Posicionado en la interseccion entre Social Media Analytics e Inteligencia Emocional Aplicada.',
+      rows: [
+        {
+          label: 'PyMEs y Agencias',
+          cards: [
+            {
+              value: '$61.9B',
+              label: 'Mercado Global de Social Media Analytics',
+              detail: 'Proyeccion al 2032',
+              countTo: 61.9,
+              countSuffix: 'B'
+            },
+            {
+              value: '$25.5B',
+              label: 'Mercado Servible',
+              detail: '(PyMEs y agencias que gestionan percepcion de marca)',
+              countTo: 25.5,
+              countSuffix: 'B'
+            },
+            {
+              value: '$25-50M',
+              label: 'Mercado Objetivo Inicial',
+              detail: 'Captura esperada en 24-36 meses'
+            }
+          ]
+        },
+        {
+          label: 'Creators e Influencers',
+          cards: [
+            {
+              value: '$14.9B',
+              label: 'Gasto en Creator Economy',
+              detail: 'Proyeccion al 2032',
+              countTo: 14.9,
+              countSuffix: 'B'
+            },
+            {
+              value: '$0.6-1.2B',
+              label: 'Mercado Servible de Analitica para Creators',
+              detail: ''
+            },
+            {
+              value: '$3-18M',
+              label: 'Captura Inicial del Segmento Creator',
+              detail: ''
+            }
+          ]
+        }
       ],
-      thesis: 'Una plataforma. Dos mercados globales en expansion.'
+      adoptionTitle: 'Segmentos Primarios de Adopcion',
+      adoptionSegments: ['Creators', 'Marcas', 'Agencias', 'Medios', 'Inversores'],
+      positioning: {
+        leftTitle: 'Analitica Social Tradicional',
+        leftSub: '(Mide engagement)',
+        rightTitle: 'Inteligencia Emocional Aplicada',
+        rightSub: '(Mide sentimiento de audiencia)',
+        centerTitle: 'SocialPulse',
+        centerSub: 'Transforma emocion en senales de decision.'
+      },
+      thesis: 'Una plataforma que captura valor en dos mercados globales de rapido crecimiento.'
     },
     model: {
       title: 'Modelo de Negocio',
@@ -514,6 +654,7 @@ const secondaryButtonClass =
   'button-secondary inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm text-white transition';
 
 const opportunityIcons: LucideIcon[] = [TrendingUp, BriefcaseBusiness, Users];
+const adoptionIcons: LucideIcon[] = [Users, Activity, BriefcaseBusiness, Radar, TrendingUp];
 const traditionalMetricIcons: LucideIcon[] = [ThumbsUp, Eye, MessageCircle, BarChart3, Zap];
 const modelIcons: LucideIcon[] = [TrendingUp, BarChart3, Activity, LineChart];
 const roadmapIcons: LucideIcon[] = [Activity, LineChart, Target];
@@ -531,7 +672,58 @@ function SectionHeaderAccent({ icon, tone }: { icon: LucideIcon; tone: 'pink' | 
 export function LandingPage() {
   const [lang, setLang] = useState<Language>('en');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [opportunityInView, setOpportunityInView] = useState(false);
+  const [opportunityCountProgress, setOpportunityCountProgress] = useState(0);
+  const opportunitySectionRef = useRef<HTMLElement | null>(null);
   const t = content[lang];
+
+  useEffect(() => {
+    const target = opportunitySectionRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setOpportunityInView(true);
+        }
+      },
+      { threshold: 0.22 }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!opportunityInView) return;
+
+    let frame = 0;
+    const duration = 1200;
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      setOpportunityCountProgress(progress);
+      if (progress < 1) {
+        frame = requestAnimationFrame(tick);
+      }
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [opportunityInView]);
+
+  const formatOpportunityValue = (card: {
+    value: string;
+    countTo?: number;
+    countSuffix?: string;
+  }) => {
+    if (!card.countTo || !opportunityInView) return card.value;
+    const current = card.countTo * opportunityCountProgress;
+    return `$${current.toFixed(1)}${card.countSuffix ?? ''}`;
+  };
+
   const visualLabels =
     lang === 'en'
       ? {
@@ -830,7 +1022,7 @@ export function LandingPage() {
             </div>
           </section>
 
-          <section id="opportunity" className="section-wrap section-space">
+          <section id="opportunity" ref={opportunitySectionRef} className="section-wrap section-space">
             <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-7 md:p-12">
               <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(154,51,255,0.19),rgba(36,107,255,0.14),rgba(9,20,38,0.06))]" />
               <svg
@@ -853,53 +1045,79 @@ export function LandingPage() {
               <div className="relative">
                 <SectionHeaderAccent icon={TrendingUp} tone="blue" />
                 <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.opportunity.title}</h2>
-                <p className="mt-6 max-w-4xl text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.opportunity.intro}</p>
-                <div className="mt-10 grid gap-4 md:grid-cols-3">
-                  {t.opportunity.stats.map((stat, index) => (
-                    <article
-                      key={stat.label}
-                      className="floating-panel floating-panel-hover double-layer-panel animate-fade-up p-5 md:p-6"
-                      style={{ animationDelay: `${index * 80}ms` }}
-                    >
-                      <GradientIcon icon={opportunityIcons[index] ?? TrendingUp} tone={index === 0 ? 'purple' : index === 1 ? 'blue' : 'cyan'} />
-                      <p className="text-4xl font-semibold tracking-tight md:text-5xl">{stat.value}</p>
-                      <p className="mt-3 text-sm font-medium text-white">{stat.label}</p>
-                      <p className="mt-2 text-xs text-[#AAB4C2]">{stat.detail}</p>
-                    </article>
+                <p className="mt-4 max-w-4xl text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.opportunity.subtitle}</p>
+                <p className="mt-6 max-w-4xl text-sm leading-relaxed text-white/95 md:text-base">{t.opportunity.categoryLead}</p>
+                <p className="mt-2 max-w-4xl text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.opportunity.categorySub}</p>
+
+                <div className="mt-10 space-y-8">
+                  {t.opportunity.rows.map((row, rowIndex) => (
+                    <div key={row.label}>
+                      <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">{row.label}</p>
+                      <div className="mt-4 grid gap-4 md:grid-cols-3">
+                        {row.cards.map((card, index) => (
+                          <article
+                            key={`${row.label}-${card.label}`}
+                            className="floating-panel floating-panel-hover double-layer-panel animate-fade-up p-5 md:p-6"
+                            style={{ animationDelay: `${rowIndex * 80 + index * 70}ms` }}
+                          >
+                            <GradientIcon
+                              icon={opportunityIcons[index] ?? TrendingUp}
+                              tone={
+                                (rowIndex === 0
+                                  ? (['purple', 'blue', 'cyan'][index] ?? 'purple')
+                                  : (['pink', 'purple', 'blue'][index] ?? 'purple')) as 'pink' | 'purple' | 'blue' | 'cyan'
+                              }
+                            />
+                            <p className="text-4xl font-semibold tracking-tight md:text-5xl">{formatOpportunityValue(card)}</p>
+                            <p className="mt-3 text-sm font-medium text-white">{card.label}</p>
+                            {card.detail ? <p className="mt-2 text-xs text-[#AAB4C2]">{card.detail}</p> : null}
+                          </article>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
-                <p className="mt-8 text-lg font-medium tracking-tight md:text-xl">{t.opportunity.thesis}</p>
+
+                <div className="mt-10">
+                  <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">{t.opportunity.adoptionTitle}</p>
+                  <div className="mt-4 flex flex-wrap gap-2.5">
+                    {t.opportunity.adoptionSegments.map((segment, index) => (
+                      <span key={segment} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs text-[#D2D9E2]">
+                        <GradientIcon
+                          icon={adoptionIcons[index] ?? Users}
+                          tone={(['pink', 'purple', 'blue', 'cyan', 'purple'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
+                          className="h-5 w-5"
+                          size={10}
+                        />
+                        {segment}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
                 <article className="floating-panel double-layer-panel mt-8 p-4 md:p-5">
                   <div className="grid items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
                     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3">
                       <div className="h-1 rounded-full bg-[linear-gradient(90deg,#F2398A,#9A33FF)]" />
-                      <p className="mt-2 text-xs text-[#AAB4C2]">{visualLabels.socialAnalytics}</p>
+                      <p className="mt-2 text-xs font-medium text-white">{t.opportunity.positioning.leftTitle}</p>
+                      <p className="mt-1 text-[11px] text-[#AAB4C2]">{t.opportunity.positioning.leftSub}</p>
                     </div>
-                    <svg
-                      className="mx-auto"
-                      width="76"
-                      height="44"
-                      viewBox="0 0 76 44"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                    >
-                      <path d="M4 8 C22 12, 22 32, 38 22" stroke="#9A33FF" strokeWidth="2" />
-                      <path d="M4 36 C22 32, 22 12, 38 22" stroke="#14C7E5" strokeWidth="2" />
-                      <path d="M38 22 H72" stroke="url(#mergeStream)" strokeWidth="2" />
-                      <defs>
-                        <linearGradient id="mergeStream" x1="38" y1="22" x2="72" y2="22" gradientUnits="userSpaceOnUse">
-                          <stop stopColor="#9A33FF" />
-                          <stop offset="1" stopColor="#246BFF" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
+                    <div className="mx-auto flex items-center gap-2">
+                      <span className="h-px w-8 bg-[linear-gradient(90deg,rgba(242,57,138,0.2),rgba(154,51,255,0.85))]" />
+                      <span className="rounded-full border border-[#9A33FF]/40 bg-[#9A33FF]/14 px-3 py-1 text-xs font-medium text-white">
+                        {t.opportunity.positioning.centerTitle}
+                      </span>
+                      <span className="h-px w-8 bg-[linear-gradient(90deg,rgba(154,51,255,0.85),rgba(36,107,255,0.4))]" />
+                    </div>
                     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3">
                       <div className="h-1 rounded-full bg-[linear-gradient(90deg,#246BFF,#14C7E5)]" />
-                      <p className="mt-2 text-xs text-[#AAB4C2]">{visualLabels.appliedEI}</p>
+                      <p className="mt-2 text-xs font-medium text-white">{t.opportunity.positioning.rightTitle}</p>
+                      <p className="mt-1 text-[11px] text-[#AAB4C2]">{t.opportunity.positioning.rightSub}</p>
                     </div>
                   </div>
+                  <p className="mt-4 text-center text-sm text-[#D2D9E2]">{t.opportunity.positioning.centerSub}</p>
                 </article>
+                <p className="mt-8 text-lg font-medium tracking-tight md:text-xl">{t.opportunity.thesis}</p>
               </div>
             </article>
           </section>
