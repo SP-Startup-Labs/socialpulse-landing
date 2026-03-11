@@ -7,6 +7,8 @@
 }
 
 body {
+<<<<<<< ours
+<<<<<<< ours
   @apply bg-[#091426] text-white antialiased;
   font-family: var(--font-inter), Inter, sans-serif;
   line-height: 1.55;
@@ -14,6 +16,18 @@ body {
 
 .section-wrap {
   @apply mx-auto w-full max-w-6xl px-6 md:px-8;
+=======
+=======
+>>>>>>> theirs
+  @apply bg-brand-dark text-brand-light antialiased;
+}
+
+.section-wrap {
+  @apply mx-auto w-full max-w-6xl px-6;
+<<<<<<< ours
+>>>>>>> theirs
+=======
+>>>>>>> theirs
 }
 
 .glass-card {
@@ -23,6 +37,8 @@ body {
 .gradient-text {
   @apply bg-brand-gradient bg-clip-text text-transparent;
 }
+<<<<<<< ours
+<<<<<<< ours
 
 .animate-fade-up {
   animation: fadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -1713,3 +1729,7 @@ body {
     transform: none;
   }
 }
+=======
+>>>>>>> theirs
+=======
+>>>>>>> theirs
