@@ -818,6 +818,59 @@ function RevenueMetricMiniGraph({ index }: { index: number }) {
   );
 }
 
+function OpportunitySignalLogo({ label, leftLabel, rightLabel }: { label: string; leftLabel: string; rightLabel: string }) {
+  const wavePath = 'M92 46 C106 24, 122 68, 138 46 C154 24, 170 68, 186 46 C196 32, 204 56, 208 46';
+
+  return (
+    <div className="opportunity-signal-lockup" aria-hidden="true">
+      <svg className="h-[72px] w-[260px] md:w-[300px]" viewBox="0 0 300 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="opportunitySignalGradient" x1="92" y1="46" x2="208" y2="46" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#F2398A" />
+            <stop offset="0.3" stopColor="#9A33FF" />
+            <stop offset="0.56" stopColor="#3A31FF" />
+            <stop offset="0.78" stopColor="#246BFF" />
+            <stop offset="1" stopColor="#14C7E5" />
+          </linearGradient>
+          <linearGradient id="opportunitySignalRailLeft" x1="6" y1="46" x2="92" y2="46" gradientUnits="userSpaceOnUse">
+            <stop stopColor="rgba(170,180,194,0.14)" />
+            <stop offset="1" stopColor="rgba(154,51,255,0.9)" />
+          </linearGradient>
+          <linearGradient id="opportunitySignalRailRight" x1="208" y1="46" x2="294" y2="46" gradientUnits="userSpaceOnUse">
+            <stop stopColor="rgba(20,199,229,0.85)" />
+            <stop offset="1" stopColor="rgba(170,180,194,0.14)" />
+          </linearGradient>
+        </defs>
+        <text className="opportunity-signal-side-label opportunity-signal-side-label-left" x="6" y="24">
+          {leftLabel}
+        </text>
+        <text className="opportunity-signal-side-label opportunity-signal-side-label-right" x="294" y="24" textAnchor="end">
+          {rightLabel}
+        </text>
+        <path id="opportunityWaveTrack" d={wavePath} fill="none" stroke="none" />
+        <path className="opportunity-signal-rail opportunity-signal-rail-left" d="M6 46 H92" />
+        <path className="opportunity-signal-rail opportunity-signal-rail-right" d="M208 46 H294" />
+
+        <g className="opportunity-wave-group">
+          <path className="opportunity-wave-base" d={wavePath} />
+          <path className="opportunity-wave-build" d={wavePath} />
+          <path className="opportunity-wave-glow" d={wavePath} />
+        </g>
+
+        {['#F2398A', '#9A33FF', '#3A31FF', '#246BFF', '#14C7E5'].map((color, index) => (
+          <circle key={color} className="opportunity-signal-node" r="2.4" fill={color}>
+            <animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.22;0.86;1" dur="4s" begin={`${index * 0.52}s`} repeatCount="indefinite" />
+            <animateMotion dur="4s" begin={`${index * 0.52}s`} rotate="auto" repeatCount="indefinite">
+              <mpath href="#opportunityWaveTrack" />
+            </animateMotion>
+          </circle>
+        ))}
+      </svg>
+      <p className="opportunity-signal-wordmark">{label}</p>
+    </div>
+  );
+}
+
 export function LandingPage() {
   const [lang, setLang] = useState<Language>('en');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -1380,12 +1433,12 @@ export function LandingPage() {
                       <p className="mt-2 text-xs font-medium text-white">{t.opportunity.positioning.leftTitle}</p>
                       <p className="mt-1 text-[11px] text-[#AAB4C2]">{t.opportunity.positioning.leftSub}</p>
                     </div>
-                    <div className="mx-auto flex items-center gap-2">
-                      <span className="h-px w-8 bg-[linear-gradient(90deg,rgba(242,57,138,0.2),rgba(154,51,255,0.85))]" />
-                      <span className="rounded-full border border-[#9A33FF]/40 bg-[#9A33FF]/14 px-3 py-1 text-xs font-medium text-white">
-                        {t.opportunity.positioning.centerTitle}
-                      </span>
-                      <span className="h-px w-8 bg-[linear-gradient(90deg,rgba(154,51,255,0.85),rgba(36,107,255,0.4))]" />
+                    <div className="mx-auto flex items-center justify-center">
+                      <OpportunitySignalLogo
+                        label={t.opportunity.positioning.centerTitle}
+                        leftLabel={visualLabels.socialAnalytics}
+                        rightLabel={visualLabels.appliedEI}
+                      />
                     </div>
                     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3">
                       <div className="h-1 rounded-full bg-[linear-gradient(90deg,#246BFF,#14C7E5)]" />

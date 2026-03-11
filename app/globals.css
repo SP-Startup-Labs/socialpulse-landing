@@ -713,6 +713,200 @@ body {
   }
 }
 
+.opportunity-signal-lockup {
+  display: flex;
+  min-width: 260px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.opportunity-signal-side-label {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  fill: rgba(170, 180, 194, 0.74);
+}
+
+.opportunity-signal-side-label-left {
+  opacity: 0.76;
+}
+
+.opportunity-signal-side-label-right {
+  opacity: 0.8;
+}
+
+.opportunity-signal-rail,
+.opportunity-wave-base,
+.opportunity-wave-build,
+.opportunity-wave-glow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.opportunity-signal-rail-left {
+  stroke: url(#opportunitySignalRailLeft);
+  stroke-width: 1.5;
+  stroke-dasharray: 40 84;
+  animation: opportunitySignalRailLeft 4s linear infinite;
+}
+
+.opportunity-signal-rail-right {
+  stroke: url(#opportunitySignalRailRight);
+  stroke-width: 1.5;
+  stroke-dasharray: 40 84;
+  animation: opportunitySignalRailRight 4s linear infinite;
+}
+
+.opportunity-wave-group {
+  transform-origin: center;
+  animation: opportunityWaveBreathe 4s ease-in-out infinite;
+}
+
+.opportunity-wave-base {
+  stroke: rgba(170, 180, 194, 0.26);
+  stroke-width: 1.7;
+}
+
+.opportunity-wave-build {
+  stroke: url(#opportunitySignalGradient);
+  stroke-width: 2.2;
+  stroke-dasharray: 24 210;
+  stroke-dashoffset: 0;
+  opacity: 0.2;
+  animation: opportunityWaveForm 4s ease-in-out infinite;
+}
+
+.opportunity-wave-glow {
+  stroke: url(#opportunitySignalGradient);
+  stroke-width: 5.4;
+  opacity: 0.18;
+  filter: blur(2px);
+  stroke-dasharray: 24 210;
+  stroke-dashoffset: 0;
+  animation: opportunityWaveGlow 4s ease-in-out infinite;
+}
+
+.opportunity-signal-node {
+  filter: drop-shadow(0 0 10px rgba(58, 49, 255, 0.45));
+  opacity: 0;
+}
+
+.opportunity-signal-wordmark {
+  margin-top: -2px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  animation: opportunityWordmarkReveal 4s ease-in-out infinite;
+}
+
+@keyframes opportunitySignalRailLeft {
+  0% {
+    stroke-dashoffset: 84;
+    opacity: 0.2;
+  }
+  45% {
+    opacity: 0.82;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.25;
+  }
+}
+
+@keyframes opportunitySignalRailRight {
+  0% {
+    stroke-dashoffset: -84;
+    opacity: 0.2;
+  }
+  45% {
+    opacity: 0.82;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.25;
+  }
+}
+
+@keyframes opportunityWaveForm {
+  0% {
+    stroke-dasharray: 10 220;
+    stroke-dashoffset: 18;
+    opacity: 0.08;
+  }
+  28% {
+    stroke-dasharray: 92 220;
+    stroke-dashoffset: 10;
+    opacity: 0.45;
+  }
+  58% {
+    stroke-dasharray: 180 220;
+    stroke-dashoffset: 2;
+    opacity: 0.9;
+  }
+  78% {
+    stroke-dasharray: 220 220;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 26 220;
+    stroke-dashoffset: -8;
+    opacity: 0.22;
+  }
+}
+
+@keyframes opportunityWaveGlow {
+  0% {
+    opacity: 0.06;
+    stroke-dasharray: 12 220;
+  }
+  58% {
+    opacity: 0.26;
+    stroke-dasharray: 180 220;
+  }
+  78% {
+    opacity: 0.34;
+    stroke-dasharray: 220 220;
+  }
+  100% {
+    opacity: 0.08;
+    stroke-dasharray: 26 220;
+  }
+}
+
+@keyframes opportunityWaveBreathe {
+  0%,
+  100% {
+    transform: translateY(0) scaleY(0.98);
+  }
+  74% {
+    transform: translateY(-0.4px) scaleY(1.03);
+  }
+}
+
+@keyframes opportunityWordmarkReveal {
+  0%,
+  46% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  62%,
+  84% {
+    opacity: 0.95;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0.28;
+    transform: translateY(1px);
+  }
+}
+
 .solution-thread-glow {
   background: linear-gradient(90deg, rgba(20, 199, 229, 0.34), rgba(20, 199, 229, 0));
   filter: blur(6px);
@@ -1579,6 +1773,12 @@ body {
   .category-signal-dot,
   .category-signal-dot-v,
   .category-emotional-chip,
+  .opportunity-signal-rail-left,
+  .opportunity-signal-rail-right,
+  .opportunity-wave-group,
+  .opportunity-wave-build,
+  .opportunity-wave-glow,
+  .opportunity-signal-wordmark,
   .solution-thread-glow,
   .solution-thread-message,
   .solution-thread-text,
@@ -1609,5 +1809,14 @@ body {
   .radar-center-pulse,
   .radar-particle {
     animation: none;
+  }
+
+  .opportunity-signal-node {
+    display: none;
+  }
+
+  .opportunity-signal-wordmark {
+    opacity: 0.95;
+    transform: none;
   }
 }
