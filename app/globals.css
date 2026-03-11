@@ -578,6 +578,433 @@ body {
   }
 }
 
+.solution-social-glow {
+  animation: solutionSocialGlow 7.2s ease-in-out infinite;
+}
+
+.solution-social-bubble {
+  opacity: 0.28;
+}
+
+.solution-social-bubble-a {
+  animation: solutionSocialBubble 8.4s ease-in-out infinite;
+}
+
+.solution-social-bubble-b {
+  animation: solutionSocialBubble 8.4s ease-in-out infinite 1.2s;
+}
+
+.solution-social-bubble-c {
+  animation: solutionSocialBubble 8.4s ease-in-out infinite 2.4s;
+}
+
+.solution-social-flow {
+  box-shadow: 0 0 12px rgba(154, 51, 255, 0.4);
+  animation: solutionSocialFlow 5.8s linear infinite;
+}
+
+.solution-typing-dot {
+  animation: solutionTypingDot 1.9s ease-in-out infinite;
+}
+
+.solution-typing-dot-b {
+  animation-delay: 0.24s;
+}
+
+.solution-typing-dot-c {
+  animation-delay: 0.48s;
+}
+
+@keyframes solutionSocialGlow {
+  0%,
+  100% {
+    opacity: 0.14;
+    transform: translateX(-3px);
+  }
+  50% {
+    opacity: 0.34;
+    transform: translateX(3px);
+  }
+}
+
+@keyframes solutionSocialBubble {
+  0% {
+    opacity: 0.18;
+    transform: translateX(-6px);
+  }
+  35% {
+    opacity: 0.58;
+    transform: translateX(0);
+  }
+  70% {
+    opacity: 0.44;
+    transform: translateX(5px);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translateX(8px);
+  }
+}
+
+@keyframes solutionSocialFlow {
+  0% {
+    transform: translateX(-2px);
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(112px);
+    opacity: 0;
+  }
+}
+
+@keyframes solutionTypingDot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0) scale(0.92);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-1px) scale(1);
+  }
+}
+
+.solution-emotion-core {
+  box-shadow: 0 0 24px rgba(154, 51, 255, 0.35);
+  animation: solutionEmotionCore 5.8s ease-in-out infinite;
+}
+
+.solution-emotion-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  margin-left: -22px;
+  margin-top: -22px;
+  animation: solutionEmotionOrbit 13s linear infinite;
+}
+
+.solution-emotion-orbit-b {
+  width: 52px;
+  height: 52px;
+  margin-left: -26px;
+  margin-top: -26px;
+  animation-duration: 16s;
+  animation-direction: reverse;
+}
+
+.solution-emotion-orbit-c {
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  animation-duration: 18s;
+}
+
+.solution-emotion-particle {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  box-shadow: 0 0 12px rgba(154, 51, 255, 0.52);
+  animation: solutionEmotionParticle 4.8s ease-in-out infinite;
+}
+
+.solution-emotion-label {
+  letter-spacing: 0.02em;
+  opacity: 0.2;
+  animation: solutionEmotionLabel 8.4s ease-in-out infinite;
+}
+
+.solution-emotion-label-b {
+  animation-delay: 1.2s;
+}
+
+.solution-emotion-label-c {
+  animation-delay: 2.4s;
+}
+
+.solution-emotion-label-d {
+  animation-delay: 3.6s;
+}
+
+@keyframes solutionEmotionCore {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.72;
+    filter: brightness(0.9);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 0.98;
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes solutionEmotionOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes solutionEmotionParticle {
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes solutionEmotionLabel {
+  0%,
+  100% {
+    opacity: 0.16;
+    transform: translateY(2px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-1px);
+  }
+}
+
+.solution-wave-shift {
+  transform-origin: center;
+  animation: solutionWaveDrift 6.6s ease-in-out infinite;
+}
+
+.solution-wave-main {
+  animation: solutionWaveOpacity 5.4s ease-in-out infinite;
+}
+
+.solution-wave-glow {
+  filter: drop-shadow(0 0 10px rgba(154, 51, 255, 0.36));
+  animation: solutionWaveGlow 5.4s ease-in-out infinite;
+}
+
+.solution-wave-trail {
+  stroke-dasharray: 8 8;
+  animation: solutionWaveTrail 4.8s linear infinite;
+}
+
+@keyframes solutionWaveDrift {
+  0%,
+  100% {
+    transform: translateY(1px) scaleY(0.96);
+  }
+  50% {
+    transform: translateY(-1px) scaleY(1.03);
+  }
+}
+
+@keyframes solutionWaveOpacity {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes solutionWaveGlow {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.34;
+  }
+}
+
+@keyframes solutionWaveTrail {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+.solution-decision-bar {
+  transform-origin: bottom;
+  animation: solutionDecisionBar 5.2s ease-in-out infinite;
+}
+
+.solution-decision-cap {
+  box-shadow: 0 0 10px rgba(20, 199, 229, 0.42);
+  animation: solutionDecisionCap 5.2s ease-in-out infinite;
+}
+
+.solution-decision-dot {
+  position: absolute;
+  top: 34%;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #14c7e5, #9a33ff);
+  box-shadow: 0 0 12px rgba(36, 107, 255, 0.55);
+  opacity: 0;
+}
+
+.solution-decision-dot-a {
+  animation: solutionDecisionDot 5.8s linear infinite;
+}
+
+.solution-decision-dot-b {
+  animation: solutionDecisionDot 5.8s linear infinite 2.8s;
+}
+
+@keyframes solutionDecisionBar {
+  0%,
+  100% {
+    transform: scaleY(0.9);
+    opacity: 0.72;
+  }
+  50% {
+    transform: scaleY(1.08);
+    opacity: 0.95;
+  }
+}
+
+@keyframes solutionDecisionCap {
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: translate(-50%, 0) scale(0.88);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate(-50%, -0.5px) scale(1);
+  }
+}
+
+@keyframes solutionDecisionDot {
+  0% {
+    left: 10%;
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  20% {
+    opacity: 0.75;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    left: 90%;
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.radar-aura {
+  background: radial-gradient(circle, rgba(154, 51, 255, 0.3), rgba(36, 107, 255, 0.14) 48%, rgba(9, 20, 38, 0) 76%);
+  filter: blur(18px);
+  animation: radarAuraBreath 7.6s ease-in-out infinite;
+}
+
+.radar-polygon-breath {
+  transform-origin: center;
+  animation: radarPolygonBreath 6.4s ease-in-out infinite;
+}
+
+.radar-center-pulse {
+  box-shadow: 0 0 0 0 rgba(154, 51, 255, 0.4);
+  animation: radarCenterPulse 4.8s ease-in-out infinite;
+}
+
+.radar-particle {
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #f2398a, #9a33ff, #14c7e5);
+  box-shadow: 0 0 10px rgba(154, 51, 255, 0.45);
+  opacity: 0.2;
+}
+
+.radar-particle-a {
+  animation: radarParticleFloat 9.2s ease-in-out infinite;
+}
+
+.radar-particle-b {
+  animation: radarParticleFloat 9.2s ease-in-out infinite 2.1s;
+}
+
+.radar-particle-c {
+  animation: radarParticleFloat 9.2s ease-in-out infinite 4.2s;
+}
+
+.radar-particle-d {
+  animation: radarParticleFloat 9.2s ease-in-out infinite 6.3s;
+}
+
+@keyframes radarAuraBreath {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes radarPolygonBreath {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.95;
+  }
+}
+
+@keyframes radarCenterPulse {
+  0%,
+  100% {
+    opacity: 0.44;
+    box-shadow: 0 0 0 0 rgba(154, 51, 255, 0.3);
+  }
+  50% {
+    opacity: 0.9;
+    box-shadow: 0 0 0 8px rgba(154, 51, 255, 0);
+  }
+}
+
+@keyframes radarParticleFloat {
+  0%,
+  100% {
+    opacity: 0.14;
+    transform: translate(0, 0) scale(0.8);
+  }
+  50% {
+    opacity: 0.42;
+    transform: translate(1px, -3px) scale(1);
+  }
+}
+
 .button-primary {
   background-image: linear-gradient(120deg, #f2398a 0%, #9a33ff 52%, #246bff 100%);
   box-shadow: 0 14px 45px rgba(58, 49, 255, 0.35), 0 0 44px rgba(154, 51, 255, 0.28);
@@ -628,7 +1055,26 @@ body {
   .problem-activation-dot,
   .problem-volatility-line-jitter,
   .problem-volatility-line,
-  .problem-volatility-line-soft {
+  .problem-volatility-line-soft,
+  .solution-social-glow,
+  .solution-social-bubble,
+  .solution-social-flow,
+  .solution-typing-dot,
+  .solution-emotion-core,
+  .solution-emotion-orbit,
+  .solution-emotion-particle,
+  .solution-emotion-label,
+  .solution-wave-shift,
+  .solution-wave-main,
+  .solution-wave-glow,
+  .solution-wave-trail,
+  .solution-decision-bar,
+  .solution-decision-cap,
+  .solution-decision-dot,
+  .radar-aura,
+  .radar-polygon-breath,
+  .radar-center-pulse,
+  .radar-particle {
     animation: none;
   }
 }

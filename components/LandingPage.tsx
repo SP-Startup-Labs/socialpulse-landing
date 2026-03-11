@@ -669,6 +669,91 @@ function SectionHeaderAccent({ icon, tone }: { icon: LucideIcon; tone: 'pink' | 
   );
 }
 
+function PipelineMicroVisual({ stepIndex }: { stepIndex: number }) {
+  if (stepIndex === 0) {
+    return (
+      <div className="relative mt-4 h-16 overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
+        <span className="solution-social-glow absolute inset-x-3 top-2 h-9 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.22)_0%,rgba(154,51,255,0)_70%)] blur-md" />
+        <span className="solution-social-bubble solution-social-bubble-a absolute left-2 top-2 h-5 w-16 rounded-full bg-white/[0.06] blur-[0.2px]" />
+        <span className="solution-social-bubble solution-social-bubble-b absolute right-3 top-4 h-4 w-12 rounded-full bg-white/[0.05]" />
+        <span className="solution-social-bubble solution-social-bubble-c absolute left-4 bottom-2 h-4 w-14 rounded-full bg-white/[0.05]" />
+        <span className="solution-social-flow absolute left-3 top-3 h-1.5 w-2 rounded-full bg-white/35" />
+        <span className="absolute bottom-3 right-6 inline-flex items-center gap-1">
+          <span className="solution-typing-dot h-1.5 w-1.5 rounded-full bg-white/55" />
+          <span className="solution-typing-dot solution-typing-dot-b h-1.5 w-1.5 rounded-full bg-white/45" />
+          <span className="solution-typing-dot solution-typing-dot-c h-1.5 w-1.5 rounded-full bg-white/35" />
+        </span>
+      </div>
+    );
+  }
+
+  if (stepIndex === 1) {
+    return (
+      <div className="relative mt-4 h-16 overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
+        <span className="solution-emotion-core absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(242,57,138,0.45)_0%,rgba(154,51,255,0.28)_55%,rgba(36,107,255,0)_100%)]" />
+        <span className="solution-emotion-orbit solution-emotion-orbit-a">
+          <span className="solution-emotion-particle bg-[#F2398A]/80" />
+        </span>
+        <span className="solution-emotion-orbit solution-emotion-orbit-b">
+          <span className="solution-emotion-particle bg-[#9A33FF]/78" />
+        </span>
+        <span className="solution-emotion-orbit solution-emotion-orbit-c">
+          <span className="solution-emotion-particle bg-[#14C7E5]/75" />
+        </span>
+        <span className="solution-emotion-label solution-emotion-label-a absolute left-[7%] top-[14%] text-[8px] text-white/45">anger</span>
+        <span className="solution-emotion-label solution-emotion-label-b absolute right-[7%] top-[16%] text-[8px] text-white/45">support</span>
+        <span className="solution-emotion-label solution-emotion-label-c absolute left-[11%] bottom-[14%] text-[8px] text-white/45">excitement</span>
+        <span className="solution-emotion-label solution-emotion-label-d absolute right-[12%] bottom-[12%] text-[8px] text-white/45">doubt</span>
+      </div>
+    );
+  }
+
+  if (stepIndex === 2) {
+    return (
+      <div className="relative mt-4 h-16 overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
+        <svg className="solution-wavefield h-full w-full" viewBox="0 0 180 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g className="solution-wave-shift">
+            <path className="solution-wave-glow" d="M0 40 C18 36, 30 22, 46 24 C62 26, 70 44, 88 42 C106 40, 112 20, 130 22 C148 24, 160 38, 180 34" stroke="url(#solutionWaveGradient)" strokeWidth="3.2" strokeLinecap="round" opacity="0.22" />
+            <path className="solution-wave-main" d="M0 40 C18 36, 30 22, 46 24 C62 26, 70 44, 88 42 C106 40, 112 20, 130 22 C148 24, 160 38, 180 34" stroke="url(#solutionWaveGradient)" strokeWidth="1.8" strokeLinecap="round" />
+            <path className="solution-wave-trail" d="M0 42 C18 38, 30 24, 46 26 C62 28, 70 46, 88 44 C106 42, 112 22, 130 24 C148 26, 160 40, 180 36" stroke="url(#solutionWaveGradientSoft)" strokeWidth="1.1" strokeLinecap="round" opacity="0.7" />
+          </g>
+          <defs>
+            <linearGradient id="solutionWaveGradient" x1="0" y1="32" x2="180" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#F2398A" stopOpacity="0.28" />
+              <stop offset="0.5" stopColor="#9A33FF" stopOpacity="0.85" />
+              <stop offset="1" stopColor="#14C7E5" stopOpacity="0.5" />
+            </linearGradient>
+            <linearGradient id="solutionWaveGradientSoft" x1="0" y1="32" x2="180" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#246BFF" stopOpacity="0.18" />
+              <stop offset="1" stopColor="#14C7E5" stopOpacity="0.5" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative mt-4 h-16 overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2.5">
+      <div className="relative flex h-full items-end justify-between gap-2">
+        {[42, 64, 52, 74, 58].map((height, index) => (
+          <span key={height} className="relative h-full w-full">
+            <span className="absolute bottom-0 left-1/2 w-[72%] -translate-x-1/2" style={{ height: `${height}%` }}>
+              <span
+                className="solution-decision-bar block h-full w-full rounded-sm bg-[linear-gradient(180deg,rgba(20,199,229,0.72),rgba(154,51,255,0.3))]"
+                style={{ animationDelay: `${index * 220}ms` }}
+              />
+              <span className="solution-decision-cap absolute -top-0.5 left-1/2 h-1 w-2 -translate-x-1/2 rounded-full bg-[#14C7E5]/70" style={{ animationDelay: `${index * 220}ms` }} />
+            </span>
+          </span>
+        ))}
+        <span className="solution-decision-dot solution-decision-dot-a" />
+        <span className="solution-decision-dot solution-decision-dot-b" />
+      </div>
+    </div>
+  );
+}
+
 export function LandingPage() {
   const [lang, setLang] = useState<Language>('en');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -967,17 +1052,18 @@ export function LandingPage() {
           </section>
 
           <section id="solution" className="section-wrap section-space">
-            <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr]">
-              <article className="floating-panel double-layer-panel animate-fade-up p-7 md:p-10">
-                <SectionHeaderAccent icon={BrainCircuit} tone="cyan" />
-                <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.solution.title}</h2>
-                <p className="mt-6 text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.solution.intro}</p>
-                <div className="mt-8 grid gap-4 md:grid-cols-4">
+            <article className="floating-panel double-layer-panel animate-fade-up p-7 md:p-10">
+              <SectionHeaderAccent icon={BrainCircuit} tone="cyan" />
+              <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.solution.title}</h2>
+              <p className="mt-6 max-w-3xl text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.solution.intro}</p>
+
+              <div className="relative mt-10">
+                <div className="grid items-stretch gap-4 md:grid-cols-4 md:gap-5">
                   {t.solution.pipeline.map((step, index) => {
                     const isLast = index === t.solution.pipeline.length - 1;
                     return (
-                      <div key={step.title} className="relative">
-                        <article className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                      <div key={step.title} className="relative flex h-full flex-col">
+                        <article className="relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-5">
                           <div className="mb-3 flex items-start gap-2.5">
                             <GradientIcon
                               icon={[MessageCircle, BrainCircuit, Radar, Target][index] ?? Activity}
@@ -991,11 +1077,13 @@ export function LandingPage() {
                             </div>
                           </div>
                           <p className="text-xs leading-relaxed text-[#AAB4C2] md:text-sm">{step.description}</p>
+                          <PipelineMicroVisual stepIndex={index} />
                         </article>
+
                         {!isLast ? (
                           <>
-                            <div className="pointer-events-none absolute -right-5 top-1/2 hidden -translate-y-1/2 items-center gap-1 md:flex">
-                              <span className="h-px w-5 bg-[linear-gradient(90deg,rgba(154,51,255,0.24),rgba(20,199,229,0.78))]" />
+                            <div className="pointer-events-none absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center gap-1 md:flex">
+                              <span className="h-px w-5 animate-pulse bg-[linear-gradient(90deg,rgba(154,51,255,0.2),rgba(20,199,229,0.75))]" />
                               <ArrowRight className="h-3.5 w-3.5 text-[#9A33FF]/85 drop-shadow-[0_0_10px_rgba(154,51,255,0.45)]" />
                             </div>
                             <div className="pointer-events-none mt-3 flex justify-center md:hidden">
@@ -1007,19 +1095,26 @@ export function LandingPage() {
                     );
                   })}
                 </div>
-                <p className="mt-8 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.closing}</p>
-              </article>
+              </div>
 
-              <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-6 md:p-8" style={{ animationDelay: '80ms' }}>
-                <SectionHeaderAccent icon={Radar} tone="purple" />
-                <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">{t.solution.frameworkTitle}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.frameworkSubtitle}</p>
-                <div className="relative mx-auto mt-9 w-full max-w-[420px]">
-                  <div className="absolute -bottom-6 left-1/2 h-16 w-[72%] -translate-x-1/2 rounded-full bg-black/55 blur-2xl" />
-                  <RadarPulse labels={t.solution.radarLabels} compact />
+              <p className="mt-8 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.closing}</p>
+            </article>
+
+            <article className="floating-panel double-layer-panel animate-fade-up relative mt-6 overflow-hidden p-6 md:p-8" style={{ animationDelay: '80ms' }}>
+              <div className="grid items-center gap-7 md:grid-cols-[0.95fr_1.05fr]">
+                <div>
+                  <SectionHeaderAccent icon={Radar} tone="purple" />
+                  <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">{t.solution.frameworkTitle}</h3>
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.frameworkSubtitle}</p>
                 </div>
-              </article>
-            </div>
+                <div className="flex h-full items-center justify-center">
+                  <div className="relative mx-auto w-full max-w-[420px]">
+                    <div className="absolute -bottom-6 left-1/2 h-16 w-[72%] -translate-x-1/2 rounded-full bg-black/55 blur-2xl" />
+                    <RadarPulse labels={t.solution.radarLabels} compact />
+                  </div>
+                </div>
+              </div>
+            </article>
           </section>
 
           <section id="opportunity" ref={opportunitySectionRef} className="section-wrap section-space">
