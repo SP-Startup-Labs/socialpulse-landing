@@ -12,25 +12,81 @@ type SignalEngineLabels = {
   outputs: [string, string, string];
 };
 
-const outputIcons = [Activity, Radar, TrendingUp] as const;
 const outputTones = ['pink', 'purple', 'blue'] as const;
 const outputSparklines = ['smooth', 'step', 'spike'] as const;
 
-const particles = [
-  { top: 10, size: 5, endY: -18, delay: 0, duration: 8.2, opacity: 0.45 },
-  { top: 18, size: 6, endY: -12, delay: 0.9, duration: 9.1, opacity: 0.5 },
-  { top: 28, size: 4, endY: -8, delay: 0.4, duration: 8.6, opacity: 0.42 },
-  { top: 38, size: 7, endY: 2, delay: 1.7, duration: 10.2, opacity: 0.52 },
-  { top: 48, size: 4, endY: 6, delay: 0.2, duration: 7.7, opacity: 0.38 },
-  { top: 56, size: 5, endY: 11, delay: 1.1, duration: 9.6, opacity: 0.46 },
-  { top: 68, size: 6, endY: 15, delay: 2.1, duration: 10.4, opacity: 0.55 },
-  { top: 78, size: 4, endY: 19, delay: 0.7, duration: 8.8, opacity: 0.4 },
-  { top: 86, size: 5, endY: 16, delay: 1.4, duration: 9.3, opacity: 0.44 }
-];
+const outputSignalIcons = [Radar, Activity, TrendingUp] as const;
+const inputParticles = Array.from({ length: 28 }, (_, index) => {
+  const row = index % 7;
+  const lane = Math.floor(index / 7);
+  const top = 7 + row * 12 + (lane % 2 === 0 ? 0 : 2);
+  const left = 4 + lane * 12 + (row % 2 === 0 ? 0 : 2);
+  const size = 2.8 + (index % 3) * 1.2;
+  const duration = 6.4 + (index % 6) * 0.55;
+  const delay = (index % 8) * 0.36;
+  const opacity = 0.28 + (index % 5) * 0.09;
+  const targetX = 150 + lane * 10 + (row % 3) * 4;
+  const targetY = (44 - top) * 1.3;
+  const tone = ['#14C7E5', '#9A33FF', '#F2398A'][index % 3];
+  return { top, left, size, duration, delay, opacity, targetX, targetY, tone };
+});
+
+function MiniRadarSignal({ className = '' }: { className?: string }) {
+  const fillId = useId();
+  const strokeId = useId();
+
+  return (
+    <div className={`engine-mini-radar ${className}`}>
+      <span className="engine-mini-radar-pulse" />
+      <svg
+        className="h-full w-full"
+        viewBox="0 0 86 56"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id={fillId} x1="10" y1="10" x2="78" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#F2398A" stopOpacity="0.3" />
+            <stop offset="0.55" stopColor="#9A33FF" stopOpacity="0.26" />
+            <stop offset="1" stopColor="#14C7E5" stopOpacity="0.2" />
+          </linearGradient>
+          <linearGradient id={strokeId} x1="8" y1="10" x2="76" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#F2398A" stopOpacity="0.78" />
+            <stop offset="0.45" stopColor="#9A33FF" stopOpacity="0.86" />
+            <stop offset="1" stopColor="#14C7E5" stopOpacity="0.82" />
+          </linearGradient>
+        </defs>
+
+        <polygon points="43,7 66,18 72,31 56,46 30,46 14,31 20,18" className="engine-mini-radar-grid" />
+        <polygon points="43,13 60,21 64,31 53,41 33,41 22,31 26,21" className="engine-mini-radar-grid" />
+        <polygon points="43,19 54,24 57,31 50,36 36,36 29,31 32,24" className="engine-mini-radar-grid" />
+
+        <line x1="43" y1="31" x2="43" y2="8" className="engine-mini-radar-axis" />
+        <line x1="43" y1="31" x2="66" y2="18" className="engine-mini-radar-axis" />
+        <line x1="43" y1="31" x2="72" y2="31" className="engine-mini-radar-axis" />
+        <line x1="43" y1="31" x2="56" y2="46" className="engine-mini-radar-axis" />
+        <line x1="43" y1="31" x2="30" y2="46" className="engine-mini-radar-axis" />
+        <line x1="43" y1="31" x2="14" y2="31" className="engine-mini-radar-axis" />
+
+        <polygon
+          points="43,13 57,21 61,32 50,41 34,39 27,30"
+          className="engine-mini-radar-shape"
+          fill={`url(#${fillId})`}
+          stroke={`url(#${strokeId})`}
+        />
+        <circle cx="43" cy="31" r="2" className="engine-mini-radar-center" />
+      </svg>
+    </div>
+  );
+}
 
 export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
   const linkGradientId = useId();
   const linkSoftGradientId = useId();
+  const outputPathTopId = useId();
+  const outputPathMidId = useId();
+  const outputPathBottomId = useId();
 
   return (
     <div className="relative">
@@ -59,30 +115,78 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                 <stop offset="1" stopColor="#14C7E5" stopOpacity="0.12" />
               </linearGradient>
             </defs>
-            <path d="M58 214 C120 188, 178 188, 238 214" stroke={`url(#${linkGradientId})`} strokeWidth="1.6" />
-            <path d="M238 214 C292 210, 340 166, 392 136 C430 114, 462 106, 518 106" stroke={`url(#${linkGradientId})`} strokeWidth="1.6" />
-            <path d="M238 214 C300 222, 350 216, 518 212" stroke={`url(#${linkSoftGradientId})`} strokeWidth="1.4" />
-            <path d="M238 214 C296 220, 344 252, 394 286 C432 310, 464 320, 518 320" stroke={`url(#${linkGradientId})`} strokeWidth="1.6" />
+            <path className="engine-input-link" d="M58 112 C122 72, 174 156, 246 202" stroke={`url(#${linkSoftGradientId})`} strokeWidth="1.2" />
+            <path className="engine-input-link-soft" d="M56 200 C128 164, 178 196, 246 206" stroke={`url(#${linkGradientId})`} strokeWidth="1.4" />
+            <path className="engine-input-link" d="M54 286 C126 320, 176 248, 246 212" stroke={`url(#${linkSoftGradientId})`} strokeWidth="1.2" />
+
+            <path
+              id={outputPathTopId}
+              className="engine-output-beam"
+              d="M246 206 C300 190, 350 136, 518 106"
+              stroke={`url(#${linkGradientId})`}
+              strokeWidth="1.8"
+            />
+            <path
+              id={outputPathMidId}
+              className="engine-output-beam-soft"
+              d="M246 206 C302 212, 352 210, 518 212"
+              stroke={`url(#${linkSoftGradientId})`}
+              strokeWidth="1.5"
+            />
+            <path
+              id={outputPathBottomId}
+              className="engine-output-beam"
+              d="M246 206 C302 226, 350 284, 518 320"
+              stroke={`url(#${linkGradientId})`}
+              strokeWidth="1.8"
+            />
+
+            <circle className="engine-output-tracer" r="2.1" fill="#14C7E5">
+              <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.2;0.8;1" dur="4.4s" begin="0.2s" repeatCount="indefinite" />
+              <animateMotion dur="4.4s" begin="0.2s" rotate="auto" repeatCount="indefinite">
+                <mpath href={`#${outputPathTopId}`} />
+              </animateMotion>
+            </circle>
+            <circle className="engine-output-tracer" r="2" fill="#9A33FF">
+              <animate attributeName="opacity" values="0;0.88;0.88;0" keyTimes="0;0.22;0.8;1" dur="4.6s" begin="1.05s" repeatCount="indefinite" />
+              <animateMotion dur="4.6s" begin="1.05s" rotate="auto" repeatCount="indefinite">
+                <mpath href={`#${outputPathMidId}`} />
+              </animateMotion>
+            </circle>
+            <circle className="engine-output-tracer" r="2.1" fill="#F2398A">
+              <animate attributeName="opacity" values="0;0.86;0.86;0" keyTimes="0;0.2;0.82;1" dur="4.8s" begin="1.8s" repeatCount="indefinite" />
+              <animateMotion dur="4.8s" begin="1.8s" rotate="auto" repeatCount="indefinite">
+                <mpath href={`#${outputPathBottomId}`} />
+              </animateMotion>
+            </circle>
           </svg>
 
           <div className="absolute left-1 top-3 rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">
             {labels.title}
           </div>
 
-          <div className="absolute left-3 top-[20%] h-[50%] w-[30%] sm:left-5">
-            {particles.map((particle, index) => (
+          <div className="absolute left-2 top-[18%] h-[56%] w-[34%] sm:left-4">
+            <div className="engine-input-field absolute inset-0 rounded-2xl" />
+            {inputParticles.map((particle, index) => (
               <span
-                key={`${particle.top}-${index}`}
-                className="engine-particle"
+                key={`particle-${index}`}
+                className="engine-input-particle"
                 style={
                   {
                     top: `${particle.top}%`,
+                    left: `${particle.left}%`,
                     width: `${particle.size}px`,
                     height: `${particle.size}px`,
                     '--engine-delay': `${particle.delay}s`,
                     '--engine-duration': `${particle.duration}s`,
-                    '--engine-end-y': `${particle.endY}px`,
-                    '--engine-opacity': particle.opacity
+                    '--engine-target-x': `${particle.targetX}px`,
+                    '--engine-target-y': `${particle.targetY}px`,
+                    '--engine-target-x-mid': `${(particle.targetX * 0.55).toFixed(2)}px`,
+                    '--engine-target-y-mid': `${(particle.targetY * 0.52).toFixed(2)}px`,
+                    '--engine-target-x-near': `${(particle.targetX * 0.96).toFixed(2)}px`,
+                    '--engine-target-y-near': `${(particle.targetY * 0.92).toFixed(2)}px`,
+                    '--engine-opacity': particle.opacity,
+                    '--engine-tone': particle.tone
                   } as CSSProperties
                 }
               />
@@ -90,10 +194,15 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
             <p className="absolute -bottom-9 left-0 text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">{labels.input}</p>
           </div>
 
-          <div className="absolute left-[43%] top-[48%] -translate-x-1/2 -translate-y-1/2 sm:left-[44%]">
-            <div className="engine-core-breath relative flex h-32 w-32 items-center justify-center rounded-full border border-white/18 bg-[radial-gradient(circle,rgba(242,57,138,0.32)_0%,rgba(154,51,255,0.23)_40%,rgba(36,107,255,0.2)_70%,rgba(9,20,38,0.24)_100%)] sm:h-36 sm:w-36">
+          <div className="absolute left-[44%] top-[48%] -translate-x-1/2 -translate-y-1/2">
+            <div className="engine-core-breath relative flex h-36 w-36 items-center justify-center rounded-full border border-white/18 bg-[radial-gradient(circle,rgba(242,57,138,0.4)_0%,rgba(154,51,255,0.34)_34%,rgba(36,107,255,0.24)_62%,rgba(9,20,38,0.28)_100%)]">
+              <span className="engine-core-halo engine-core-halo-a" />
+              <span className="engine-core-halo engine-core-halo-b" />
               <div className="absolute inset-[7px] rounded-full border border-white/20" />
-              <div className="absolute inset-[16px] rounded-full border border-white/20" />
+              <div className="absolute inset-[16px] rounded-full border border-white/16" />
+              <span className="engine-core-singularity" />
+              <span className="engine-core-orbit engine-core-orbit-a" />
+              <span className="engine-core-orbit engine-core-orbit-b" />
               <svg
                 className="pointer-events-none absolute inset-[18px] h-[calc(100%-36px)] w-[calc(100%-36px)]"
                 viewBox="0 0 100 100"
@@ -104,7 +213,7 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                 <circle cx="50" cy="50" r="41" stroke="rgba(255,255,255,0.18)" strokeWidth="1" strokeDasharray="3 4" />
                 <path className="engine-pulse-line" d="M10 50 C18 44, 26 58, 34 50 C42 42, 48 56, 56 50 C64 44, 72 56, 90 50" stroke="#14C7E5" strokeWidth="2" strokeLinecap="round" />
               </svg>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/90">Core</span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/92">Core</span>
             </div>
             <p className="mt-3 text-center text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">{labels.core}</p>
           </div>
@@ -116,10 +225,14 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                 className="engine-output-card rounded-xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] px-2.5 py-2 shadow-[0_18px_50px_rgba(0,0,0,0.35),0_0_30px_rgba(58,49,255,0.18)] backdrop-blur sm:rounded-2xl sm:px-3.5 sm:py-2.5"
               >
                 <div className="flex items-center gap-2">
-                  <GradientIcon icon={outputIcons[index]} tone={outputTones[index]} className="hidden h-7 w-7 sm:inline-flex" size={11} />
+                  <GradientIcon icon={outputSignalIcons[index]} tone={outputTones[index]} className="hidden h-7 w-7 sm:inline-flex" size={11} />
                   <p className="text-[10px] font-medium tracking-tight text-white sm:text-sm">{output}</p>
                 </div>
-                <SignalSparkline tone={outputTones[index]} variant={outputSparklines[index]} className="mt-1.5 h-4 w-full sm:mt-2 sm:h-5" />
+                {index === 0 ? (
+                  <MiniRadarSignal className="mt-1.5 h-6 w-full sm:mt-2 sm:h-7" />
+                ) : (
+                  <SignalSparkline tone={outputTones[index]} variant={outputSparklines[index]} className="mt-1.5 h-4 w-full sm:mt-2 sm:h-5" />
+                )}
               </article>
             ))}
           </div>
