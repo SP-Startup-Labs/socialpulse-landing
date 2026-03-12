@@ -690,12 +690,6 @@ const content: Record<Language, LocalizedContent> = {
   }
 };
 
-
-const primaryButtonClass =
-  'button-primary rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-[0_16px_44px_rgba(58,49,255,0.35)] transition hover:brightness-105';
-const secondaryButtonClass =
-  'button-secondary inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm text-white transition';
-
 const opportunityIcons: LucideIcon[] = [TrendingUp, BriefcaseBusiness, Users];
 const adoptionIcons: LucideIcon[] = [Users, Activity, BriefcaseBusiness, Radar, TrendingUp];
 const traditionalMetricIcons: LucideIcon[] = [ThumbsUp, Eye, MessageCircle, BarChart3, Zap];
@@ -1042,28 +1036,18 @@ export function LandingPage() {
             <div className="grid items-center gap-10 sm:gap-12 lg:min-h-[78vh] lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
               <div className="animate-fade-up min-w-0">
                 <div className="mb-7 flex flex-wrap gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-[#AAB4C2] sm:mb-8 sm:text-[11px]">
-                  {[t.badges.early, t.badges.live, t.brandTagline].map((badge) => (
-                    <span key={badge} className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5">
-                      {badge}
-                    </span>
-                  ))}
+                  <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5">
+                    {t.brandTagline}
+                  </span>
                 </div>
                 <h1 className="max-w-2xl text-[2.2rem] font-bold leading-[1.03] tracking-[-0.03em] sm:text-5xl md:text-6xl xl:text-[4.25rem]">
-                  {t.hero.title}
+                  Analyze how audiences emotionally react to content in real-time
                 </h1>
-                <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[#AAB4C2] sm:text-base md:mt-6 md:text-xl">{t.hero.subtitle}</p>
-                <p className="mt-4 text-[15px] font-semibold tracking-tight text-white/90 sm:text-base md:mt-5 md:text-lg">{t.hero.thesis}</p>
-                <div className="mt-8 flex flex-wrap gap-3 sm:mt-10">
-                  <a href="#solution" className={`${primaryButtonClass} inline-flex w-full items-center justify-center gap-2 sm:w-auto`}>
-                    {t.hero.ctaSecondary}
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <button onClick={() => setIsModalOpen(true)} className={`${secondaryButtonClass} w-full justify-center sm:w-auto`}>
-                    {t.hero.ctaPrimary}
-                  </button>
-                </div>
-                <p className="mt-7 inline-flex max-w-full flex-wrap justify-center gap-x-1.5 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 text-center text-xs leading-relaxed tracking-[0.01em] text-[#AAB4C2] sm:mt-8 sm:justify-start sm:text-left">
-                  {t.hero.credibility}
+                <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[#AAB4C2] sm:text-base md:mt-6 md:text-xl">
+                  SocialPulse analyzes public conversations and detects emotional signals behind audience reactions - helping creators understand how content actually lands with their audience.
+                </p>
+                <p className="mt-5 max-w-2xl text-sm font-medium leading-relaxed tracking-tight text-[#8C97A8] md:text-base">
+                  Traditional metrics show activity. Emotional signals show how people actually feel.
                 </p>
               </div>
 
@@ -1082,6 +1066,18 @@ export function LandingPage() {
                     ]
                   }}
                 />
+                <article className="floating-panel double-layer-panel mt-4 max-w-[460px] rounded-2xl border border-white/12 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-3.5">
+                  <p className="text-[10px] uppercase tracking-[0.14em] text-[#AAB4C2]">Example Signal</p>
+                  <p className="mt-2 text-[11px] leading-relaxed text-white/90">
+                    <span className="text-[#AAB4C2]">Comment:</span> "This launch is a joke"
+                  </p>
+                  <p className="mt-1 text-[11px] leading-relaxed text-white/90">
+                    <span className="text-[#AAB4C2]">Emotion:</span> anger + distrust
+                  </p>
+                  <p className="mt-1 text-[11px] leading-relaxed text-white/90">
+                    <span className="text-[#AAB4C2]">Signal:</span> negative narrative rising
+                  </p>
+                </article>
               </div>
             </div>
           </section>
