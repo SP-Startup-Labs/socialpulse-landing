@@ -172,7 +172,7 @@ const content: Record<Language, LocalizedContent> = {
     ],
     problem: {
       title: 'The Problem',
-      intro:
+      eyebrow:
         'The Hidden Signal in Digital Markets',
       thesisLead: 'Markets react to emotion long before metrics reflect it.',
       thesisBody:
