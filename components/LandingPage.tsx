@@ -171,8 +171,9 @@ const content: Record<Language, LocalizedContent> = {
       { label: 'Signal Momentum', value: 'Actionable alerts' }
     ],
     problem: {
-      eyebrow: 'THE PROBLEM',
-      title: 'The Hidden Signal in Digital Markets',
+      title: 'The Problem',
+      intro:
+        'The Hidden Signal in Digital Markets',
       thesisLead: 'Markets react to emotion long before metrics reflect it.',
       thesisBody:
         'Traditional analytics measure activity - likes, views and engagement. But they fail to capture the emotional pressure shaping narratives in real time.',
