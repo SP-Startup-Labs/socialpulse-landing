@@ -22,11 +22,13 @@ type MomentumSignal = {
   window: string;
 };
 
-type RadarProfile = {
-  dominantAxis: number;
-  weakAxis: number;
-  dominantEmotion: string;
-  values: number[];
+type IntensityPoint = {
+  emotion: string;
+  x: number;
+  y: number;
+  baseRadius: number;
+  phase: number;
+  tone: 'cyan' | 'violet' | 'pink';
 };
 
 const outputTones = ['pink', 'purple', 'blue'] as const;
@@ -49,35 +51,22 @@ const inputParticles = Array.from({ length: 44 }, (_, index) => {
   return { top, left, size, duration, delay, opacity, glow, targetX, targetY, tone };
 });
 
-const radarCenter = { x: 43, y: 31 };
-const radarAxes = [
-  { x: 43, y: 8 },
-  { x: 66, y: 19 },
-  { x: 66, y: 43 },
-  { x: 43, y: 54 },
-  { x: 20, y: 43 },
-  { x: 20, y: 19 }
+const emotionIntensityPoints: IntensityPoint[] = [
+  { emotion: 'HOPE', x: 22, y: 16, baseRadius: 2.2, phase: 0.6, tone: 'cyan' },
+  { emotion: 'ANGER', x: 33, y: 39, baseRadius: 2.4, phase: 1.5, tone: 'pink' },
+  { emotion: 'TRUST', x: 44, y: 24, baseRadius: 2.1, phase: 0.3, tone: 'violet' },
+  { emotion: 'SKEPTICISM', x: 56, y: 37, baseRadius: 2.5, phase: 2.2, tone: 'pink' },
+  { emotion: 'EXCITEMENT', x: 66, y: 18, baseRadius: 2.3, phase: 1.1, tone: 'cyan' },
+  { emotion: 'DISAPPOINTMENT', x: 18, y: 31, baseRadius: 2.1, phase: 2.8, tone: 'violet' },
+  { emotion: 'RELIEF', x: 51, y: 14, baseRadius: 2.0, phase: 3.3, tone: 'cyan' },
+  { emotion: 'DOUBT', x: 69, y: 30, baseRadius: 2.2, phase: 4.0, tone: 'violet' }
 ];
 
-const radarProfiles: RadarProfile[] = [
-  {
-    dominantAxis: 3,
-    weakAxis: 0,
-    dominantEmotion: 'HOPE',
-    values: [0.28, 0.57, 0.55, 0.94, 0.56, 0.52]
-  },
-  {
-    dominantAxis: 1,
-    weakAxis: 4,
-    dominantEmotion: 'TRUST',
-    values: [0.53, 0.93, 0.58, 0.56, 0.25, 0.54]
-  },
-  {
-    dominantAxis: 2,
-    weakAxis: 5,
-    dominantEmotion: 'EXCITEMENT',
-    values: [0.5, 0.56, 0.92, 0.58, 0.54, 0.22]
-  }
+const intensitySignalPairs: Array<[{ index: number; direction: 'up' | 'down' }, { index: number; direction: 'up' | 'down' }]> = [
+  [{ index: 4, direction: 'up' }, { index: 1, direction: 'down' }],
+  [{ index: 2, direction: 'up' }, { index: 3, direction: 'down' }],
+  [{ index: 0, direction: 'up' }, { index: 7, direction: 'down' }],
+  [{ index: 6, direction: 'up' }, { index: 5, direction: 'down' }]
 ];
 
 const narrativeSequences: NarrativeLine[][] = [
@@ -209,64 +198,87 @@ function MomentumMicroChart({ positive }: { positive: boolean }) {
 }
 
 function MiniRadarSignal({ className = '' }: { className?: string }) {
-  const fillId = useId();
-  const strokeId = useId();
-  const { index: profileIndex, fading } = useFadingCycle(radarProfiles.length, 5200, 420);
-  const profile = radarProfiles[profileIndex];
-  const [values, setValues] = useState(radarProfiles[0].values);
-  const valuesRef = useRef(radarProfiles[0].values);
-  const frameRef = useRef<number | null>(null);
+  const neutralCyanId = useId();
+  const neutralVioletId = useId();
+  const neutralPinkId = useId();
+  const positiveId = useId();
+  const negativeId = useId();
+  const leftFieldClipId = useId();
+  const rightLabelsClipId = useId();
+  const cycleMs = 5400;
+  const { index: pairIndex, fading } = useFadingCycle(intensitySignalPairs.length, cycleMs, 520);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const from = valuesRef.current;
-    const to = profile.values;
+    let frameRef: number | null = null;
     const start = performance.now();
-    const duration = 4300;
 
     const step = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = easeInOutQuad(progress);
-      const next = from.map((value, axisIndex) => value + (to[axisIndex] - value) * eased);
-      valuesRef.current = next;
-      setValues(next);
-      if (progress < 1) frameRef.current = requestAnimationFrame(step);
+      const next = (now - start) / cycleMs;
+      setProgress(next >= 1 ? 1 : next);
+      if (next < 1.02) frameRef = requestAnimationFrame(step);
     };
 
-    if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
-    frameRef.current = requestAnimationFrame(step);
-
+    frameRef = requestAnimationFrame(step);
     return () => {
-      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+      if (frameRef !== null) cancelAnimationFrame(frameRef);
     };
-  }, [profile.values]);
+  }, [cycleMs, pairIndex]);
 
-  const radarGeometry = useMemo(() => {
-    const points = radarAxes.map((axis, axisIndex) => {
-      const value = values[axisIndex];
+  const activePair = intensitySignalPairs[pairIndex];
+  const activeMap = useMemo(() => {
+    return new Map(activePair.map((signal) => [signal.index, signal.direction] as const));
+  }, [activePair]);
+
+  const pulse = 0.5 - 0.5 * Math.cos(progress * Math.PI * 2);
+  const labelOpacity = fading ? 0 : Math.max(0, 1 - Math.abs(progress - 0.5) * 2.6);
+  const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+  const points = useMemo(() => {
+    const leftZone = { minX: 10, maxX: 30, minY: 10, maxY: 46 };
+    return emotionIntensityPoints.map((point, index) => {
+      const direction = activeMap.get(index);
+      const ambient = 0.32 * Math.sin(progress * Math.PI * 2 + point.phase);
+      let radius = point.baseRadius + ambient;
+      const normalizedX = clamp((point.x - 16) / 56, 0, 1);
+      const normalizedY = clamp((point.y - 14) / 28, 0, 1);
+      const mappedX = leftZone.minX + normalizedX * (leftZone.maxX - leftZone.minX);
+      const mappedY = leftZone.minY + normalizedY * (leftZone.maxY - leftZone.minY);
+
+      if (direction === 'up') radius += 1.42 * pulse;
+      if (direction === 'down') radius -= 1.02 * pulse;
+
       return {
-        x: radarCenter.x + (axis.x - radarCenter.x) * value,
-        y: radarCenter.y + (axis.y - radarCenter.y) * value
+        ...point,
+        x: mappedX,
+        y: mappedY,
+        direction,
+        radius: clamp(radius, 1.2, 4.9)
       };
     });
+  }, [activeMap, progress, pulse]);
 
-    return {
-      points,
-      polygon: points.map((point) => `${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(' ')
-    };
-  }, [values]);
+  const labels = useMemo(() => {
+    const maxWidth = 31;
+    return activePair.map((signal, rowIndex) => {
+      const point = points[signal.index];
+      const displayEmotion = point.emotion.length > 8 ? `${point.emotion.slice(0, 8)}.` : point.emotion;
+      const text = displayEmotion;
+      const width = clamp(text.length * 3.35 + 7.4, 22, maxWidth);
+      const height = 11.4;
+      const x = 82 - width;
+      const y = rowIndex === 0 ? 12.2 : 30.4;
 
-  const dominantPoint = radarGeometry.points[profile.dominantAxis];
-  const dominantDx = dominantPoint.x - radarCenter.x;
-  const dominantDy = dominantPoint.y - radarCenter.y;
-  const labelAnchorX = radarCenter.x + dominantDx * 1.12;
-  const labelAnchorY = radarCenter.y + dominantDy * 1.12;
-  const labelText = `${profile.dominantEmotion} \u2191`;
-  const labelWidth = Math.max(46, labelText.length * 6.2);
-  const labelHeight = 16;
-  const rawLabelX = labelAnchorX > radarCenter.x + 2 ? labelAnchorX + 1 : labelAnchorX < radarCenter.x - 2 ? labelAnchorX - labelWidth - 1 : labelAnchorX - labelWidth / 2;
-  const rawLabelY = labelAnchorY >= radarCenter.y ? labelAnchorY + 1 : labelAnchorY - labelHeight - 1;
-  const labelX = Math.max(4, Math.min(82 - labelWidth, rawLabelX));
-  const labelY = Math.max(3, Math.min(37, rawLabelY));
+      return {
+        text,
+        direction: signal.direction,
+        x,
+        y,
+        width,
+        height
+      };
+    }).slice(0, 2);
+  }, [activePair, points]);
 
   return (
     <div className={`engine-mini-radar relative overflow-hidden rounded-md ${className}`}>
@@ -279,43 +291,90 @@ function MiniRadarSignal({ className = '' }: { className?: string }) {
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id={fillId} x1="10" y1="10" x2="78" y2="48" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#F2398A" stopOpacity="0.3" />
-            <stop offset="0.55" stopColor="#9A33FF" stopOpacity="0.26" />
-            <stop offset="1" stopColor="#14C7E5" stopOpacity="0.2" />
-          </linearGradient>
-          <linearGradient id={strokeId} x1="8" y1="10" x2="76" y2="48" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#F2398A" stopOpacity="0.78" />
-            <stop offset="0.45" stopColor="#9A33FF" stopOpacity="0.86" />
-            <stop offset="1" stopColor="#14C7E5" stopOpacity="0.82" />
-          </linearGradient>
+          <radialGradient id={neutralCyanId} cx="0.5" cy="0.5" r="0.7">
+            <stop offset="0" stopColor="#8CE9D8" stopOpacity="0.95" />
+            <stop offset="1" stopColor="#14C7E5" stopOpacity="0.16" />
+          </radialGradient>
+          <radialGradient id={neutralVioletId} cx="0.5" cy="0.5" r="0.7">
+            <stop offset="0" stopColor="#C8A1FF" stopOpacity="0.92" />
+            <stop offset="1" stopColor="#9A33FF" stopOpacity="0.15" />
+          </radialGradient>
+          <radialGradient id={neutralPinkId} cx="0.5" cy="0.5" r="0.7">
+            <stop offset="0" stopColor="#FF93C4" stopOpacity="0.9" />
+            <stop offset="1" stopColor="#F2398A" stopOpacity="0.14" />
+          </radialGradient>
+          <radialGradient id={positiveId} cx="0.5" cy="0.5" r="0.7">
+            <stop offset="0" stopColor="#9EF3DE" stopOpacity="0.98" />
+            <stop offset="1" stopColor="#14C7E5" stopOpacity="0.22" />
+          </radialGradient>
+          <radialGradient id={negativeId} cx="0.5" cy="0.5" r="0.7">
+            <stop offset="0" stopColor="#FFC19A" stopOpacity="0.94" />
+            <stop offset="1" stopColor="#F18A52" stopOpacity="0.22" />
+          </radialGradient>
+          <clipPath id={leftFieldClipId}>
+            <rect x="4" y="6" width="34" height="44" rx="6" />
+          </clipPath>
+          <clipPath id={rightLabelsClipId}>
+            <rect x="44" y="8" width="38" height="40" rx="6" />
+          </clipPath>
         </defs>
 
-        <polygon points="43,7 66,18 72,31 56,46 30,46 14,31 20,18" className="engine-mini-radar-grid" />
-        <polygon points="43,13 60,21 64,31 53,41 33,41 22,31 26,21" className="engine-mini-radar-grid" />
-        <polygon points="43,19 54,24 57,31 50,36 36,36 29,31 32,24" className="engine-mini-radar-grid" />
+        <rect x="2" y="2" width="82" height="52" rx="7" stroke="rgba(255,255,255,0.08)" fill="rgba(11,22,42,0.28)" />
+        <rect x="4" y="6" width="34" height="44" rx="6" fill="rgba(255,255,255,0.02)" />
+        <rect x="44" y="8" width="38" height="40" rx="6" fill="rgba(255,255,255,0.02)" />
+        <line x1="41" y1="8" x2="41" y2="48" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
 
-        {radarAxes.map((axis, axisIndex) => (
-          <line key={`radar-axis-${axisIndex}`} x1={radarCenter.x} y1={radarCenter.y} x2={axis.x} y2={axis.y} className="engine-mini-radar-axis" />
-        ))}
+        <g clipPath={`url(#${leftFieldClipId})`}>
+          {points.map((point, index) => {
+            const activeDirection = point.direction;
+            const gradientId =
+              activeDirection === 'up'
+                ? positiveId
+                : activeDirection === 'down'
+                ? negativeId
+                : point.tone === 'cyan'
+                ? neutralCyanId
+                : point.tone === 'violet'
+                ? neutralVioletId
+                : neutralPinkId;
+            const glowRadius = point.radius + (activeDirection ? 2.4 : 1.45);
+            const glowOpacity = activeDirection === 'up' ? 0.28 : activeDirection === 'down' ? 0.24 : 0.16;
 
-        <polygon points={radarGeometry.polygon} className="engine-mini-radar-shape" fill={`url(#${fillId})`} stroke={`url(#${strokeId})`} />
-        <circle cx={radarCenter.x} cy={radarCenter.y} r="2" className="engine-mini-radar-center" />
+            return (
+              <g key={`${point.emotion}-${index}`}>
+                <circle cx={point.x} cy={point.y} r={glowRadius} fill={`url(#${gradientId})`} opacity={glowOpacity} />
+                <circle cx={point.x} cy={point.y} r={point.radius} fill={`url(#${gradientId})`} />
+              </g>
+            );
+          })}
+        </g>
 
-        <g className={`transition-all duration-500 ${fading ? 'opacity-0' : 'opacity-100'}`}>
-          <rect
-            x={labelX}
-            y={labelY}
-            width={labelWidth}
-            height={labelHeight}
-            rx="4"
-            fill="rgba(9,20,38,0.82)"
-            stroke="rgba(123,231,214,0.42)"
-            strokeWidth="0.6"
-          />
-          <text x={labelX + 4} y={labelY + 11.2} fontSize="12" fontWeight="600" fill="#8CE9D8" letterSpacing="0.04em">
-            {labelText}
-          </text>
+        <g clipPath={`url(#${rightLabelsClipId})`}>
+          {labels.map((label) => (
+            <g key={label.text} opacity={labelOpacity}>
+              <rect
+                x={label.x}
+                y={label.y}
+                width={label.width}
+                height={label.height}
+                rx="3.6"
+                fill="rgba(9,20,38,0.86)"
+                stroke={label.direction === 'up' ? 'rgba(123,231,214,0.44)' : 'rgba(241,138,82,0.44)'}
+                strokeWidth="0.6"
+              />
+              <text
+                x={label.x + label.width - 2.8}
+                y={label.y + 7.9}
+                textAnchor="end"
+                fontSize="6.7"
+                fontWeight="600"
+                fill={label.direction === 'up' ? '#8CE9D8' : '#FFB48A'}
+                letterSpacing="0.02em"
+              >
+                {label.text}
+              </text>
+            </g>
+          ))}
         </g>
       </svg>
     </div>

@@ -1099,22 +1099,30 @@ export function LandingPage() {
                   <div className="mx-auto flex w-full max-w-[320px] flex-col items-center gap-3 text-center animate-fade-up" style={{ animationDelay: '150ms' }}>
                     <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#AAB4C2]">{t.problem.transitionLabel}</p>
                     <div className="relative hidden h-9 w-[220px] md:block">
-                      <div className="problem-flow-track absolute left-2 right-8 top-1/2 h-px -translate-y-1/2" />
-                      <span className="problem-flow-emotion-glow absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full" />
-                      <span className="problem-flow-emotion-core absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full" />
-                      <span className="problem-flow-dot problem-flow-dot-a" />
-                      <span className="problem-flow-dot problem-flow-dot-b" />
-                      <span className="problem-flow-dot problem-flow-dot-c" />
-                      <ArrowRight className="absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9A33FF]/85" />
+                      <div className="problem-flow-track absolute left-2 right-[56%] top-1/2 h-px -translate-y-1/2" />
+                      <div className="problem-flow-track absolute left-[56%] right-8 top-1/2 h-px -translate-y-1/2 opacity-40" />
+                      <div className="absolute left-2 right-[56%] top-1/2 h-5 -translate-y-1/2 overflow-hidden">
+                        <span className="problem-flow-dot problem-flow-dot-a" />
+                        <span className="problem-flow-dot problem-flow-dot-b" />
+                        <span className="problem-flow-dot problem-flow-dot-c" />
+                      </div>
+                      <div className="absolute left-1/2 top-1/2 h-7 w-[56px] -translate-x-1/2 -translate-y-1/2 rounded-md border border-white/12 bg-[rgba(9,20,38,0.72)]" />
+                      <div className="absolute left-1/2 top-1/2 h-px w-8 -translate-x-1/2 -translate-y-1/2 bg-white/24" />
+                      <div className="absolute left-1/2 top-1/2 h-8 w-px -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#F18A52]/70" />
+                      <ArrowRight className="absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9A33FF]/65" />
                     </div>
                     <div className="relative h-16 w-8 md:hidden">
-                      <div className="problem-flow-track-vertical absolute bottom-2 left-1/2 top-1 -translate-x-1/2 w-px" />
-                      <span className="problem-flow-emotion-glow absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full" />
-                      <span className="problem-flow-emotion-core absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full" />
-                      <span className="problem-flow-dot-v problem-flow-dot-v-a" />
-                      <span className="problem-flow-dot-v problem-flow-dot-v-b" />
-                      <span className="problem-flow-dot-v problem-flow-dot-v-c" />
-                      <ArrowRight className="absolute bottom-0 left-1/2 h-4 w-4 -translate-x-1/2 rotate-90 text-[#9A33FF]/85" />
+                      <div className="problem-flow-track-vertical absolute left-1/2 top-1 bottom-[56%] -translate-x-1/2 w-px" />
+                      <div className="problem-flow-track-vertical absolute bottom-2 left-1/2 top-[56%] -translate-x-1/2 w-px opacity-40" />
+                      <div className="absolute bottom-[56%] left-1/2 top-1 w-5 -translate-x-1/2 overflow-hidden">
+                        <span className="problem-flow-dot-v problem-flow-dot-v-a" />
+                        <span className="problem-flow-dot-v problem-flow-dot-v-b" />
+                        <span className="problem-flow-dot-v problem-flow-dot-v-c" />
+                      </div>
+                      <div className="absolute left-1/2 top-1/2 h-7 w-6 -translate-x-1/2 -translate-y-1/2 rounded-md border border-white/12 bg-[rgba(9,20,38,0.72)]" />
+                      <div className="absolute left-1/2 top-1/2 h-5 w-px -translate-x-1/2 -translate-y-1/2 bg-white/24" />
+                      <div className="absolute left-1/2 top-1/2 h-5 w-px -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#F18A52]/70" />
+                      <ArrowRight className="absolute bottom-0 left-1/2 h-4 w-4 -translate-x-1/2 rotate-90 text-[#9A33FF]/65" />
                     </div>
                   </div>
 
