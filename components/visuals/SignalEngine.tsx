@@ -92,12 +92,12 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
 
   return (
     <div className="relative">
-      <div className="pointer-events-none absolute inset-5 translate-x-8 translate-y-8 rotate-[1.5deg] rounded-[34px] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] opacity-60 blur-[1px] shadow-[0_25px_80px_rgba(0,0,0,0.45),0_0_60px_rgba(58,49,255,0.2)]" />
-      <article className="hero-shell double-layer-panel relative overflow-hidden p-5 sm:p-6">
+      <div className="pointer-events-none absolute inset-4 translate-x-5 translate-y-5 rotate-[1.5deg] rounded-[34px] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] opacity-60 blur-[1px] shadow-[0_25px_80px_rgba(0,0,0,0.45),0_0_60px_rgba(58,49,255,0.2)] sm:inset-5 sm:translate-x-8 sm:translate-y-8" />
+      <article className="hero-shell double-layer-panel relative overflow-hidden p-4 sm:p-6">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_62%_36%,rgba(154,51,255,0.18),rgba(9,20,38,0)_52%)]" />
         <div className="hero-signal-trails pointer-events-none absolute inset-0" />
 
-        <div className="relative h-[400px] sm:h-[430px]">
+        <div className="relative h-[404px] sm:h-[430px]">
           <svg
             className="pointer-events-none absolute inset-0 h-full w-full"
             viewBox="0 0 560 430"
@@ -163,16 +163,16 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
             </circle>
           </svg>
 
-          <div className="absolute left-1 top-3 rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">
+          <div className="absolute left-1.5 top-2 rounded-full border border-white/12 bg-white/[0.03] px-2.5 py-1 text-[9px] uppercase tracking-[0.16em] text-[#AAB4C2] sm:left-1 sm:top-3 sm:px-3 sm:text-[10px]">
             {labels.title}
           </div>
 
-          <div className="absolute left-2 top-[18%] h-[56%] w-[34%] sm:left-4">
+          <div className="absolute left-1.5 top-[17%] h-[56%] w-[39%] sm:left-4 sm:w-[34%]">
             <div className="engine-input-field absolute inset-0 rounded-2xl" />
             {inputParticles.map((particle, index) => (
               <span
                 key={`particle-${index}`}
-                className="engine-input-particle"
+                className={`engine-input-particle ${index > 19 ? 'hidden sm:block' : ''}`}
                 style={
                   {
                     top: `${particle.top}%`,
@@ -194,20 +194,23 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                 }
               />
             ))}
-            <p className="absolute -bottom-9 left-0 text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">{labels.input}</p>
+            <p className="absolute left-1.5 top-1.5 max-w-[90%] rounded-full border border-white/12 bg-black/25 px-1.5 py-0.5 text-[8px] uppercase tracking-[0.14em] text-[#AAB4C2] sm:hidden">
+              {labels.input}
+            </p>
+            <p className="absolute -bottom-9 left-0 hidden text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2] sm:block">{labels.input}</p>
           </div>
 
-          <div className="absolute left-[44%] top-[48%] -translate-x-1/2 -translate-y-1/2">
-            <div className="engine-core-breath relative flex h-36 w-36 items-center justify-center rounded-full border border-white/18 bg-[radial-gradient(circle,rgba(242,57,138,0.4)_0%,rgba(154,51,255,0.34)_34%,rgba(36,107,255,0.24)_62%,rgba(9,20,38,0.28)_100%)]">
+          <div className="absolute left-[50%] top-[40%] -translate-x-1/2 -translate-y-1/2 sm:left-[44%] sm:top-[48%]">
+            <div className="engine-core-breath relative flex h-28 w-28 items-center justify-center rounded-full border border-white/18 bg-[radial-gradient(circle,rgba(242,57,138,0.4)_0%,rgba(154,51,255,0.34)_34%,rgba(36,107,255,0.24)_62%,rgba(9,20,38,0.28)_100%)] sm:h-36 sm:w-36">
               <span className="engine-core-halo engine-core-halo-a" />
               <span className="engine-core-halo engine-core-halo-b" />
-              <div className="absolute inset-[7px] rounded-full border border-white/20" />
-              <div className="absolute inset-[16px] rounded-full border border-white/16" />
+              <div className="absolute inset-[6px] rounded-full border border-white/20 sm:inset-[7px]" />
+              <div className="absolute inset-[13px] rounded-full border border-white/16 sm:inset-[16px]" />
               <span className="engine-core-singularity" />
               <span className="engine-core-orbit engine-core-orbit-a" />
               <span className="engine-core-orbit engine-core-orbit-b" />
               <svg
-                className="pointer-events-none absolute inset-[18px] h-[calc(100%-36px)] w-[calc(100%-36px)]"
+                className="pointer-events-none absolute inset-[16px] h-[calc(100%-32px)] w-[calc(100%-32px)] sm:inset-[18px] sm:h-[calc(100%-36px)] sm:w-[calc(100%-36px)]"
                 viewBox="0 0 100 100"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -216,25 +219,25 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                 <circle cx="50" cy="50" r="41" stroke="rgba(255,255,255,0.18)" strokeWidth="1" strokeDasharray="3 4" />
                 <path className="engine-pulse-line" d="M10 50 C18 44, 26 58, 34 50 C42 42, 48 56, 56 50 C64 44, 72 56, 90 50" stroke="#14C7E5" strokeWidth="2" strokeLinecap="round" />
               </svg>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/92">Core</span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/92 sm:text-[10px]">Core</span>
             </div>
             <p className="mt-3 text-center text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">{labels.core}</p>
           </div>
 
-          <div className="absolute inset-x-2 bottom-5 grid grid-cols-3 gap-2 sm:inset-x-auto sm:bottom-auto sm:right-1 sm:top-14 sm:w-[188px] sm:grid-cols-1 sm:gap-3">
+          <div className="absolute bottom-5 right-1.5 top-12 grid w-[44%] grid-rows-3 gap-2 sm:bottom-auto sm:right-1 sm:top-14 sm:w-[188px] sm:grid-cols-1 sm:grid-rows-none sm:gap-3">
             {labels.outputs.map((output, index) => (
               <article
                 key={output}
-                className="engine-output-card rounded-xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] px-2.5 py-2 shadow-[0_18px_50px_rgba(0,0,0,0.35),0_0_30px_rgba(58,49,255,0.18)] backdrop-blur sm:rounded-2xl sm:px-3.5 sm:py-2.5"
+                className="engine-output-card h-full rounded-xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] px-2 py-1.5 shadow-[0_18px_50px_rgba(0,0,0,0.35),0_0_30px_rgba(58,49,255,0.18)] backdrop-blur sm:rounded-2xl sm:px-3.5 sm:py-2.5"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2">
                   <GradientIcon icon={outputSignalIcons[index]} tone={outputTones[index]} className="hidden h-7 w-7 sm:inline-flex" size={11} />
-                  <p className="text-[10px] font-medium tracking-tight text-white sm:text-sm">{output}</p>
+                  <p className="max-h-[2.35em] overflow-hidden text-[9px] font-medium leading-[1.15] tracking-tight text-white sm:max-h-none sm:text-sm sm:leading-tight">{output}</p>
                 </div>
                 {index === 0 ? (
-                  <MiniRadarSignal className="mt-1.5 h-6 w-full sm:mt-2 sm:h-7" />
+                  <MiniRadarSignal className="mt-1 h-3.5 w-full sm:mt-2 sm:h-7" />
                 ) : (
-                  <SignalSparkline tone={outputTones[index]} variant={outputSparklines[index]} className="mt-1.5 h-4 w-full sm:mt-2 sm:h-5" />
+                  <SignalSparkline tone={outputTones[index]} variant={outputSparklines[index]} className="mt-1 h-3 w-full sm:mt-2 sm:h-5" />
                 )}
               </article>
             ))}

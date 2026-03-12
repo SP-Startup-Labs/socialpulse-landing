@@ -731,7 +731,7 @@ function PlatformBadge({ label, subdued = false }: { label: string; subdued?: bo
           </span>
         ))}
       </span>
-      <span>{label}</span>
+      <span className="platform-pill-label">{label}</span>
     </span>
   );
 }
@@ -961,21 +961,21 @@ export function LandingPage() {
         </div>
 
         <header className="sticky top-0 z-40 border-b border-white/10 bg-[#091426]/78 backdrop-blur-xl">
-          <div className="section-wrap flex h-24 items-center justify-between gap-3">
+          <div className="section-wrap flex h-20 items-center justify-between gap-2 md:h-24">
             <div className="flex items-center gap-4">
-              <span className="relative inline-flex h-16 w-16 items-center justify-center">
+              <span className="relative inline-flex h-12 w-12 items-center justify-center md:h-16 md:w-16">
                 <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,#F2398A,#9A33FF,#246BFF)] opacity-20 blur-[20px]" />
                 <Image
                   src="/logo.png"
                   alt="SocialPulse"
                   width={70}
                   height={70}
-                  className="relative h-16 w-16 rounded-2xl object-contain shadow-[0_0_35px_rgba(154,51,255,0.35)]"
+                  className="relative h-12 w-12 rounded-2xl object-contain shadow-[0_0_35px_rgba(154,51,255,0.35)] md:h-16 md:w-16"
                 />
               </span>
               <div>
-                <p className="text-lg font-bold tracking-tight md:text-xl">SocialPulse</p>
-                <p className="text-xs text-[#AAB4C2]">{t.brandTagline}</p>
+                <p className="text-base font-bold tracking-tight sm:text-lg md:text-xl">SocialPulse</p>
+                <p className="hidden text-xs text-[#AAB4C2] sm:block">{t.brandTagline}</p>
               </div>
             </div>
             <nav className="hidden items-center gap-8 text-sm text-[#AAB4C2] lg:flex">
@@ -986,23 +986,23 @@ export function LandingPage() {
               ))}
             </nav>
             <div className="flex items-center gap-2">
-              <div className="flex rounded-full border border-white/15 bg-white/5 p-1 text-xs">
+              <div className="flex shrink-0 rounded-full border border-white/15 bg-white/5 p-1 text-[11px] sm:text-xs">
                 <button
                   onClick={() => setLang('en')}
-                  className={`rounded-full px-3 py-1 ${lang === 'en' ? 'bg-white text-[#091426]' : 'text-[#AAB4C2] hover:text-white'}`}
+                  className={`rounded-full px-2.5 py-1 sm:px-3 ${lang === 'en' ? 'bg-white text-[#091426]' : 'text-[#AAB4C2] hover:text-white'}`}
                   aria-pressed={lang === 'en'}
                 >
                   EN
                 </button>
                 <button
                   onClick={() => setLang('es')}
-                  className={`rounded-full px-3 py-1 ${lang === 'es' ? 'bg-white text-[#091426]' : 'text-[#AAB4C2] hover:text-white'}`}
+                  className={`rounded-full px-2.5 py-1 sm:px-3 ${lang === 'es' ? 'bg-white text-[#091426]' : 'text-[#AAB4C2] hover:text-white'}`}
                   aria-pressed={lang === 'es'}
                 >
                   ES
                 </button>
               </div>
-              <button onClick={() => setIsModalOpen(true)} className="button-primary rounded-full px-4 py-2.5 text-sm font-semibold text-white md:px-5">
+              <button onClick={() => setIsModalOpen(true)} className="button-primary rounded-full px-3 py-2 text-xs font-semibold text-white sm:px-4 sm:py-2.5 sm:text-sm md:px-5">
                 <span className="hidden md:inline">{t.hero.ctaPrimary}</span>
                 <span className="md:hidden">{t.hero.ctaShort}</span>
               </button>
@@ -1011,7 +1011,7 @@ export function LandingPage() {
         </header>
 
         <main className="relative z-10">
-          <section className="section-wrap relative isolate overflow-hidden pb-28 pt-20 md:pb-36 md:pt-28">
+          <section className="section-wrap relative isolate overflow-hidden pb-24 pt-16 sm:pt-20 md:pb-36 md:pt-28">
             <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
               <div className="absolute -left-24 top-0 h-[280px] w-[280px] rounded-full bg-[#F2398A]/22 blur-[140px]" />
               <div className="absolute left-[35%] top-[8%] h-[220px] w-[300px] rounded-full bg-[#9A33FF]/18 blur-[120px]" />
@@ -1039,35 +1039,35 @@ export function LandingPage() {
                 </defs>
               </svg>
             </div>
-            <div className="grid items-center gap-14 lg:min-h-[78vh] lg:grid-cols-[1.02fr_0.98fr]">
-              <div className="animate-fade-up">
-                <div className="mb-8 flex flex-wrap gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[#AAB4C2]">
+            <div className="grid items-center gap-10 sm:gap-12 lg:min-h-[78vh] lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
+              <div className="animate-fade-up min-w-0">
+                <div className="mb-7 flex flex-wrap gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-[#AAB4C2] sm:mb-8 sm:text-[11px]">
                   {[t.badges.early, t.badges.live, t.brandTagline].map((badge) => (
                     <span key={badge} className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5">
                       {badge}
                     </span>
                   ))}
                 </div>
-                <h1 className="max-w-2xl text-[2.65rem] font-bold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl xl:text-[4.25rem]">
+                <h1 className="max-w-2xl text-[2.2rem] font-bold leading-[1.03] tracking-[-0.03em] sm:text-5xl md:text-6xl xl:text-[4.25rem]">
                   {t.hero.title}
                 </h1>
-                <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#AAB4C2] md:text-xl">{t.hero.subtitle}</p>
-                <p className="mt-5 text-base font-semibold tracking-tight text-white/90 md:text-lg">{t.hero.thesis}</p>
-                <div className="mt-10 flex flex-wrap gap-3">
-                  <a href="#solution" className={`${primaryButtonClass} inline-flex items-center gap-2`}>
+                <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[#AAB4C2] sm:text-base md:mt-6 md:text-xl">{t.hero.subtitle}</p>
+                <p className="mt-4 text-[15px] font-semibold tracking-tight text-white/90 sm:text-base md:mt-5 md:text-lg">{t.hero.thesis}</p>
+                <div className="mt-8 flex flex-wrap gap-3 sm:mt-10">
+                  <a href="#solution" className={`${primaryButtonClass} inline-flex w-full items-center justify-center gap-2 sm:w-auto`}>
                     {t.hero.ctaSecondary}
                     <ArrowRight className="h-4 w-4" />
                   </a>
-                  <button onClick={() => setIsModalOpen(true)} className={secondaryButtonClass}>
+                  <button onClick={() => setIsModalOpen(true)} className={`${secondaryButtonClass} w-full justify-center sm:w-auto`}>
                     {t.hero.ctaPrimary}
                   </button>
                 </div>
-                <p className="mt-8 inline-flex rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 text-xs tracking-[0.01em] text-[#AAB4C2]">
+                <p className="mt-7 inline-flex max-w-full flex-wrap justify-center gap-x-1.5 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 text-center text-xs leading-relaxed tracking-[0.01em] text-[#AAB4C2] sm:mt-8 sm:justify-start sm:text-left">
                   {t.hero.credibility}
                 </p>
               </div>
 
-              <div className="relative mx-auto w-full max-w-[620px] animate-fade-up" style={{ animationDelay: '120ms' }}>
+              <div className="relative mx-auto mt-2 w-full max-w-[620px] animate-fade-up lg:mt-0" style={{ animationDelay: '120ms' }}>
                 <SignalEngine
                   labels={{
                     title: visualLabels.engineTitle,
@@ -1087,17 +1087,17 @@ export function LandingPage() {
           </section>
 
           <section id="problem" className="section-wrap section-space">
-            <article className="floating-panel double-layer-panel animate-fade-up p-7 md:p-10">
+            <article className="floating-panel double-layer-panel animate-fade-up p-6 sm:p-7 md:p-10">
               <SectionHeaderAccent icon={Activity} tone="pink" />
               <p className="text-[11px] uppercase tracking-[0.2em] text-[#8C97A8]">{t.problem.eyebrow}</p>
-              <h2 className="mt-2 text-[2.6rem] font-bold leading-[1.05] tracking-[-0.02em] md:text-5xl">{t.problem.title}</h2>
+              <h2 className="mt-2 text-[2.1rem] font-bold leading-[1.06] tracking-[-0.02em] sm:text-[2.45rem] md:text-5xl">{t.problem.title}</h2>
               <div className="mt-6 max-w-4xl space-y-3.5">
                 <p className="text-lg font-medium leading-relaxed text-white/95 md:text-xl md:leading-[1.4]">{t.problem.thesisLead}</p>
                 <p className="text-sm leading-relaxed text-[#AAB4C2] md:text-[15px]">{t.problem.thesisBody}</p>
               </div>
 
               <div className="mt-10 rounded-3xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-6">
-                <div className="grid gap-7 md:grid-cols-[0.86fr_1.16fr_1fr] md:items-center">
+                <div className="grid gap-7 lg:grid-cols-[0.86fr_1.16fr_1fr] lg:items-center">
                   <div className="space-y-3 animate-fade-up md:pr-2" style={{ animationDelay: '30ms' }}>
                     <p className="text-xs uppercase tracking-[0.18em] text-[#8C97A8]">{t.problem.traditionalLabel}</p>
                     <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
@@ -1150,13 +1150,13 @@ export function LandingPage() {
           </section>
 
           <section id="solution" className="section-wrap section-space">
-            <article className="floating-panel double-layer-panel animate-fade-up p-7 md:p-10">
+            <article className="floating-panel double-layer-panel animate-fade-up p-6 sm:p-7 md:p-10">
               <SectionHeaderAccent icon={BrainCircuit} tone="cyan" />
               <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.solution.title}</h2>
               <p className="mt-6 max-w-3xl text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.solution.intro}</p>
 
               <div className="relative mt-10">
-                <div className="grid items-stretch gap-4 md:grid-cols-4 md:gap-5">
+                <div className="grid items-stretch gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4">
                   {t.solution.pipeline.map((step, index) => {
                     const isLast = index === t.solution.pipeline.length - 1;
                     return (
@@ -1180,11 +1180,11 @@ export function LandingPage() {
 
                         {!isLast ? (
                           <>
-                            <div className="pointer-events-none absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center gap-1 md:flex">
+                            <div className="pointer-events-none absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center gap-1 lg:flex">
                               <span className="h-px w-5 animate-pulse bg-[linear-gradient(90deg,rgba(154,51,255,0.2),rgba(20,199,229,0.75))]" />
                               <ArrowRight className="h-3.5 w-3.5 text-[#9A33FF]/85 drop-shadow-[0_0_10px_rgba(154,51,255,0.45)]" />
                             </div>
-                            <div className="pointer-events-none mt-3 flex justify-center md:hidden">
+                            <div className="pointer-events-none mt-3 flex justify-center sm:hidden">
                               <ArrowRight className="h-4 w-4 rotate-90 text-[#9A33FF]/80" />
                             </div>
                           </>
@@ -1198,7 +1198,7 @@ export function LandingPage() {
               <p className="mt-8 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.closing}</p>
             </article>
 
-            <article className="floating-panel double-layer-panel animate-fade-up relative mt-6 overflow-hidden p-6 md:p-8" style={{ animationDelay: '80ms' }}>
+            <article className="floating-panel double-layer-panel animate-fade-up relative mt-6 overflow-hidden p-5 sm:p-6 md:p-8" style={{ animationDelay: '80ms' }}>
               <div className="grid items-center gap-7 md:grid-cols-[0.95fr_1.05fr]">
                 <div>
                   <SectionHeaderAccent icon={Radar} tone="purple" />
@@ -1216,7 +1216,7 @@ export function LandingPage() {
           </section>
 
           <section id="opportunity" ref={opportunitySectionRef} className="section-wrap section-space">
-            <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-7 md:p-12">
+            <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-6 sm:p-7 md:p-12">
               <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(154,51,255,0.19),rgba(36,107,255,0.14),rgba(9,20,38,0.06))]" />
               <svg
                 className="pointer-events-none absolute inset-x-0 top-12 h-36 w-full opacity-35"
@@ -1246,11 +1246,11 @@ export function LandingPage() {
                   {t.opportunity.rows.map((row, rowIndex) => (
                     <div key={row.label}>
                       <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">{row.label}</p>
-                      <div className="mt-4 grid gap-4 md:grid-cols-3">
+                      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {row.cards.map((card, index) => (
                           <article
                             key={`${row.label}-${card.label}`}
-                            className="floating-panel floating-panel-hover double-layer-panel animate-fade-up p-5 md:p-6"
+                            className="floating-panel floating-panel-hover double-layer-panel animate-fade-up min-w-0 p-5 md:p-6"
                             style={{ animationDelay: `${rowIndex * 80 + index * 70}ms` }}
                           >
                             <GradientIcon
@@ -1261,8 +1261,8 @@ export function LandingPage() {
                                   : (['pink', 'purple', 'blue'][index] ?? 'purple')) as 'pink' | 'purple' | 'blue' | 'cyan'
                               }
                             />
-                            <p className="text-4xl font-semibold tracking-tight md:text-5xl">{formatOpportunityValue(card)}</p>
-                            <p className="mt-3 text-sm font-medium text-white">{card.label}</p>
+                            <p className="text-[2.05rem] font-semibold leading-none tracking-tight sm:text-4xl md:text-5xl">{formatOpportunityValue(card)}</p>
+                            <p className="mt-3 text-sm font-medium leading-snug text-white">{card.label}</p>
                             {card.detail ? <p className="mt-2 text-xs text-[#AAB4C2]">{card.detail}</p> : null}
                           </article>
                         ))}
@@ -1275,7 +1275,7 @@ export function LandingPage() {
                   <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">{t.opportunity.adoptionTitle}</p>
                   <div className="mt-4 flex flex-wrap gap-2.5">
                     {t.opportunity.adoptionSegments.map((segment, index) => (
-                      <span key={segment} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs text-[#D2D9E2]">
+                      <span key={segment} className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs text-[#D2D9E2]">
                         <GradientIcon
                           icon={adoptionIcons[index] ?? Users}
                           tone={(['pink', 'purple', 'blue', 'cyan', 'purple'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
@@ -1298,8 +1298,8 @@ export function LandingPage() {
               <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.model.title}</h2>
               <p className="mt-5 text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.model.intro}</p>
             </div>
-            <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-6 md:p-8">
-              <div className="grid gap-4 md:grid-cols-5 md:gap-5">
+            <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-5 sm:p-6 md:p-8">
+              <div className="grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-5">
                 {t.model.loop.map((step, index) => {
                   const isLast = index === t.model.loop.length - 1;
                   return (
@@ -1318,11 +1318,11 @@ export function LandingPage() {
                       </article>
                       {!isLast ? (
                         <>
-                          <div className="pointer-events-none absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center gap-1 md:flex">
+                          <div className="pointer-events-none absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center gap-1 lg:flex">
                             <span className="revenue-loop-connector-line h-px w-5" />
                             <ArrowRight className="revenue-loop-connector-arrow h-3.5 w-3.5" />
                           </div>
-                          <div className="pointer-events-none mt-3 flex justify-center md:hidden">
+                          <div className="pointer-events-none mt-3 flex justify-center sm:hidden">
                             <ArrowRight className="h-4 w-4 rotate-90 text-[#9A33FF]/80" />
                           </div>
                         </>
@@ -1333,7 +1333,7 @@ export function LandingPage() {
               </div>
             </article>
 
-            <div className="mt-6 grid gap-5 md:grid-cols-3">
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {t.model.segments.map((segment, index) => (
                 <article
                   key={segment.title}
@@ -1429,14 +1429,14 @@ export function LandingPage() {
             </article>
           </section>
 
-          <section id="platforms" className="section-wrap pb-28 md:pb-36">
+          <section id="platforms" className="section-wrap pb-24 md:pb-36">
             <div className="mb-10 max-w-3xl animate-fade-up">
               <SectionHeaderAccent icon={LineChart} tone="cyan" />
               <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.platforms.title}</h2>
               <p className="mt-5 text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.platforms.intro}</p>
             </div>
             <div className="grid gap-5 md:grid-cols-2">
-              <article className="floating-panel double-layer-panel animate-fade-up p-7">
+              <article className="floating-panel double-layer-panel animate-fade-up p-6 sm:p-7">
                 <h3 className="text-xl font-semibold tracking-tight">{t.platforms.availableTitle}</h3>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {t.platforms.available.map((platform) => (
@@ -1444,9 +1444,9 @@ export function LandingPage() {
                   ))}
                 </div>
               </article>
-              <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-7" style={{ animationDelay: '90ms' }}>
+              <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-6 sm:p-7" style={{ animationDelay: '90ms' }}>
                 <svg
-                  className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.18]"
+                  className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.12] sm:opacity-[0.18]"
                   viewBox="0 0 420 220"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -1479,7 +1479,7 @@ export function LandingPage() {
         <footer className="relative z-10 pb-12 pt-10">
           <div className="section-wrap">
             <div className="mx-auto mb-8 h-px w-full max-w-5xl bg-[linear-gradient(90deg,transparent,rgba(154,51,255,0.62),rgba(36,107,255,0.48),transparent)]" />
-            <div className="grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
+            <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr_1fr]">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <span className="relative inline-flex h-8 w-8 items-center justify-center">
