@@ -11,7 +11,6 @@ import {
   BriefcaseBusiness,
   Camera,
   Eye,
-  LayoutDashboard,
   LineChart,
   MessageCircle,
   MessageSquare,
@@ -294,7 +293,7 @@ const content: Record<Language, LocalizedContent> = {
         }
       ],
       adoptionTitle: 'Primary Adoption Segments',
-      adoptionSegments: ['Creators', 'Brands', 'Agencies', 'Media', 'Investors'],
+      adoptionSegments: ['Creators / Influencers', 'SMEs', 'Investors'],
       positioning: {
         leftTitle: 'Traditional Social Analytics',
         leftSub: '(Measures engagement)',
@@ -567,7 +566,7 @@ const content: Record<Language, LocalizedContent> = {
         }
       ],
       adoptionTitle: 'Segmentos Primarios de Adopcion',
-      adoptionSegments: ['Creators', 'Marcas', 'Agencias', 'Medios', 'Inversores'],
+      adoptionSegments: ['Creators / Influencers', 'PyMEs', 'Inversores'],
       positioning: {
         leftTitle: 'Analitica Social Tradicional',
         leftSub: '(Mide engagement)',
@@ -1066,18 +1065,6 @@ export function LandingPage() {
                     ]
                   }}
                 />
-                <article className="floating-panel double-layer-panel mt-4 max-w-[460px] rounded-2xl border border-white/12 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-3.5">
-                  <p className="text-[10px] uppercase tracking-[0.14em] text-[#AAB4C2]">Example Signal</p>
-                  <p className="mt-2 text-[11px] leading-relaxed text-white/90">
-                    <span className="text-[#AAB4C2]">Comment:</span> "This launch is a joke"
-                  </p>
-                  <p className="mt-1 text-[11px] leading-relaxed text-white/90">
-                    <span className="text-[#AAB4C2]">Emotion:</span> anger + distrust
-                  </p>
-                  <p className="mt-1 text-[11px] leading-relaxed text-white/90">
-                    <span className="text-[#AAB4C2]">Signal:</span> negative narrative rising
-                  </p>
-                </article>
               </div>
             </div>
           </section>
@@ -1294,42 +1281,7 @@ export function LandingPage() {
               <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.model.title}</h2>
               <p className="mt-5 text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.model.intro}</p>
             </div>
-            <article className="floating-panel double-layer-panel animate-fade-up relative overflow-hidden p-5 sm:p-6 md:p-8">
-              <div className="grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-5">
-                {t.model.loop.map((step, index) => {
-                  const isLast = index === t.model.loop.length - 1;
-                  return (
-                    <div key={step.title} className="relative">
-                      <article className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-5">
-                        <div className="mb-3 flex items-start gap-2.5">
-                          <GradientIcon
-                            icon={[Activity, BrainCircuit, Radar, LayoutDashboard, TrendingUp][index] ?? Activity}
-                            tone={(['pink', 'purple', 'blue', 'cyan', 'purple'][index] as 'pink' | 'purple' | 'blue' | 'cyan') ?? 'purple'}
-                            className="h-7 w-7"
-                            size={12}
-                          />
-                          <h3 className="text-sm font-semibold tracking-tight">{step.title}</h3>
-                        </div>
-                        <p className="text-xs leading-relaxed text-[#AAB4C2]">{step.detail}</p>
-                      </article>
-                      {!isLast ? (
-                        <>
-                          <div className="pointer-events-none absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center gap-1 lg:flex">
-                            <span className="revenue-loop-connector-line h-px w-5" />
-                            <ArrowRight className="revenue-loop-connector-arrow h-3.5 w-3.5" />
-                          </div>
-                          <div className="pointer-events-none mt-3 flex justify-center sm:hidden">
-                            <ArrowRight className="h-4 w-4 rotate-90 text-[#9A33FF]/80" />
-                          </div>
-                        </>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-            </article>
-
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {t.model.segments.map((segment, index) => (
                 <article
                   key={segment.title}
