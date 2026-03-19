@@ -35,6 +35,26 @@ import { ProblemSignalField } from './visuals/ProblemSignalField';
 import { RadarPulse } from './visuals/RadarPulse';
 import { SignalEngine } from './visuals/SignalEngine';
 
+type SignalEngineVisualLabels = {
+  volume: string;
+  velocity: string;
+  emotionalIntent: string;
+  narrativePressure: string;
+  engineTitle: string;
+  engineInput: string;
+  engineCore: string;
+  enginePressure: string;
+  engineIndex: string;
+  outputs: {
+    signalVelocity: string;
+    predominantNarratives: string;
+    emotionalResonance: string;
+  };
+  funnelFreemium: string;
+  funnelPaid: string;
+  funnelExpansion: string;
+};
+
 type LocalizedContent = {
   brandTagline: string;
   nav: Array<{ label: string; href: string }>;
@@ -904,7 +924,7 @@ export function LandingPage() {
     return `$${current.toFixed(1)}${card.countSuffix ?? ''}`;
   };
 
-  const visualLabels =
+  const visualLabels: SignalEngineVisualLabels =
     lang === 'en'
       ? {
           volume: 'volume',
@@ -916,9 +936,11 @@ export function LandingPage() {
           engineCore: 'Emotion Engine',
           enginePressure: 'Narrative Pressure',
           engineIndex: 'Signal Index',
-          outputEmotionIndex: 'Emotion Index',
-          outputNarrativePressure: 'Narrative Pressure',
-          outputSignalMomentum: 'Signal Momentum',
+          outputs: {
+            signalVelocity: 'Emotion Index',
+            predominantNarratives: 'Predominant Narratives',
+            emotionalResonance: 'Signal Momentum'
+          },
           funnelFreemium: 'Freemium',
           funnelPaid: 'Paid',
           funnelExpansion: 'Expansion'
@@ -933,9 +955,11 @@ export function LandingPage() {
           engineCore: 'Motor Emocional',
           enginePressure: 'Presion Narrativa',
           engineIndex: 'Indice de Senal',
-          outputEmotionIndex: 'Indice Emocional',
-          outputNarrativePressure: 'Presion Narrativa',
-          outputSignalMomentum: 'Momentum de Senal',
+          outputs: {
+            signalVelocity: 'Indice Emocional',
+            predominantNarratives: 'Narrativas predominantes',
+            emotionalResonance: 'Momentum de Senal'
+          },
           funnelFreemium: 'Freemium',
           funnelPaid: 'Pago',
           funnelExpansion: 'Expansion'
@@ -1058,11 +1082,7 @@ export function LandingPage() {
                     core: visualLabels.engineCore,
                     pressure: visualLabels.enginePressure,
                     index: visualLabels.engineIndex,
-                    outputs: [
-                      visualLabels.outputEmotionIndex,
-                      visualLabels.outputNarrativePressure,
-                      visualLabels.outputSignalMomentum
-                    ]
+                    outputs: visualLabels.outputs
                   }}
                 />
               </div>

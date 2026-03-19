@@ -136,28 +136,33 @@ body {
   opacity: var(--engine-opacity, 0.45);
   mix-blend-mode: screen;
   box-shadow: 0 0 var(--engine-glow, 14px) rgba(154, 51, 255, 0.35);
-  animation: engineIngest var(--engine-duration, 7.2s) cubic-bezier(0.32, 0.72, 0.16, 1) infinite;
+  animation: engineIngest var(--engine-duration, 7.2s) cubic-bezier(0.18, 0.62, 0.12, 1) infinite;
   animation-delay: var(--engine-delay, 0s);
+  will-change: transform, opacity;
 }
 
 @keyframes engineIngest {
   0% {
-    transform: translate3d(0, 0, 0) scale(0.6);
+    transform: translate3d(0, 0, 0) scale(0.58);
     opacity: 0;
   }
-  12% {
+  8% {
     opacity: var(--engine-opacity, 0.45);
   }
-  70% {
-    transform: translate3d(var(--engine-target-x-mid, 88px), var(--engine-target-y-mid, 0px), 0) scale(0.88);
-    opacity: calc(var(--engine-opacity, 0.45) * 1.03);
+  42% {
+    transform: translate3d(var(--engine-target-x-mid, 64px), var(--engine-target-y-mid, 0px), 0) scale(0.84);
+    opacity: calc(var(--engine-opacity, 0.45) * 1.04);
+  }
+  74% {
+    transform: translate3d(var(--engine-target-x-near, 132px), var(--engine-target-y-near, 0px), 0) scale(0.96);
+    opacity: calc(var(--engine-opacity, 0.45) * 0.92);
   }
   90% {
-    transform: translate3d(var(--engine-target-x-near, 150px), var(--engine-target-y-near, 0px), 0) scale(1.05);
-    opacity: var(--engine-opacity, 0.45);
+    transform: translate3d(var(--engine-target-x-absorb, 154px), var(--engine-target-y-absorb, 0px), 0) scale(0.44);
+    opacity: calc(var(--engine-opacity, 0.45) * 0.48);
   }
   100% {
-    transform: translate3d(var(--engine-target-x, 160px), var(--engine-target-y, 0px), 0) scale(0.22);
+    transform: translate3d(var(--engine-target-x, 160px), var(--engine-target-y, 0px), 0) scale(0.04);
     opacity: 0;
   }
 }

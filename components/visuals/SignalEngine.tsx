@@ -8,7 +8,11 @@ type SignalEngineLabels = {
   core: string;
   pressure: string;
   index: string;
-  outputs: [string, string, string];
+  outputs: {
+    signalVelocity: string;
+    predominantNarratives: string;
+    emotionalResonance: string;
+  };
 };
 
 type NarrativeLine = {
@@ -34,21 +38,53 @@ type IntensityPoint = {
 const outputTones = ['pink', 'purple', 'blue'] as const;
 const outputSignalIcons = [Radar, Activity, TrendingUp] as const;
 
-const inputParticles = Array.from({ length: 44 }, (_, index) => {
-  const row = index % 11;
-  const lane = Math.floor(index / 11);
-  const top = 4 + row * 8.6 + (lane % 2 === 0 ? 0 : 1.8);
-  const left = 2 + lane * 9.4 + (row % 3) * 1.15;
-  const tier = index % 9;
-  const size = tier === 0 ? 7.2 : tier <= 2 ? 5.7 : tier <= 5 ? 4.2 : 2.8;
-  const duration = 6 + (index % 7) * 0.48;
-  const delay = (index % 8) * 0.36;
-  const opacity = tier === 0 ? 0.96 : tier <= 2 ? 0.78 : 0.38 + (index % 4) * 0.12;
-  const glow = tier === 0 ? 24 : tier <= 2 ? 18 : 10 + (index % 3) * 3;
-  const targetX = 158 + lane * 12 + (row % 4) * 2.4;
-  const targetY = (44 - top) * 1.22;
-  const tone = ['#14C7E5', '#9A33FF', '#F2398A'][index % 3];
-  return { top, left, size, duration, delay, opacity, glow, targetX, targetY, tone };
+const inputParticles = Array.from({ length: 660 }, (_, index) => {
+  const columns = 15;
+  const rows = Math.ceil(660 / columns);
+  const row = Math.floor(index / columns);
+  const column = index % columns;
+  const fieldWidth = 178;
+  const fieldHeight = 238;
+  const engineCenterX = 214;
+  const engineCenterY = 72;
+  const verticalProgress = row / Math.max(1, rows - 1);
+  const top = Math.min(95, Math.max(4, 4 + verticalProgress * 88 + Math.sin((column + 1) * 1.18 + row * 0.42) * 1.9 + Math.cos(index * 0.37) * 0.9));
+  const left = Math.min(94, Math.max(3, 4 + column * 6.05 + (row % 2) * 1.65 + Math.cos(row * 0.55 + column * 0.9) * 2.1));
+  const startX = (left / 100) * fieldWidth;
+  const startY = (top / 100) * fieldHeight;
+  const tier = index % 13;
+  const size = tier === 0 ? 6.4 : tier <= 3 ? 4.8 : tier <= 8 ? 3.2 : 1.9;
+  const duration = 5 + (index % 11) * 0.34 + (column % 2) * 0.24;
+  const delay = (index % 18) * 0.14;
+  const opacity = tier === 0 ? 0.94 : tier <= 3 ? 0.72 : tier <= 8 ? 0.4 : 0.2;
+  const glow = tier === 0 ? 22 : tier <= 3 ? 15 : tier <= 8 ? 9 : 6;
+  const targetX = engineCenterX - startX + Math.sin(index * 0.17) * 2.2;
+  const targetY = engineCenterY - startY + Math.cos(index * 0.23) * 2.4;
+  const curveMidX = targetX * 0.34 + (column - (columns - 1) / 2) * 0.42;
+  const curveMidY = targetY * 0.16 + ((row % 6) - 2.5) * 4.6;
+  const curveNearX = targetX * 0.72 + Math.sin(index * 0.41) * 8.4;
+  const curveNearY = targetY * 0.72 + Math.cos(index * 0.39) * 8.8;
+  const absorbX = targetX * 0.92 + Math.sin(index * 0.63) * 3.2;
+  const absorbY = targetY * 0.92 + Math.cos(index * 0.57) * 3.2;
+  const tone = ['#14C7E5', '#9A33FF', '#F2398A', '#14C7E5'][index % 4];
+  return {
+    top,
+    left,
+    size,
+    duration,
+    delay,
+    opacity,
+    glow,
+    targetX,
+    targetY,
+    curveMidX,
+    curveMidY,
+    curveNearX,
+    curveNearY,
+    absorbX,
+    absorbY,
+    tone
+  };
 });
 
 const emotionIntensityPoints: IntensityPoint[] = [
@@ -203,8 +239,7 @@ function MiniRadarSignal({ className = '' }: { className?: string }) {
   const neutralPinkId = useId();
   const positiveId = useId();
   const negativeId = useId();
-  const leftFieldClipId = useId();
-  const rightLabelsClipId = useId();
+  const clusterFieldClipId = useId();
   const cycleMs = 5400;
   const { index: pairIndex, fading } = useFadingCycle(intensitySignalPairs.length, cycleMs, 520);
   const [progress, setProgress] = useState(0);
@@ -235,7 +270,7 @@ function MiniRadarSignal({ className = '' }: { className?: string }) {
   const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
   const points = useMemo(() => {
-    const leftZone = { minX: 10, maxX: 30, minY: 10, maxY: 46 };
+    const leftZone = { minX: 13, maxX: 27, minY: 14, maxY: 42 };
     return emotionIntensityPoints.map((point, index) => {
       const direction = activeMap.get(index);
       const ambient = 0.32 * Math.sin(progress * Math.PI * 2 + point.phase);
@@ -258,125 +293,170 @@ function MiniRadarSignal({ className = '' }: { className?: string }) {
     });
   }, [activeMap, progress, pulse]);
 
-  const labels = useMemo(() => {
-    const maxWidth = 31;
-    return activePair.map((signal, rowIndex) => {
-      const point = points[signal.index];
-      const displayEmotion = point.emotion.length > 8 ? `${point.emotion.slice(0, 8)}.` : point.emotion;
-      const text = displayEmotion;
-      const width = clamp(text.length * 3.35 + 7.4, 22, maxWidth);
-      const height = 11.4;
-      const x = 82 - width;
-      const y = rowIndex === 0 ? 12.2 : 30.4;
+  const dominantClusters = useMemo(() => {
+    const ranked = points
+      .map((point, index) => {
+        const direction = activeMap.get(index);
+        const score = point.radius + (direction === 'up' ? 2.2 : direction === 'down' ? 1.8 : 0);
+        return { point, index, direction, score };
+      })
+      .sort((left, right) => right.score - left.score)
+      .slice(0, 2);
+
+    const highestScore = ranked[0]?.score ?? 1;
+
+    return ranked.map((entry, clusterIndex) => {
+      const relatedPoints = points
+        .map((point, index) => {
+          const distance = Math.hypot(point.x - entry.point.x, point.y - entry.point.y);
+          const affinity = point.tone === entry.point.tone ? -6 : 0;
+          return { point, index, sortKey: distance + affinity };
+        })
+        .filter(({ index }) => index !== entry.index)
+        .sort((left, right) => left.sortKey - right.sortKey)
+        .slice(0, 3)
+        .map(({ point }, satelliteIndex) => {
+          const blend = 0.4 + satelliteIndex * 0.1;
+          return {
+            x: entry.point.x + (point.x - entry.point.x) * blend,
+            y: entry.point.y + (point.y - entry.point.y) * blend,
+            radius: clamp(point.radius * 0.72, 0.9, 1.9)
+          };
+        });
 
       return {
-        text,
-        direction: signal.direction,
-        x,
-        y,
-        width,
-        height
+        key: entry.point.emotion,
+        label: entry.point.emotion,
+        displayLabel: entry.point.emotion.charAt(0) + entry.point.emotion.slice(1).toLowerCase(),
+        direction: entry.direction ?? (clusterIndex === 0 ? 'up' : 'down'),
+        anchor: {
+          x: entry.point.x,
+          y: entry.point.y
+        },
+        haloRadius: clamp(5.2 + (entry.score / highestScore) * 3.2, 5.2, 8.4),
+        coreRadius: clamp(entry.point.radius + 0.35, 1.8, 4.1),
+        satellites: relatedPoints,
+        strength: clamp((entry.score / highestScore) * 100, 58, 100)
       };
-    }).slice(0, 2);
-  }, [activePair, points]);
+    });
+  }, [activeMap, points, clamp]);
 
   return (
-    <div className={`engine-mini-radar relative overflow-hidden rounded-md ${className}`}>
-      <span className="engine-mini-radar-pulse" />
-      <svg
-        className="h-full w-full"
-        viewBox="0 0 86 56"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <defs>
-          <radialGradient id={neutralCyanId} cx="0.5" cy="0.5" r="0.7">
-            <stop offset="0" stopColor="#8CE9D8" stopOpacity="0.95" />
-            <stop offset="1" stopColor="#14C7E5" stopOpacity="0.16" />
-          </radialGradient>
-          <radialGradient id={neutralVioletId} cx="0.5" cy="0.5" r="0.7">
-            <stop offset="0" stopColor="#C8A1FF" stopOpacity="0.92" />
-            <stop offset="1" stopColor="#9A33FF" stopOpacity="0.15" />
-          </radialGradient>
-          <radialGradient id={neutralPinkId} cx="0.5" cy="0.5" r="0.7">
-            <stop offset="0" stopColor="#FF93C4" stopOpacity="0.9" />
-            <stop offset="1" stopColor="#F2398A" stopOpacity="0.14" />
-          </radialGradient>
-          <radialGradient id={positiveId} cx="0.5" cy="0.5" r="0.7">
-            <stop offset="0" stopColor="#9EF3DE" stopOpacity="0.98" />
-            <stop offset="1" stopColor="#14C7E5" stopOpacity="0.22" />
-          </radialGradient>
-          <radialGradient id={negativeId} cx="0.5" cy="0.5" r="0.7">
-            <stop offset="0" stopColor="#FFC19A" stopOpacity="0.94" />
-            <stop offset="1" stopColor="#F18A52" stopOpacity="0.22" />
-          </radialGradient>
-          <clipPath id={leftFieldClipId}>
-            <rect x="4" y="6" width="34" height="44" rx="6" />
-          </clipPath>
-          <clipPath id={rightLabelsClipId}>
-            <rect x="44" y="8" width="38" height="40" rx="6" />
-          </clipPath>
-        </defs>
+    <div className={`flex h-full min-w-0 items-center justify-between gap-2 overflow-hidden rounded-md p-2 sm:gap-2.5 sm:p-2.5 ${className}`}>
+      <div className="engine-mini-radar relative flex min-w-0 basis-[40%] items-center justify-center self-stretch overflow-hidden rounded-md border border-white/10 bg-white/[0.03]">
+        <span className="engine-mini-radar-pulse" />
+        <svg
+          className="h-full w-full"
+          viewBox="0 0 44 56"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <defs>
+            <radialGradient id={neutralCyanId} cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stopColor="#8CE9D8" stopOpacity="0.95" />
+              <stop offset="1" stopColor="#14C7E5" stopOpacity="0.16" />
+            </radialGradient>
+            <radialGradient id={neutralVioletId} cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stopColor="#C8A1FF" stopOpacity="0.92" />
+              <stop offset="1" stopColor="#9A33FF" stopOpacity="0.15" />
+            </radialGradient>
+            <radialGradient id={neutralPinkId} cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stopColor="#FF93C4" stopOpacity="0.9" />
+              <stop offset="1" stopColor="#F2398A" stopOpacity="0.14" />
+            </radialGradient>
+            <radialGradient id={positiveId} cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stopColor="#9EF3DE" stopOpacity="0.98" />
+              <stop offset="1" stopColor="#14C7E5" stopOpacity="0.22" />
+            </radialGradient>
+            <radialGradient id={negativeId} cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stopColor="#FFC19A" stopOpacity="0.94" />
+              <stop offset="1" stopColor="#F18A52" stopOpacity="0.22" />
+            </radialGradient>
+            <clipPath id={clusterFieldClipId}>
+              <rect x="4" y="4" width="36" height="48" rx="6" />
+            </clipPath>
+          </defs>
 
-        <rect x="2" y="2" width="82" height="52" rx="7" stroke="rgba(255,255,255,0.08)" fill="rgba(11,22,42,0.28)" />
-        <rect x="4" y="6" width="34" height="44" rx="6" fill="rgba(255,255,255,0.02)" />
-        <rect x="44" y="8" width="38" height="40" rx="6" fill="rgba(255,255,255,0.02)" />
-        <line x1="41" y1="8" x2="41" y2="48" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+          <rect x="1" y="1" width="42" height="54" rx="7" stroke="rgba(255,255,255,0.08)" fill="rgba(11,22,42,0.28)" />
+          <g clipPath={`url(#${clusterFieldClipId})`}>
+            {points.map((point, index) => {
+              const activeDirection = point.direction;
+              const gradientId =
+                activeDirection === 'up'
+                  ? positiveId
+                  : activeDirection === 'down'
+                  ? negativeId
+                  : point.tone === 'cyan'
+                  ? neutralCyanId
+                  : point.tone === 'violet'
+                  ? neutralVioletId
+                  : neutralPinkId;
 
-        <g clipPath={`url(#${leftFieldClipId})`}>
-          {points.map((point, index) => {
-            const activeDirection = point.direction;
-            const gradientId =
-              activeDirection === 'up'
-                ? positiveId
-                : activeDirection === 'down'
-                ? negativeId
-                : point.tone === 'cyan'
-                ? neutralCyanId
-                : point.tone === 'violet'
-                ? neutralVioletId
-                : neutralPinkId;
-            const glowRadius = point.radius + (activeDirection ? 2.4 : 1.45);
-            const glowOpacity = activeDirection === 'up' ? 0.28 : activeDirection === 'down' ? 0.24 : 0.16;
+              return (
+                <circle
+                  key={`${point.emotion}-${index}`}
+                  cx={point.x + 2}
+                  cy={point.y}
+                  r={clamp(point.radius * 0.44, 0.7, 1.45)}
+                  fill={`url(#${gradientId})`}
+                  opacity={activeDirection ? 0.22 : 0.12}
+                />
+              );
+            })}
 
-            return (
-              <g key={`${point.emotion}-${index}`}>
-                <circle cx={point.x} cy={point.y} r={glowRadius} fill={`url(#${gradientId})`} opacity={glowOpacity} />
-                <circle cx={point.x} cy={point.y} r={point.radius} fill={`url(#${gradientId})`} />
-              </g>
-            );
-          })}
-        </g>
+            {dominantClusters.map((cluster) => {
+              const glowGradientId = cluster.direction === 'up' ? positiveId : negativeId;
+              const lineColor = cluster.direction === 'up' ? 'rgba(123,231,214,0.34)' : 'rgba(241,138,82,0.34)';
 
-        <g clipPath={`url(#${rightLabelsClipId})`}>
-          {labels.map((label) => (
-            <g key={label.text} opacity={labelOpacity}>
-              <rect
-                x={label.x}
-                y={label.y}
-                width={label.width}
-                height={label.height}
-                rx="3.6"
-                fill="rgba(9,20,38,0.86)"
-                stroke={label.direction === 'up' ? 'rgba(123,231,214,0.44)' : 'rgba(241,138,82,0.44)'}
-                strokeWidth="0.6"
-              />
-              <text
-                x={label.x + label.width - 2.8}
-                y={label.y + 7.9}
-                textAnchor="end"
-                fontSize="6.7"
-                fontWeight="600"
-                fill={label.direction === 'up' ? '#8CE9D8' : '#FFB48A'}
-                letterSpacing="0.02em"
-              >
-                {label.text}
-              </text>
-            </g>
-          ))}
-        </g>
-      </svg>
+              return (
+                <g key={cluster.key} opacity={labelOpacity}>
+                  <circle cx={cluster.anchor.x + 2} cy={cluster.anchor.y} r={cluster.haloRadius} fill={`url(#${glowGradientId})`} opacity="0.22" />
+                  {cluster.satellites.map((satellite, satelliteIndex) => (
+                    <g key={`${cluster.key}-${satelliteIndex}`}>
+                      <line
+                        x1={cluster.anchor.x + 2}
+                        y1={cluster.anchor.y}
+                        x2={satellite.x + 2}
+                        y2={satellite.y}
+                        stroke={lineColor}
+                        strokeWidth="0.7"
+                        strokeLinecap="round"
+                      />
+                      <circle cx={satellite.x + 2} cy={satellite.y} r={satellite.radius + 0.9} fill={`url(#${glowGradientId})`} opacity="0.18" />
+                      <circle cx={satellite.x + 2} cy={satellite.y} r={satellite.radius} fill={`url(#${glowGradientId})`} opacity="0.85" />
+                    </g>
+                  ))}
+                  <circle cx={cluster.anchor.x + 2} cy={cluster.anchor.y} r={cluster.coreRadius + 1.4} fill={`url(#${glowGradientId})`} opacity="0.26" />
+                  <circle cx={cluster.anchor.x + 2} cy={cluster.anchor.y} r={cluster.coreRadius} fill={`url(#${glowGradientId})`} />
+                </g>
+              );
+            })}
+          </g>
+        </svg>
+      </div>
+
+      <div className="flex min-w-0 basis-[60%] flex-col justify-center gap-1.5 self-stretch overflow-hidden">
+        {dominantClusters.map((cluster) => (
+          <div
+            key={cluster.key}
+            className={`flex min-w-0 flex-1 items-center justify-center overflow-hidden rounded-md border px-1.5 py-1 sm:px-2 sm:py-1.5 ${
+              cluster.direction === 'up'
+                ? 'border-[#7BE7D6]/25 bg-[#14C7E5]/[0.07]'
+                : 'border-[#F18A52]/28 bg-[#F18A52]/[0.07]'
+            }`}
+            style={{ opacity: labelOpacity }}
+          >
+            <p
+              className={`max-w-full break-words text-center text-[6.5px] font-semibold leading-[1.15] tracking-[0.01em] sm:text-[7px] ${
+                cluster.direction === 'up' ? 'text-[#8CE9D8]' : 'text-[#FFB48A]'
+              }`}
+            >
+              {cluster.displayLabel}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -436,7 +516,11 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
   const outputPathTopId = useId();
   const outputPathMidId = useId();
   const outputPathBottomId = useId();
-  const outputTitles: [string, string, string] = [labels.outputs[0], 'Predominant Narratives', labels.outputs[2]];
+  const outputTitles: [string, string, string] = [
+    labels.outputs.signalVelocity,
+    labels.outputs.predominantNarratives,
+    labels.outputs.emotionalResonance
+  ];
 
   return (
     <div className="relative">
@@ -515,7 +599,7 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
             {labels.title}
           </div>
 
-          <div className="absolute left-1 top-[19%] h-[62%] w-[27%] sm:left-3 sm:w-[24%]">
+          <div className="absolute left-1 top-[19%] h-[62%] w-[34.2%] sm:left-3 sm:w-[30.4%]">
             <div className="engine-input-field absolute inset-0 rounded-2xl" />
             {inputParticles.map((particle, index) => (
               <span
@@ -531,10 +615,12 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                     '--engine-duration': `${particle.duration}s`,
                     '--engine-target-x': `${particle.targetX}px`,
                     '--engine-target-y': `${particle.targetY}px`,
-                    '--engine-target-x-mid': `${(particle.targetX * 0.55).toFixed(2)}px`,
-                    '--engine-target-y-mid': `${(particle.targetY * 0.52).toFixed(2)}px`,
-                    '--engine-target-x-near': `${(particle.targetX * 0.96).toFixed(2)}px`,
-                    '--engine-target-y-near': `${(particle.targetY * 0.92).toFixed(2)}px`,
+                    '--engine-target-x-mid': `${particle.curveMidX.toFixed(2)}px`,
+                    '--engine-target-y-mid': `${particle.curveMidY.toFixed(2)}px`,
+                    '--engine-target-x-near': `${particle.curveNearX.toFixed(2)}px`,
+                    '--engine-target-y-near': `${particle.curveNearY.toFixed(2)}px`,
+                    '--engine-target-x-absorb': `${particle.absorbX.toFixed(2)}px`,
+                    '--engine-target-y-absorb': `${particle.absorbY.toFixed(2)}px`,
                     '--engine-opacity': particle.opacity,
                     '--engine-glow': `${particle.glow}px`,
                     '--engine-tone': particle.tone
@@ -572,7 +658,7 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
             <p className="mt-3 text-center text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2]">{labels.core}</p>
           </div>
 
-          <div className="absolute bottom-[12%] right-0 top-[18%] grid w-[36%] grid-rows-3 gap-3.5 sm:right-0 sm:w-[186px] sm:gap-4">
+      <div className="absolute bottom-[12%] right-0 top-[18%] grid w-[36%] grid-rows-3 gap-3.5 sm:right-0 sm:w-[186px] sm:gap-4">
             {outputTitles.map((output, index) => (
               <article
                 key={output}
@@ -583,7 +669,7 @@ export function SignalEngine({ labels }: { labels: SignalEngineLabels }) {
                   <p className="max-h-[2.35em] min-w-0 overflow-hidden text-[9px] font-medium leading-[1.15] tracking-tight text-white sm:max-h-none sm:text-[12px] sm:leading-tight">{output}</p>
                 </div>
 
-                {index === 0 ? <MiniRadarSignal className="mt-1.5 h-9 w-full sm:mt-2 sm:h-11" /> : null}
+                {index === 0 ? <MiniRadarSignal className="mt-0.5 h-[52px] w-full sm:mt-1 sm:h-[60px]" /> : null}
                 {index === 1 ? <NarrativeSignalFeed /> : null}
                 {index === 2 ? <MomentumSignalTicker /> : null}
               </article>
