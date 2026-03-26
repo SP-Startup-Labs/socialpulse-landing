@@ -351,6 +351,524 @@ body {
   }
 }
 
+.social-engine-particle-anchor {
+  position: absolute;
+  transform: translateZ(0);
+  will-change: transform;
+  animation: socialEngineParticleDrift var(--social-engine-drift-duration, 14s) ease-in-out infinite;
+  animation-delay: var(--social-engine-drift-delay, 0s);
+}
+
+.social-engine-particle {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: radial-gradient(circle, var(--engine-tone, #14c7e5) 0%, rgba(255, 255, 255, 0.24) 16%, rgba(9, 20, 38, 0) 72%);
+  opacity: var(--engine-opacity, 0.45);
+  mix-blend-mode: screen;
+  box-shadow: 0 0 var(--engine-glow, 14px) rgba(154, 51, 255, 0.22);
+  will-change: transform, opacity, filter;
+  animation:
+    socialEngineIngest var(--engine-duration, 7.2s) cubic-bezier(0.18, 0.58, 0.14, 1) infinite,
+    socialEngineParticlePulse calc(var(--engine-duration, 7.2s) * 0.7) ease-in-out infinite;
+  animation-delay: var(--engine-delay, 0s), var(--engine-delay, 0s);
+}
+
+@keyframes socialEngineParticleDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(calc(var(--social-engine-drift-x, 3px) * 0.42), calc(var(--social-engine-drift-y, -4px) * -0.26), 0);
+  }
+  50% {
+    transform: translate3d(var(--social-engine-drift-x, 3px), var(--social-engine-drift-y, -4px), 0);
+  }
+  75% {
+    transform: translate3d(calc(var(--social-engine-drift-x, 3px) * 0.3), calc(var(--social-engine-drift-y, -4px) * 0.2), 0);
+  }
+}
+
+@keyframes socialEngineParticlePulse {
+  0%,
+  100% {
+    filter: saturate(0.92) brightness(0.9);
+  }
+  50% {
+    filter: saturate(1.1) brightness(1.08);
+  }
+}
+
+@keyframes socialEngineIngest {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.4);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--engine-opacity, 0.45);
+  }
+  28% {
+    transform: translate3d(calc(var(--engine-target-x-mid, 64px) * 0.58), calc(var(--engine-target-y-mid, 0px) * 0.34), 0) scale(0.74);
+  }
+  52% {
+    transform: translate3d(var(--engine-target-x-mid, 64px), var(--engine-target-y-mid, 0px), 0) scale(0.86);
+  }
+  78% {
+    transform: translate3d(var(--engine-target-x-near, 132px), var(--engine-target-y-near, 0px), 0) scale(0.94);
+    opacity: calc(var(--engine-opacity, 0.45) * 0.92);
+  }
+  90% {
+    transform: translate3d(var(--engine-target-x-absorb, 154px), var(--engine-target-y-absorb, 0px), 0) scale(0.3);
+    opacity: calc(var(--engine-opacity, 0.45) * 0.38);
+  }
+  100% {
+    transform: translate3d(var(--engine-target-x, 160px), var(--engine-target-y, 0px), 0) scale(0.02);
+    opacity: 0;
+  }
+}
+
+.social-engine-core-shell {
+  box-shadow: 0 30px 82px rgba(0, 0, 0, 0.52), 0 0 68px rgba(154, 51, 255, 0.42), 0 0 34px rgba(20, 199, 229, 0.16), inset 0 0 34px rgba(255, 255, 255, 0.06);
+  animation: socialEngineCoreBreath 6s ease-in-out infinite;
+}
+
+.social-engine-core-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  opacity: 0.26;
+  mix-blend-mode: screen;
+}
+
+.social-engine-core-ring-a {
+  inset: -10%;
+  transform: rotate(8deg) scaleX(0.94) scaleY(1.08);
+  animation: socialEngineCoreRingA 6.2s ease-in-out infinite;
+}
+
+.social-engine-core-ring-b {
+  inset: -1%;
+  transform: rotate(-18deg) scaleX(1.08) scaleY(0.92);
+  border-color: rgba(20, 199, 229, 0.16);
+  opacity: 0.22;
+  animation: socialEngineCoreRingB 7.4s ease-in-out infinite;
+}
+
+.social-engine-core-ring-c {
+  inset: 9%;
+  transform: rotate(24deg) scaleX(0.88) scaleY(1.12);
+  border-color: rgba(242, 57, 138, 0.18);
+  opacity: 0.2;
+  animation: socialEngineCoreRingC 8.8s ease-in-out infinite;
+}
+
+.social-engine-core-vortex {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.social-engine-core-vortex-a {
+  inset: 10%;
+  background: conic-gradient(from 180deg, rgba(20, 199, 229, 0) 0deg, rgba(20, 199, 229, 0.18) 62deg, rgba(154, 51, 255, 0.22) 146deg, rgba(242, 57, 138, 0.14) 214deg, rgba(20, 199, 229, 0) 360deg);
+  filter: blur(12px);
+  opacity: 0.8;
+  animation: socialEngineCoreSpiral 7.2s linear infinite;
+}
+
+.social-engine-core-vortex-b {
+  inset: 19%;
+  background: conic-gradient(from 20deg, rgba(242, 57, 138, 0) 0deg, rgba(242, 57, 138, 0.16) 76deg, rgba(154, 51, 255, 0.18) 154deg, rgba(20, 199, 229, 0.1) 242deg, rgba(242, 57, 138, 0) 360deg);
+  filter: blur(10px);
+  opacity: 0.56;
+  animation: socialEngineCoreSpiralReverse 8.8s linear infinite;
+}
+
+.social-engine-core-well {
+  position: absolute;
+  inset: 29%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.96) 0%, rgba(242, 57, 138, 0.94) 30%, rgba(154, 51, 255, 0.82) 62%, rgba(36, 107, 255, 0.16) 88%, rgba(36, 107, 255, 0) 100%);
+  box-shadow: 0 0 30px rgba(242, 57, 138, 0.44), 0 0 72px rgba(154, 51, 255, 0.32);
+  animation: socialEngineCoreWell 4.8s ease-in-out infinite;
+}
+
+.social-engine-core-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 4.5px;
+  width: 4.5px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 0 18px rgba(154, 51, 255, 0.56);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.social-engine-core-orbit-a {
+  animation: socialEngineCoreOrbitA 8.2s linear infinite;
+}
+
+.social-engine-core-orbit-b {
+  animation: socialEngineCoreOrbitB 10.4s linear infinite reverse;
+}
+
+.social-engine-pulse-line {
+  stroke-dasharray: 6 9;
+  animation: socialEnginePulseLine 5.2s linear infinite;
+}
+
+@keyframes socialEngineCoreBreath {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.035);
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes socialEngineCoreRingA {
+  0%,
+  100% {
+    transform: rotate(8deg) scaleX(0.94) scaleY(1.08);
+    opacity: 0.24;
+  }
+  50% {
+    transform: rotate(22deg) scaleX(1.04) scaleY(0.98);
+    opacity: 0.34;
+  }
+}
+
+@keyframes socialEngineCoreRingB {
+  0%,
+  100% {
+    transform: rotate(-18deg) scaleX(1.08) scaleY(0.92);
+    opacity: 0.18;
+  }
+  50% {
+    transform: rotate(-1deg) scaleX(1) scaleY(1.04);
+    opacity: 0.28;
+  }
+}
+
+@keyframes socialEngineCoreRingC {
+  0%,
+  100% {
+    transform: rotate(24deg) scaleX(0.88) scaleY(1.12);
+    opacity: 0.16;
+  }
+  50% {
+    transform: rotate(42deg) scaleX(1.04) scaleY(0.98);
+    opacity: 0.26;
+  }
+}
+
+@keyframes socialEngineCoreSpiral {
+  from {
+    transform: rotate(0deg) scale(0.94);
+  }
+  to {
+    transform: rotate(360deg) scale(1.08);
+  }
+}
+
+@keyframes socialEngineCoreSpiralReverse {
+  from {
+    transform: rotate(360deg) scale(1.02);
+  }
+  to {
+    transform: rotate(0deg) scale(0.9);
+  }
+}
+
+@keyframes socialEngineCoreWell {
+  0%,
+  100% {
+    transform: scale(0.98);
+    filter: brightness(0.96);
+  }
+  50% {
+    transform: scale(1.08);
+    filter: brightness(1.12);
+  }
+}
+
+@keyframes socialEngineCoreOrbitA {
+  0% {
+    transform: rotate(0deg) translateX(42px) scale(0.76);
+    opacity: 0.24;
+  }
+  50% {
+    transform: rotate(180deg) translateX(46px) scale(0.94);
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotate(360deg) translateX(42px) scale(0.76);
+    opacity: 0.22;
+  }
+}
+
+@keyframes socialEngineCoreOrbitB {
+  0% {
+    transform: rotate(0deg) translateX(30px) scale(0.68);
+    opacity: 0.18;
+  }
+  50% {
+    transform: rotate(180deg) translateX(34px) scale(0.82);
+    opacity: 0.78;
+  }
+  100% {
+    transform: rotate(360deg) translateX(30px) scale(0.68);
+    opacity: 0.16;
+  }
+}
+
+@keyframes socialEnginePulseLine {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -62;
+  }
+}
+
+.social-engine-link {
+  stroke-dasharray: 12 10;
+  animation: socialEngineLinkDrift 13s linear infinite;
+}
+
+.social-engine-link-soft {
+  stroke-dasharray: 10 12;
+  animation: socialEngineLinkDrift 15.6s linear infinite reverse;
+}
+
+.social-engine-output-beam,
+.social-engine-output-beam-soft {
+  stroke-dasharray: 14 13;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.social-engine-output-beam {
+  animation: socialEngineOutputBeam 10.2s linear infinite;
+}
+
+.social-engine-output-beam-soft {
+  animation: socialEngineOutputBeam 12.2s linear infinite reverse;
+}
+
+.social-engine-output-tracer {
+  filter: drop-shadow(0 0 10px rgba(154, 51, 255, 0.26));
+}
+
+.social-engine-output-stack {
+  top: 11%;
+  right: 0;
+  bottom: 4%;
+  width: 47%;
+  gap: 0.95rem;
+}
+
+.social-engine-output-card {
+  --social-engine-output-offset: 0px;
+  animation: socialEngineOutputFloat 8.4s ease-in-out infinite;
+}
+
+.social-engine-cluster-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--cluster-start, 0deg)) translateY(calc(var(--cluster-distance, 14px) * -1));
+  will-change: opacity, transform;
+  animation: socialEngineClusterDrift var(--cluster-drift-duration, 9s) ease-in-out infinite;
+  animation-delay: var(--cluster-drift-delay, 0s);
+}
+
+.social-engine-cluster-core {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, var(--cluster-color, #4fd1c5) 26%, rgba(255, 255, 255, 0.18) 54%, rgba(9, 20, 38, 0) 82%);
+  box-shadow: 0 0 12px var(--cluster-glow, rgba(79, 209, 197, 0.32));
+  transform: scale(var(--cluster-scale, 1));
+  animation: socialEngineClusterPulse var(--cluster-duration, 4.8s) ease-in-out infinite;
+  animation-delay: var(--cluster-delay, 0s);
+  will-change: transform, opacity, box-shadow, filter, background;
+  mix-blend-mode: screen;
+}
+
+.social-engine-cluster-core-dominant {
+  animation-duration: 3.8s;
+}
+
+.social-engine-narrative-pill {
+  animation: socialEngineNarrativePulse 5s ease-in-out infinite;
+}
+
+.social-engine-arrow-rise {
+  animation: socialEngineArrowRise 4.4s ease-in-out infinite;
+}
+
+.social-engine-arrow-fall {
+  animation: socialEngineArrowFall 4.4s ease-in-out infinite;
+}
+
+.social-engine-output-card:nth-child(1) {
+  --social-engine-output-offset: -10px;
+}
+
+.social-engine-output-card:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.social-engine-output-card:nth-child(3) {
+  --social-engine-output-offset: 10px;
+  animation-delay: 2s;
+}
+
+@media (min-width: 640px) {
+  .social-engine-output-stack {
+    top: 10%;
+    right: 0.5rem;
+    bottom: 3%;
+    width: 44%;
+    gap: 1.05rem;
+  }
+
+  .social-engine-output-card:nth-child(1) {
+    --social-engine-output-offset: -12px;
+  }
+
+  .social-engine-output-card:nth-child(3) {
+    --social-engine-output-offset: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .social-engine-output-stack {
+    top: 9%;
+    right: 1rem;
+    bottom: 2%;
+    width: 39%;
+    gap: 1.15rem;
+  }
+
+  .social-engine-output-card:nth-child(1) {
+    --social-engine-output-offset: -14px;
+  }
+
+  .social-engine-output-card:nth-child(3) {
+    --social-engine-output-offset: 14px;
+  }
+}
+
+@keyframes socialEngineLinkDrift {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -140;
+  }
+}
+
+@keyframes socialEngineOutputBeam {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -176;
+  }
+}
+
+@keyframes socialEngineOutputFloat {
+  0%,
+  100% {
+    transform: translateY(var(--social-engine-output-offset, 0px));
+  }
+  50% {
+    transform: translateY(calc(var(--social-engine-output-offset, 0px) - 2px));
+  }
+}
+
+@keyframes socialEngineClusterOrbit {
+  from {
+    transform: translate(-50%, -50%) rotate(var(--cluster-start, 0deg)) translateY(calc(var(--cluster-distance, 14px) * -1));
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(calc(var(--cluster-start, 0deg) + 360deg)) translateY(calc(var(--cluster-distance, 14px) * -1));
+  }
+}
+
+@keyframes socialEngineClusterDrift {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--cluster-start, 0deg)) translateY(calc(var(--cluster-distance, 14px) * -1)) translate(0, 0);
+  }
+  33% {
+    transform: translate(-50%, -50%) rotate(var(--cluster-start, 0deg)) translateY(calc(var(--cluster-distance, 14px) * -1)) translate(var(--cluster-drift-x, 1.5px), calc(var(--cluster-drift-y, -1.5px) * 0.4));
+  }
+  66% {
+    transform: translate(-50%, -50%) rotate(var(--cluster-start, 0deg)) translateY(calc(var(--cluster-distance, 14px) * -1)) translate(calc(var(--cluster-drift-x, 1.5px) * -0.55), var(--cluster-drift-y, -1.5px));
+  }
+}
+
+@keyframes socialEngineClusterPulse {
+  0%,
+  100% {
+    transform: scale(calc(var(--cluster-scale, 1) * 0.7));
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.82) 0%, var(--cluster-min-color, var(--cluster-color, #4fd1c5)) 22%, rgba(255, 255, 255, 0.14) 46%, rgba(9, 20, 38, 0) 80%);
+    box-shadow: 0 0 6px var(--cluster-min-glow, rgba(79, 209, 197, 0.18)), 0 0 14px var(--cluster-min-glow, rgba(79, 209, 197, 0.12));
+    filter: saturate(1.18) brightness(1.04);
+    opacity: 0.46;
+  }
+  50% {
+    transform: scale(calc(var(--cluster-scale, 1) * 1.5));
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.94) 0%, var(--cluster-color, #4fd1c5) 28%, rgba(255, 255, 255, 0.22) 56%, rgba(9, 20, 38, 0) 84%);
+    box-shadow: 0 0 12px var(--cluster-glow, rgba(79, 209, 197, 0.32)), 0 0 28px var(--cluster-glow, rgba(79, 209, 197, 0.22));
+    filter: saturate(1.02) brightness(1.02);
+    opacity: 0.96;
+  }
+}
+
+@keyframes socialEngineNarrativePulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 0 0 var(--signal-glow, rgba(159, 176, 195, 0));
+  }
+  50% {
+    transform: translateY(-1px);
+    box-shadow: 0 0 16px var(--signal-glow, rgba(159, 176, 195, 0.08));
+  }
+}
+
+@keyframes socialEngineArrowRise {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes socialEngineArrowFall {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1px);
+  }
+}
+
 .engine-mini-radar {
   position: relative;
   border-radius: 9px;
@@ -2225,6 +2743,19 @@ body {
   .engine-core-halo,
   .engine-core-singularity,
   .engine-core-orbit,
+  .social-engine-particle-anchor,
+  .social-engine-particle,
+  .social-engine-core-shell,
+  .social-engine-core-ring,
+  .social-engine-core-vortex,
+  .social-engine-core-well,
+  .social-engine-core-orbit,
+  .social-engine-pulse-line,
+  .social-engine-link,
+  .social-engine-link-soft,
+  .social-engine-output-beam,
+  .social-engine-output-beam-soft,
+  .social-engine-output-card,
   .engine-pulse-line,
   .engine-input-link,
   .engine-input-link-soft,

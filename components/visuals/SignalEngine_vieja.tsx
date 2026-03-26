@@ -670,22 +670,19 @@ function MomentumSignalTicker() {
 function SocialEngineOutputCard({
   title,
   children,
-  strictGridAlignment = false,
-  contentSpacingClassName = 'mt-6'
+  strictGridAlignment = false
 }: {
   title: string;
   children: ReactNode;
   strictGridAlignment?: boolean;
-  contentSpacingClassName?: string;
 }) {
+  const cardPaddingClassName = strictGridAlignment ? 'gap-6 overflow-hidden px-6 py-6' : 'px-4 py-4 sm:px-5 sm:py-5 lg:px-6 lg:py-6';
+  const contentLayoutClassName = strictGridAlignment ? 'flex min-h-0 flex-1 flex-col overflow-hidden' : 'mt-3 flex-1 min-h-0';
+
   return (
-    <article
-      className={`social-engine-output-card flex h-full min-h-[112px] flex-col overflow-hidden rounded-[1.08rem] border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] shadow-[0_18px_50px_rgba(0,0,0,0.35),0_0_30px_rgba(58,49,255,0.18)] backdrop-blur ${
-        strictGridAlignment ? 'px-6 py-5' : 'px-6 py-5'
-      }`}
-    >
-      <h4 className="text-[11px] font-semibold leading-none tracking-tight text-white">{title}</h4>
-      <div className={`${contentSpacingClassName} flex min-h-0 flex-1 overflow-hidden ${strictGridAlignment ? 'items-start' : 'items-stretch'}`}>{children}</div>
+    <article className={`social-engine-output-card flex h-full flex-col rounded-[1.05rem] border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] shadow-[0_18px_50px_rgba(0,0,0,0.35),0_0_30px_rgba(58,49,255,0.18)] backdrop-blur sm:rounded-[1.3rem] ${cardPaddingClassName}`}>
+      <h4 className="text-[10px] font-semibold leading-[1.2] tracking-tight text-white sm:text-[11px]">{title}</h4>
+      <div className={contentLayoutClassName}>{children}</div>
     </article>
   );
 }
@@ -694,57 +691,31 @@ function EmotionIndexPanel() {
   const { index, fading } = useFadingCycle(emotionIndexSets.length, 5600, 420);
   const featuredEmotions = emotionIndexSets[index].slice(0, 2);
   const toneStyles = {
-    cyan: { color: '#4FD1C5', glow: 'rgba(79,209,197,0.38)' },
-    violet: { color: '#8B5CF6', glow: 'rgba(139,92,246,0.36)' },
-    pink: { color: '#EC4899', glow: 'rgba(236,72,153,0.36)' }
+    cyan: { color: '#4FD1C5', glow: 'rgba(79,209,197,0.42)' },
+    violet: { color: '#8B5CF6', glow: 'rgba(139,92,246,0.42)' },
+    pink: { color: '#EC4899', glow: 'rgba(236,72,153,0.42)' }
   } as const;
-  const clusterToneStyles = {
-    cyan: {
-      color: '#7DFF72',
-      glow: 'rgba(125,255,114,0.42)',
-      minColor: '#FFD84A',
-      minGlow: 'rgba(255,216,74,0.34)'
-    },
-    violet: {
-      color: '#FFD84A',
-      glow: 'rgba(255,216,74,0.4)',
-      minColor: '#FF6156',
-      minGlow: 'rgba(255,97,86,0.34)'
-    },
-    pink: {
-      color: '#FF6156',
-      glow: 'rgba(255,97,86,0.44)',
-      minColor: '#8CFF62',
-      minGlow: 'rgba(140,255,98,0.34)'
-    }
-  } as const;
-
-  const clusterParticles = useMemo(() => {
-    const fallback = ['cyan', 'violet', 'pink'] as const;
-    return Array.from({ length: 5 }, (_, particleIndex) => {
-      const emotionTone = featuredEmotions[particleIndex % featuredEmotions.length]?.tone ?? fallback[particleIndex % fallback.length];
-      return {
-        tone: emotionTone,
-        size: particleIndex === 0 ? 10 : particleIndex === 1 ? 8 : 6,
-        distance: [16, 18, 11, 14, 9][particleIndex],
-        duration: `${7 + particleIndex * 0.8}s`,
-        delay: `${particleIndex * 0.35}s`,
-        start: `${particleIndex * 72}deg`,
-        driftX: [3.2, -4.4, 3.8, -3.1, 4.6][particleIndex],
-        driftY: [-3.4, 2.8, 3.6, -4.1, 2.4][particleIndex],
-        driftDuration: `${8.4 + particleIndex * 0.7}s`,
-        driftDelay: `${particleIndex * 0.28}s`
-      };
-    });
-  }, [featuredEmotions]);
+  const clusterTones = [featuredEmotions[0]?.tone ?? 'cyan', featuredEmotions[1]?.tone ?? 'violet', 'pink', 'cyan'] as const;
+  const clusterParticles = clusterTones.map((tone, particleIndex) => {
+    const rank = featuredEmotions.findIndex((emotion) => emotion.tone === tone);
+    return {
+      tone,
+      size: rank === 0 ? 10 : rank === 1 ? 8 : 7,
+      distance: [18, 14, 20, 11][particleIndex],
+      duration: `${7.2 + particleIndex * 0.9}s`,
+      delay: `${particleIndex * 0.4}s`,
+      start: `${particleIndex * 90}deg`,
+      rank
+    };
+  });
 
   return (
-    <div className={`flex h-full w-full items-center gap-5 transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
-      <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center">
-        <div className="relative h-[64px] w-[64px]">
-          <span className="absolute inset-[10px] rounded-full border border-white/8" />
-          <span className="absolute inset-[20px] rounded-full border border-white/6" />
-          <span className="absolute inset-[28px] rounded-full bg-white/70 shadow-[0_0_10px_rgba(255,255,255,0.18)]" />
+    <div className={`flex h-full min-h-0 w-full flex-row items-center gap-5 overflow-hidden transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <div className="flex h-[60px] w-[60px] shrink-0 items-center justify-center sm:h-[68px] sm:w-[68px]">
+        <div className="relative h-[60px] w-[60px] rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.05),rgba(9,20,38,0.42))] shadow-[0_0_24px_rgba(91,99,255,0.08)] backdrop-blur sm:h-[68px] sm:w-[68px]">
+          <span className="absolute inset-[16%] rounded-full border border-white/8" />
+          <span className="absolute inset-[32%] rounded-full border border-white/10" />
+          <span className="absolute inset-[44%] rounded-full bg-white/75 shadow-[0_0_10px_rgba(255,255,255,0.18)]" />
           {clusterParticles.map((particle) => (
             <span
               key={`${particle.tone}-${particle.start}`}
@@ -755,42 +726,40 @@ function EmotionIndexPanel() {
                   '--cluster-distance': `${particle.distance}px`,
                   '--cluster-duration': particle.duration,
                   '--cluster-delay': particle.delay,
-                  '--cluster-scale': 1,
-                  '--cluster-drift-x': `${particle.driftX}px`,
-                  '--cluster-drift-y': `${particle.driftY}px`,
-                  '--cluster-drift-duration': particle.driftDuration,
-                  '--cluster-drift-delay': particle.driftDelay,
-                  '--cluster-glow': clusterToneStyles[particle.tone].glow,
-                  '--cluster-min-glow': clusterToneStyles[particle.tone].minGlow,
-                  '--cluster-color': clusterToneStyles[particle.tone].color,
-                  '--cluster-min-color': clusterToneStyles[particle.tone].minColor,
+                  '--cluster-scale': particle.rank === 0 ? 1.16 : particle.rank === 1 ? 1.03 : 0.9,
+                  '--cluster-glow': toneStyles[particle.tone].glow,
+                  '--cluster-color': toneStyles[particle.tone].color,
                   width: `${particle.size}px`,
                   height: `${particle.size}px`,
-                  opacity: 0.96
+                  opacity: particle.rank >= 0 ? 1 : 0.58
                 } as CSSProperties
               }
             >
-              <span className="social-engine-cluster-core" />
+              <span className={`social-engine-cluster-core ${particle.rank === 0 ? 'social-engine-cluster-core-dominant' : ''}`} />
             </span>
           ))}
         </div>
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col justify-center gap-4">
+      <div className="flex min-w-0 flex-1 flex-col gap-3">
         {featuredEmotions.map((emotion) => (
-          <div key={emotion.label} className="grid min-w-0 grid-cols-[minmax(76px,auto)_minmax(68px,1fr)_44px] items-center gap-3">
-            <p className="truncate whitespace-nowrap text-[12px] font-medium tracking-tight text-[#E6EDF3]">{emotion.label}</p>
-            <div className="h-[4px] w-full overflow-hidden rounded-full bg-white/10">
-              <span
-                className="block h-full rounded-full"
-                style={{
-                  width: `${emotion.score}%`,
-                  background: `linear-gradient(90deg, ${toneStyles[emotion.tone].color}, rgba(255,255,255,0.72))`,
-                  boxShadow: `0 0 12px ${toneStyles[emotion.tone].glow}`
-                }}
-              />
+          <div key={emotion.label} className="flex w-full min-w-0 items-center gap-2 sm:gap-2.5">
+            <p className="w-[62px] shrink-0 whitespace-nowrap text-[9.5px] font-medium tracking-tight text-[#E6EDF3] sm:w-[72px] sm:text-[10.5px]">
+              {emotion.label}
+            </p>
+            <div className="flex min-w-0 flex-1 items-center gap-1.5 sm:gap-2">
+              <div className="h-[4px] w-[48px] shrink-0 overflow-hidden rounded-full bg-white/10 sm:w-[56px]">
+                <span
+                  className="block h-full rounded-full"
+                  style={{
+                    width: `${emotion.score}%`,
+                    background: `linear-gradient(90deg, ${toneStyles[emotion.tone].color}, rgba(255,255,255,0.75))`,
+                    boxShadow: `0 0 12px ${toneStyles[emotion.tone].glow}`
+                  }}
+                />
+              </div>
+              <span className="w-[30px] shrink-0 text-right text-[9px] font-semibold text-[#E6EDF3] sm:w-[34px] sm:text-[10px]">{emotion.score}%</span>
             </div>
-            <span className="text-right text-[12px] font-semibold text-[#E6EDF3]">{emotion.score}%</span>
           </div>
         ))}
       </div>
@@ -803,44 +772,64 @@ function NarrativeRankingPanel() {
   const activeNarratives = narrativeRankingSets[index].slice(0, 2);
 
   return (
-    <div className={`flex h-full min-h-0 w-full flex-col justify-between gap-3 transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
-      {activeNarratives.map((narrative, narrativeIndex) => {
-        const movement = narrative.direction === 'up' ? 'rising' : narrative.direction === 'down' ? 'easing' : 'stabilizing';
-        const isPositive = narrative.direction === 'up';
-        const borderColor = isPositive ? 'rgba(79,209,197,0.38)' : narrative.direction === 'down' ? 'rgba(249,115,22,0.4)' : 'rgba(159,176,195,0.26)';
-        const background = isPositive ? 'rgba(36,107,255,0.12)' : narrative.direction === 'down' ? 'rgba(18,23,35,0.82)' : 'rgba(159,176,195,0.06)';
-        const textColor = isPositive ? '#4FD1C5' : narrative.direction === 'down' ? '#F97316' : '#9FB0C3';
+    <div className={`flex h-full min-h-0 w-full overflow-hidden transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <div className="flex h-full min-h-0 w-full flex-1 flex-col justify-start gap-4 overflow-hidden">
+        {activeNarratives.map((narrative, narrativeIndex) => {
+          const movement = narrative.direction === 'up' ? 'rising' : narrative.direction === 'down' ? 'easing' : 'stabilizing';
+          const intensity = Math.max(0.4, narrative.score / 100);
+          const isPositive = narrative.direction === 'up';
+          const isNegative = narrative.direction === 'down';
+          const pillStyle = {
+            '--signal-glow': isPositive
+              ? `rgba(79,209,197,${0.12 + intensity * 0.12})`
+              : isNegative
+              ? `rgba(249,115,22,${0.1 + intensity * 0.12})`
+              : `rgba(159,176,195,${0.08 + intensity * 0.06})`,
+            animationDuration: `${4.4 + narrativeIndex * 0.6}s`,
+            borderColor: isPositive
+              ? `rgba(79,209,197,${0.24 + intensity * 0.18})`
+              : isNegative
+              ? `rgba(249,115,22,${0.24 + intensity * 0.18})`
+              : `rgba(159,176,195,${0.14 + intensity * 0.08})`,
+            background: isPositive
+              ? `rgba(36,107,255,${0.05 + intensity * 0.04})`
+              : isNegative
+              ? `rgba(16,22,32,${0.82 + intensity * 0.06})`
+              : `rgba(159,176,195,${0.03 + intensity * 0.02})`,
+            boxShadow: isPositive
+              ? `0 0 ${12 + intensity * 10}px rgba(79,209,197,${0.06 + intensity * 0.1}), inset 0 1px 0 rgba(255,255,255,0.06)`
+              : isNegative
+              ? `0 0 ${12 + intensity * 10}px rgba(249,115,22,${0.06 + intensity * 0.1}), inset 0 1px 0 rgba(255,255,255,0.04)`
+              : `0 0 12px rgba(159,176,195,0.08), inset 0 1px 0 rgba(255,255,255,0.04)`,
+            opacity: isNegative ? 0.9 + intensity * 0.08 : 0.94 + intensity * 0.06
+          } as CSSProperties;
 
-        return (
-          <div
-            key={`${narrative.label}-${narrativeIndex}`}
-            className="flex min-h-0 flex-1 items-center gap-2.5 rounded-[8px] border px-3.5 py-2 transition-all duration-500 ease-out"
-            style={{
-              borderColor,
-              background,
-              boxShadow: isPositive
-                ? '0 0 16px rgba(79,209,197,0.08), inset 0 1px 0 rgba(255,255,255,0.05)'
-                : narrative.direction === 'down'
-                ? '0 0 16px rgba(249,115,22,0.08), inset 0 1px 0 rgba(255,255,255,0.04)'
-                : '0 0 12px rgba(159,176,195,0.05), inset 0 1px 0 rgba(255,255,255,0.04)'
-            }}
-          >
-            <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center">
-              {isPositive ? (
-                <ArrowUpRight className="h-3 w-3 text-[#4FD1C5]" />
-              ) : narrative.direction === 'down' ? (
-                <ArrowDownRight className="h-3 w-3 text-[#F97316]" />
-              ) : (
-                <span className="text-[10px] font-semibold text-[#9FB0C3]">•</span>
-              )}
-            </span>
-            <p className="min-w-0 flex-1 truncate text-[11px] font-semibold tracking-tight" style={{ color: textColor }}>
-              {`${narrative.label} sentiment ${movement}`}
-            </p>
-            <span className="h-4 w-px shrink-0 rounded-full" style={{ background: isPositive ? 'rgba(79,209,197,0.5)' : narrative.direction === 'down' ? 'rgba(249,115,22,0.5)' : 'rgba(159,176,195,0.4)' }} />
-          </div>
-        );
-      })}
+          return (
+            <div
+              key={`${narrative.label}-${narrativeIndex}`}
+              className="social-engine-narrative-pill flex min-h-[44px] w-full min-w-0 flex-none items-center gap-3 overflow-hidden rounded-[14px] border px-3 py-2.5 backdrop-blur transition-all duration-500 ease-out"
+              style={pillStyle}
+            >
+              <span className="flex h-4 w-4 shrink-0 items-center justify-center">
+                {isPositive ? (
+                  <ArrowUpRight className="h-3 w-3 text-[#4FD1C5]" />
+                ) : isNegative ? (
+                  <ArrowDownRight className="h-3 w-3 text-[#F97316]" />
+                ) : (
+                  <span className="text-[9px] font-semibold text-[#9FB0C3]">\u2022</span>
+                )}
+              </span>
+              <p className={`${isPositive ? 'text-[#4FD1C5]' : isNegative ? 'text-[#F97316]' : 'text-[#9FB0C3]'} ${narrativeIndex === 0 ? 'font-semibold' : 'font-medium'} min-w-0 flex-1 truncate text-[9px] sm:text-[10px]`}>
+                {`${narrative.label} sentiment ${movement}`}
+              </p>
+              <span
+                className={`h-5 w-px shrink-0 rounded-full ${isPositive ? 'bg-[#4FD1C5]/55' : isNegative ? 'bg-[#F97316]/55' : 'bg-[#9FB0C3]/40'}`}
+                aria-hidden="true"
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -858,18 +847,20 @@ function MomentumSignalPanel() {
   const chartGlowId = useId();
 
   return (
-    <div className={`grid h-full min-h-0 w-full grid-cols-[0.4fr_0.6fr] items-center gap-4 overflow-hidden transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
-      <div className="flex min-w-0 flex-col justify-center">
-        <p className={`${isPositive ? 'text-[#8CE9D8]' : 'text-[#FFB48A]'} text-[0.92rem] font-semibold leading-none tracking-tight`}>
-          <span className="block whitespace-nowrap">{deltaText}</span>
-          <span className="mt-0.5 block whitespace-nowrap text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[#E6EDF3]">{active.emotion}</span>
-        </p>
-        <p className="mt-1 text-[8px] uppercase tracking-[0.14em] text-[#9FB0C3]">{contextLabel}</p>
+    <div className={`grid h-full min-h-0 grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] items-center gap-2.5 transition-all duration-500 sm:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] sm:gap-3 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <div className="flex min-w-0 flex-col justify-center self-stretch">
+        <div className="min-w-0">
+          <p className={`${isPositive ? 'text-[#8CE9D8]' : 'text-[#FFB48A]'} text-[0.85rem] font-semibold leading-none tracking-tight sm:text-[0.92rem]`}>
+            <span className="block whitespace-nowrap">{deltaText}</span>
+            <span className="mt-1 block whitespace-nowrap text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-[#E6EDF3] sm:text-[0.68rem]">{active.emotion}</span>
+          </p>
+          <p className="mt-1.5 text-[7px] uppercase tracking-[0.12em] text-[#9FB0C3] sm:text-[8px] sm:tracking-[0.14em]">{contextLabel}</p>
+        </div>
       </div>
 
-      <div className="flex min-w-0 items-center">
+      <div className="flex min-w-0 items-center self-stretch">
         <div
-          className="w-full overflow-hidden rounded-[0.95rem] border border-white/10 bg-[linear-gradient(160deg,rgba(6,14,28,0.72),rgba(20,30,48,0.42))] px-2.5 py-[7px]"
+          className="w-full rounded-[0.95rem] border border-white/10 bg-[linear-gradient(160deg,rgba(6,14,28,0.72),rgba(20,30,48,0.42))] px-2 py-1.5 sm:px-2.5 sm:py-2"
           style={{
             boxShadow: isPositive
               ? '0 0 24px rgba(79,209,197,0.07), inset 0 1px 0 rgba(255,255,255,0.04)'
@@ -878,53 +869,53 @@ function MomentumSignalPanel() {
         >
           <svg
             key={`${active.emotion}-${active.window}`}
-            className="block h-[36px] w-full"
+            className="block h-[36px] w-full sm:h-[40px]"
             viewBox="0 0 220 58"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
-            <defs>
-              <linearGradient id={chartGradientId} x1="12" y1="10" x2="208" y2="50" gradientUnits="userSpaceOnUse">
-                {isPositive ? (
-                  <>
-                    <stop stopColor="#4FD1C5" stopOpacity="0.92" />
-                    <stop offset="1" stopColor="#10B981" stopOpacity="0.74" />
-                  </>
-                ) : (
-                  <>
-                    <stop stopColor="#F97316" stopOpacity="0.88" />
-                    <stop offset="1" stopColor="#FB7185" stopOpacity="0.72" />
-                  </>
-                )}
-              </linearGradient>
-              <linearGradient id={chartGlowId} x1="12" y1="10" x2="208" y2="50" gradientUnits="userSpaceOnUse">
-                {isPositive ? (
-                  <>
-                    <stop stopColor="#4FD1C5" stopOpacity="0.16" />
-                    <stop offset="1" stopColor="#10B981" stopOpacity="0.22" />
-                  </>
-                ) : (
-                  <>
-                    <stop stopColor="#F97316" stopOpacity="0.16" />
-                    <stop offset="1" stopColor="#FB7185" stopOpacity="0.22" />
-                  </>
-                )}
-              </linearGradient>
-              <linearGradient id={areaId} x1="12" y1="6" x2="12" y2="54" gradientUnits="userSpaceOnUse">
-                {isPositive ? (
-                  <>
-                    <stop stopColor="#4FD1C5" stopOpacity="0.08" />
-                    <stop offset="1" stopColor="#4FD1C5" stopOpacity="0" />
-                  </>
-                ) : (
-                  <>
-                    <stop stopColor="#F97316" stopOpacity="0.08" />
-                    <stop offset="1" stopColor="#F97316" stopOpacity="0" />
-                  </>
-                )}
-              </linearGradient>
-            </defs>
+          <defs>
+            <linearGradient id={chartGradientId} x1="12" y1="10" x2="208" y2="50" gradientUnits="userSpaceOnUse">
+              {isPositive ? (
+                <>
+                  <stop stopColor="#4FD1C5" stopOpacity="0.92" />
+                  <stop offset="1" stopColor="#10B981" stopOpacity="0.74" />
+                </>
+              ) : (
+                <>
+                  <stop stopColor="#F97316" stopOpacity="0.88" />
+                  <stop offset="1" stopColor="#FB7185" stopOpacity="0.72" />
+                </>
+              )}
+            </linearGradient>
+            <linearGradient id={chartGlowId} x1="12" y1="10" x2="208" y2="50" gradientUnits="userSpaceOnUse">
+              {isPositive ? (
+                <>
+                  <stop stopColor="#4FD1C5" stopOpacity="0.16" />
+                  <stop offset="1" stopColor="#10B981" stopOpacity="0.22" />
+                </>
+              ) : (
+                <>
+                  <stop stopColor="#F97316" stopOpacity="0.16" />
+                  <stop offset="1" stopColor="#FB7185" stopOpacity="0.22" />
+                </>
+              )}
+            </linearGradient>
+            <linearGradient id={areaId} x1="12" y1="6" x2="12" y2="54" gradientUnits="userSpaceOnUse">
+              {isPositive ? (
+                <>
+                  <stop stopColor="#4FD1C5" stopOpacity="0.08" />
+                  <stop offset="1" stopColor="#4FD1C5" stopOpacity="0" />
+                </>
+              ) : (
+                <>
+                  <stop stopColor="#F97316" stopOpacity="0.08" />
+                  <stop offset="1" stopColor="#F97316" stopOpacity="0" />
+                </>
+              )}
+            </linearGradient>
+          </defs>
 
             <path d="M12 52 H208" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
             <path d={active.fillPath} fill={`url(#${areaId})`} />
@@ -1123,7 +1114,7 @@ export function SocialEngineTablet({ labels }: { labels: SocialEngineTabletLabel
               <EmotionIndexPanel />
             </SocialEngineOutputCard>
 
-            <SocialEngineOutputCard title={labels.outputs.predominantNarratives} strictGridAlignment contentSpacingClassName="mt-5">
+            <SocialEngineOutputCard title={labels.outputs.predominantNarratives} strictGridAlignment>
               <NarrativeRankingPanel />
             </SocialEngineOutputCard>
 
