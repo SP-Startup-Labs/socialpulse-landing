@@ -95,9 +95,11 @@ type LocalizedContent = {
       top: string;
       topRight: string;
       right: string;
+      bottomRight: string;
       bottom: string;
       bottomLeft: string;
       left: string;
+      topLeft: string;
     };
   };
   opportunity: {
@@ -246,9 +248,11 @@ const content: Record<Language, LocalizedContent> = {
       frameworkSubtitle:
         'Real-emotion mapping across live public narratives.',
       radarLabels: {
+        topLeft: 'Doubt',
         top: 'Anger',
         topRight: 'Excitement',
         right: 'Support',
+        bottomRight: 'Trust',
         bottom: 'Hope',
         bottomLeft: 'Skepticism',
         left: 'Disappointment'
@@ -519,9 +523,11 @@ const content: Record<Language, LocalizedContent> = {
       frameworkSubtitle:
         'Mapeo de emociones reales sobre narrativas publicas en vivo.',
       radarLabels: {
+        topLeft: 'Duda',
         top: 'Enojo',
         topRight: 'Entusiasmo',
         right: 'Apoyo',
+        bottomRight: 'Confianza',
         bottom: 'Esperanza',
         bottomLeft: 'Escepticismo',
         left: 'Decepcion'

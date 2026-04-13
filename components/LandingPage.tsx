@@ -31,9 +31,9 @@ import {
 import { type Language } from '@/lib/content';
 import { LeadModal } from './LeadModal';
 import { GradientIcon } from './visuals/GradientIcon';
+import { HeroRadarVisual } from './visuals/HeroRadarVisual';
 import { ProblemSignalField } from './visuals/ProblemSignalField';
-import { RadarPulse } from './visuals/RadarPulse';
-import { SignalEngine, SocialEngineTablet } from './visuals/SignalEngine';
+import { SocialEngineTablet } from './visuals/SignalEngine';
 
 type SignalEngineVisualLabels = {
   volume: string;
@@ -95,9 +95,11 @@ type LocalizedContent = {
       top: string;
       topRight: string;
       right: string;
+      bottomRight: string;
       bottom: string;
       bottomLeft: string;
       left: string;
+      topLeft: string;
     };
   };
   opportunity: {
@@ -246,9 +248,11 @@ const content: Record<Language, LocalizedContent> = {
       frameworkSubtitle:
         'Real-emotion mapping across live public narratives.',
       radarLabels: {
+        topLeft: 'Doubt',
         top: 'Anger',
         topRight: 'Excitement',
         right: 'Support',
+        bottomRight: 'Trust',
         bottom: 'Hope',
         bottomLeft: 'Skepticism',
         left: 'Disappointment'
@@ -519,9 +523,11 @@ const content: Record<Language, LocalizedContent> = {
       frameworkSubtitle:
         'Mapeo de emociones reales sobre narrativas publicas en vivo.',
       radarLabels: {
+        topLeft: 'Duda',
         top: 'Enojo',
         topRight: 'Entusiasmo',
         right: 'Apoyo',
+        bottomRight: 'Confianza',
         bottom: 'Esperanza',
         bottomLeft: 'Escepticismo',
         left: 'Decepcion'
@@ -1077,16 +1083,7 @@ export function LandingPage() {
                 </div>
 
                 <div className="relative mx-auto mt-2 w-full max-w-[620px] animate-fade-up lg:mt-0" style={{ animationDelay: '120ms' }}>
-                  <SignalEngine
-                    labels={{
-                      title: visualLabels.engineTitle,
-                      input: visualLabels.engineInput,
-                      core: visualLabels.engineCore,
-                      pressure: visualLabels.enginePressure,
-                      index: visualLabels.engineIndex,
-                      outputs: visualLabels.outputs
-                    }}
-                  />
+                  <HeroRadarVisual labels={t.solution.radarLabels} />
                 </div>
               </div>
             </div>
@@ -1182,22 +1179,6 @@ export function LandingPage() {
               <div className="relative mt-10 text-center">
                 <div className="pointer-events-none absolute inset-x-[20%] -top-3 h-16 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.34)_0%,rgba(154,51,255,0)_72%)] blur-xl" />
                 <p className="relative text-lg font-semibold tracking-tight text-white md:text-2xl">{t.solution.closing}</p>
-              </div>
-            </article>
-
-            <article className="floating-panel double-layer-panel animate-fade-up relative mt-6 overflow-hidden p-5 sm:p-6 md:p-8" style={{ animationDelay: '80ms' }}>
-              <div className="grid items-center gap-7 md:grid-cols-[0.95fr_1.05fr]">
-                <div>
-                  <SectionHeaderAccent icon={Radar} tone="purple" />
-                  <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">{t.solution.frameworkTitle}</h3>
-                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.solution.frameworkSubtitle}</p>
-                </div>
-                <div className="flex h-full items-center justify-center">
-                  <div className="relative mx-auto w-full max-w-[420px]">
-                    <div className="absolute -bottom-6 left-1/2 h-16 w-[72%] -translate-x-1/2 rounded-full bg-black/55 blur-2xl" />
-                    <RadarPulse labels={t.solution.radarLabels} compact />
-                  </div>
-                </div>
               </div>
             </article>
           </section>

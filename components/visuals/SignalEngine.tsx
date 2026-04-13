@@ -803,7 +803,7 @@ function NarrativeRankingPanel() {
   const activeNarratives = narrativeRankingSets[index].slice(0, 2);
 
   return (
-    <div className={`flex h-full min-h-0 w-full flex-col justify-between gap-3 transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
+    <div className={`flex h-full min-h-0 w-full flex-col gap-2 transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
       {activeNarratives.map((narrative, narrativeIndex) => {
         const movement = narrative.direction === 'up' ? 'rising' : narrative.direction === 'down' ? 'easing' : 'stabilizing';
         const isPositive = narrative.direction === 'up';
@@ -814,7 +814,7 @@ function NarrativeRankingPanel() {
         return (
           <div
             key={`${narrative.label}-${narrativeIndex}`}
-            className="flex min-h-0 flex-1 items-center gap-2.5 rounded-[8px] border px-3.5 py-2 transition-all duration-500 ease-out"
+            className="flex min-h-0 w-full flex-1 items-center gap-2.5 rounded-[8px] border px-3.5 py-2.5 transition-all duration-500 ease-out"
             style={{
               borderColor,
               background,
@@ -825,7 +825,7 @@ function NarrativeRankingPanel() {
                 : '0 0 12px rgba(159,176,195,0.05), inset 0 1px 0 rgba(255,255,255,0.04)'
             }}
           >
-            <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center">
+            <span className="flex h-4 w-4 shrink-0 items-center justify-center">
               {isPositive ? (
                 <ArrowUpRight className="h-3 w-3 text-[#4FD1C5]" />
               ) : narrative.direction === 'down' ? (
@@ -1123,7 +1123,7 @@ export function SocialEngineTablet({ labels }: { labels: SocialEngineTabletLabel
               <EmotionIndexPanel />
             </SocialEngineOutputCard>
 
-            <SocialEngineOutputCard title={labels.outputs.predominantNarratives} strictGridAlignment contentSpacingClassName="mt-5">
+            <SocialEngineOutputCard title={labels.outputs.predominantNarratives} strictGridAlignment contentSpacingClassName="mt-3 !items-stretch">
               <NarrativeRankingPanel />
             </SocialEngineOutputCard>
 
