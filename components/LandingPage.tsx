@@ -32,7 +32,6 @@ import { type Language } from '@/lib/content';
 import { LeadModal } from './LeadModal';
 import { GradientIcon } from './visuals/GradientIcon';
 import { HeroRadarVisual } from './visuals/HeroRadarVisual';
-import { ProblemSignalField } from './visuals/ProblemSignalField';
 import { SocialEngineTablet } from './visuals/SignalEngine';
 
 type SignalEngineVisualLabels = {
@@ -71,17 +70,20 @@ type LocalizedContent = {
   };
   heroMetrics: Array<{ label: string; value: string }>;
   problem: {
-    eyebrow: string;
     title: string;
-    thesisLead: string;
-    thesisBody: string;
-    traditionalLabel: string;
-    traditionalItems: string[];
-    transitionLabel: string;
-    emotionalLabel: string;
-    emotionalItems: string[];
-    conclusionLead: string;
-    conclusionBody: string;
+    subtitle: string;
+    measuredTitle: string;
+    measuredCaption: string;
+    measuredItems: Array<{ label: string; detail: string }>;
+    insightFlow: string[];
+    insightRejected: string;
+    insightMain: string;
+    insightSupport: string;
+    driversTitle: string;
+    driversItems: Array<{ title: string; detail: string }>;
+    conclusionPrimary: string;
+    conclusionSecondary: string;
+    conclusionTertiary: string;
   };
   solution: {
     title: string;
@@ -192,19 +194,43 @@ const content: Record<Language, LocalizedContent> = {
       { label: 'Signal Momentum', value: 'Actionable alerts' }
     ],
     problem: {
-      title: 'The Problem',
-      eyebrow:
-        'The Hidden Signal in Digital Markets',
-      thesisLead: 'Markets react to emotion long before metrics reflect it.',
-      thesisBody:
-        "Traditional analytics measure activity - likes, views and engagement. You don't know why content works or why it fails.",
-      traditionalLabel: 'Traditional Metrics',
-      traditionalItems: ['Likes', 'Views', 'Engagement', 'Volume', 'Velocity'],
-      transitionLabel: 'Activity -> Emotion -> Market Reaction',
-      emotionalLabel: 'Emotional Signals',
-      emotionalItems: ['Emotional Intensity', 'Narrative Pressure', 'Audience Activation', 'Trust Volatility'],
-      conclusionLead: 'Emotion is often the first signal.',
-      conclusionBody: 'Yet it remains invisible in most decision systems.'
+      title: 'The market is measuring the wrong signal.',
+      subtitle: "Activity is visible. But it doesn't explain outcomes.",
+      measuredTitle: 'WHAT IS MEASURED',
+      measuredCaption: 'Surface metrics',
+      measuredItems: [
+        { label: 'Likes', detail: '' },
+        { label: 'Views', detail: '' },
+        { label: 'Engagement', detail: '' },
+        { label: 'Volume', detail: '' },
+        { label: 'Velocity', detail: '' }
+      ],
+      insightFlow: ['Activity', 'Emotion', 'Market Reaction'],
+      insightRejected: 'Activity drives outcomes',
+      insightMain: 'Emotion does.',
+      insightSupport: '',
+      driversTitle: 'WHAT MOVES OUTCOMES',
+      driversItems: [
+        {
+          title: 'Emotional Intensity',
+          detail: ''
+        },
+        {
+          title: 'Narrative Shift',
+          detail: ''
+        },
+        {
+          title: 'Audience Activation',
+          detail: ''
+        },
+        {
+          title: 'Trust Volatility',
+          detail: ''
+        }
+      ],
+      conclusionPrimary: "Capital is being allocated on signals that don't explain outcomes.",
+      conclusionSecondary: 'That gap is where advantage is created.',
+      conclusionTertiary: ''
     },
     solution: {
       title: 'The Solution',
@@ -468,18 +494,43 @@ const content: Record<Language, LocalizedContent> = {
       { label: 'Signal Momentum', value: 'Alertas accionables' }
     ],
     problem: {
-      eyebrow: 'EL PROBLEMA',
-      title: 'La Senal Oculta en los Mercados Digitales',
-      thesisLead: 'Los mercados reaccionan a la emocion mucho antes de que las metricas la reflejen.',
-      thesisBody:
-        'La analitica tradicional mide actividad - likes, views y engagement. Pero no captura la presion emocional que moldea las narrativas en tiempo real.',
-      traditionalLabel: 'Metricas Tradicionales',
-      traditionalItems: ['Likes', 'Views', 'Engagement', 'Volumen', 'Velocidad'],
-      transitionLabel: 'Actividad -> Emocion -> Reaccion de Mercado',
-      emotionalLabel: 'Senales Emocionales',
-      emotionalItems: ['Intensidad Emocional', 'Presion Narrativa', 'Activacion de Audiencia', 'Volatilidad de Confianza'],
-      conclusionLead: 'La emocion suele ser la primera senal.',
-      conclusionBody: 'Sin embargo, sigue siendo invisible en la mayoria de los sistemas de decision.'
+      title: 'El mercado esta midiendo la senal equivocada.',
+      subtitle: 'La actividad es visible. Pero no explica resultados.',
+      measuredTitle: 'LO QUE SE MIDE',
+      measuredCaption: 'metricas de superficie',
+      measuredItems: [
+        { label: 'Likes', detail: '' },
+        { label: 'Views', detail: '' },
+        { label: 'Engagement', detail: '' },
+        { label: 'Volumen', detail: '' },
+        { label: 'Velocidad', detail: '' }
+      ],
+      insightFlow: ['Actividad', 'Emocion', 'Reaccion de Mercado'],
+      insightRejected: 'La actividad mueve resultados',
+      insightMain: 'La emocion si.',
+      insightSupport: '',
+      driversTitle: 'LO QUE MUEVE RESULTADOS',
+      driversItems: [
+        {
+          title: 'Intensidad Emocional',
+          detail: ''
+        },
+        {
+          title: 'Cambio Narrativo',
+          detail: ''
+        },
+        {
+          title: 'Activacion de Audiencia',
+          detail: ''
+        },
+        {
+          title: 'Volatilidad de Confianza',
+          detail: ''
+        }
+      ],
+      conclusionPrimary: 'El capital se esta asignando sobre senales que no explican resultados.',
+      conclusionSecondary: 'Esa brecha es donde se crea ventaja.',
+      conclusionTertiary: ''
     },
     solution: {
       title: 'La Solucion',
@@ -719,6 +770,54 @@ const opportunityIcons: LucideIcon[] = [TrendingUp, BriefcaseBusiness, Users];
 const adoptionIcons: LucideIcon[] = [Users, Activity, BriefcaseBusiness, Radar, TrendingUp];
 const traditionalMetricIcons: LucideIcon[] = [ThumbsUp, Eye, MessageCircle, BarChart3, Zap];
 const roadmapIcons: LucideIcon[] = [Activity, LineChart, Target, Target];
+
+function renderProblemDriverSignal(index: number) {
+  const shellClassName =
+    'relative h-10 w-11 overflow-hidden rounded-[14px] border border-white/[0.06] bg-[linear-gradient(160deg,rgba(255,255,255,0.05),rgba(255,255,255,0.015))]';
+
+  switch (index) {
+    case 0:
+      return (
+        <div className={shellClassName}>
+          <span className="absolute inset-[11px] rounded-full bg-[radial-gradient(circle,rgba(242,57,138,0.56)_0%,rgba(154,51,255,0.24)_58%,rgba(154,51,255,0)_100%)]" />
+          <span className="absolute inset-[6px] rounded-full border border-white/[0.1]" />
+          <span className="absolute inset-[2px] rounded-full border border-[#9A33FF]/12" />
+        </div>
+      );
+    case 1:
+      return (
+        <div className={shellClassName}>
+          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 44 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 29 C10 27, 15 22, 21 21 C27 20, 31 24, 40 12" stroke="rgba(255,255,255,0.18)" strokeWidth="1.1" strokeLinecap="round" />
+            <path d="M4 32 C10 31, 15 28, 21 25 C28 22, 33 15, 40 14" stroke="#14C7E5" strokeOpacity="0.78" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M4 25 C9 24, 14 20, 19 18 C25 16, 31 18, 40 9" stroke="#9A33FF" strokeOpacity="0.5" strokeWidth="1.35" strokeLinecap="round" />
+          </svg>
+        </div>
+      );
+    case 2:
+      return (
+        <div className={shellClassName}>
+          <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#14C7E5]/82 shadow-[0_0_18px_rgba(20,199,229,0.28)]" />
+          <span className="absolute left-[27%] top-[28%] h-1.5 w-1.5 rounded-full bg-white/72" />
+          <span className="absolute right-[24%] top-[34%] h-1.5 w-1.5 rounded-full bg-[#9A33FF]/75" />
+          <span className="absolute left-[33%] bottom-[23%] h-1.5 w-1.5 rounded-full bg-[#F2398A]/72" />
+          <span className="absolute left-[34%] top-[33%] h-px w-4 rotate-[30deg] bg-white/12" />
+          <span className="absolute left-1/2 top-[45%] h-px w-3 -translate-x-1/2 rotate-[-22deg] bg-white/12" />
+          <span className="absolute left-[42%] top-[58%] h-px w-3 rotate-[58deg] bg-white/12" />
+        </div>
+      );
+    default:
+      return (
+        <div className={shellClassName}>
+          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 44 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 26 C8 28, 12 15, 17 17 C22 19, 25 31, 31 24 C35 19, 38 14, 40 16" stroke="rgba(255,255,255,0.18)" strokeWidth="1" strokeLinecap="round" strokeDasharray="3 3" />
+            <path d="M4 26 C8 28, 12 15, 17 17 C22 19, 25 31, 31 24 C35 19, 38 14, 40 16" stroke="#14C7E5" strokeOpacity="0.82" strokeWidth="1.55" strokeLinecap="round" />
+            <path d="M4 30 C10 32, 14 24, 19 23 C24 22, 29 13, 40 12" stroke="#F2398A" strokeOpacity="0.4" strokeWidth="1.15" strokeLinecap="round" />
+          </svg>
+        </div>
+      );
+  }
+}
 
 function getPlatformIcons(label: string): LucideIcon[] {
   const normalized = label.toLowerCase();
@@ -1092,69 +1191,234 @@ export function LandingPage() {
           <section id="problem" className="section-wrap section-space">
             <article className="floating-panel double-layer-panel animate-fade-up p-6 sm:p-7 md:p-10">
               <SectionHeaderAccent icon={Activity} tone="pink" />
-              <h2 className="mt-2 text-[2.1rem] font-bold leading-[1.06] tracking-[-0.02em] sm:text-[2.45rem] md:text-5xl">{t.problem.title}</h2>
-              <div className="mt-6 max-w-4xl space-y-3.5">
-                <p className="text-lg font-medium leading-relaxed text-white/95 md:text-xl md:leading-[1.4]">{t.problem.thesisLead}</p>
-                <p className="text-sm leading-relaxed text-[#AAB4C2] md:text-[15px]">{t.problem.thesisBody}</p>
-              </div>
+              <h2 className="text-3xl font-bold tracking-[-0.02em] md:text-5xl">{t.problem.title}</h2>
+              <p className="mt-6 max-w-3xl text-base leading-relaxed text-[#AAB4C2] md:text-lg">{t.problem.subtitle}</p>
 
-              <div className="mt-10 rounded-3xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-6">
-                <div className="grid gap-7 lg:grid-cols-[0.86fr_1.16fr_1fr] lg:items-center">
-                  <div className="space-y-3 animate-fade-up md:pr-2" style={{ animationDelay: '30ms' }}>
-                    <p className="text-xs uppercase tracking-[0.18em] text-[#8C97A8]">{t.problem.traditionalLabel}</p>
-                    <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
-                      {t.problem.traditionalItems.map((item, index) => {
+                <div className="relative mt-10 overflow-hidden rounded-3xl border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5 md:p-6">
+                  <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden="true">
+                    <div className="absolute left-[1.75%] top-[4.5%] h-[90%] w-[31.25%]">
+                      <div
+                        className="absolute left-[9%] top-[4%] h-[70%] w-[74%] rounded-[48%_48%_40%_40%/56%_56%_32%_32%] opacity-[0.52]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 50% 40%, rgba(120,136,160,0.12) 0%, rgba(88,100,120,0.08) 22%, rgba(57,66,82,0.045) 46%, rgba(18,23,34,0.01) 72%, rgba(18,23,34,0) 100%)",
+                          filter: "blur(18px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[26%] top-[26%] h-[17%] w-[40%] rounded-full opacity-[0.18]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 50% 50%, rgba(176,189,208,0.18) 0%, rgba(112,124,144,0.08) 38%, rgba(18,23,34,0) 100%)",
+                          filter: "blur(12px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[36%] top-[66%] h-[10%] w-[22%] rounded-[42%] opacity-[0.24]"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(90,103,122,0.18) 0%, rgba(64,74,92,0.12) 52%, rgba(18,23,34,0) 100%)",
+                          filter: "blur(8px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[33.5%] top-[73%] h-[10%] w-[27%] rounded-[44%] opacity-[0.18]"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(92,104,122,0.14) 0%, rgba(37,44,57,0.06) 64%, rgba(18,23,34,0) 100%)",
+                          filter: "blur(10px)",
+                        }}
+                      />
+                    </div>
+
+                    <div className="absolute right-[1.75%] top-[4.5%] h-[90%] w-[31.25%]">
+                      <div
+                        className="absolute left-[-18%] top-[1%] h-[84%] w-[112%] rounded-full opacity-[0.44]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 50% 38%, rgba(238,175,82,0.13) 0%, rgba(129,112,255,0.085) 28%, rgba(44,56,118,0.035) 60%, rgba(11,16,28,0) 100%)",
+                          filter: "blur(46px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[11%] top-[6%] h-[66%] w-[72%] rounded-[50%_50%_39%_39%/58%_58%_30%_30%] opacity-[0.52]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 50% 40%, rgba(255,226,170,0.12) 0%, rgba(244,178,79,0.1) 22%, rgba(152,118,255,0.06) 46%, rgba(32,40,76,0.025) 70%, rgba(18,23,34,0) 100%)",
+                          filter: "blur(24px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[8%] top-[47%] h-[19%] w-[20%] rounded-full opacity-[0.3]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 72% 38%, rgba(9,13,22,0.38) 0%, rgba(9,13,22,0.16) 42%, rgba(9,13,22,0) 100%)",
+                          filter: "blur(16px)",
+                        }}
+                      />
+                      <div
+                        className="absolute right-[8%] top-[47%] h-[19%] w-[20%] rounded-full opacity-[0.3]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 28% 38%, rgba(9,13,22,0.38) 0%, rgba(9,13,22,0.16) 42%, rgba(9,13,22,0) 100%)",
+                          filter: "blur(16px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[18%] top-[21%] h-[32%] w-[56%] rounded-full opacity-[0.34]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 50% 55%, rgba(255,232,176,0.42) 0%, rgba(255,204,116,0.28) 34%, rgba(247,179,92,0.12) 66%, rgba(247,179,92,0) 100%)",
+                          filter: "blur(30px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[28%] top-[30%] h-[13%] w-[31%] rounded-full opacity-[0.24]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 50% 50%, rgba(255,236,190,0.48) 0%, rgba(255,213,137,0.34) 42%, rgba(255,191,97,0.14) 76%, rgba(255,191,97,0) 100%)",
+                          filter: "blur(20px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[38%] top-[34%] h-[5%] w-[11%] rounded-full opacity-[0.18]"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 50% 50%, rgba(255,244,209,0.62) 0%, rgba(255,221,157,0.4) 58%, rgba(255,214,140,0) 100%)",
+                          filter: "blur(14px)",
+                        }}
+                      />
+                      <div
+                        className="absolute right-[0%] top-[13%] h-[66%] w-[86%] rounded-[2.25rem] opacity-[0.3]"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(9,13,22,0.32) 0%, rgba(9,13,22,0.18) 36%, rgba(9,13,22,0.07) 70%, rgba(9,13,22,0) 100%)",
+                          filter: "blur(20px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[35%] top-[62%] h-[11%] w-[23%] rounded-[42%] opacity-[0.24]"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(255,210,142,0.16) 0%, rgba(93,84,133,0.12) 58%, rgba(18,23,34,0) 100%)",
+                          filter: "blur(8px)",
+                        }}
+                      />
+                      <div
+                        className="absolute left-[34%] top-[71%] h-[9.5%] w-[21%] rounded-[44%] opacity-[0.18]"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(161,149,209,0.14) 0%, rgba(39,45,69,0.06) 64%, rgba(18,23,34,0) 100%)",
+                          filter: "blur(10px)",
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="relative z-[1] grid gap-6 lg:grid-cols-[minmax(0,29fr)_minmax(0,28fr)_minmax(0,43fr)] lg:items-start lg:gap-x-7">
+                  <section className="space-y-1.5 md:pr-1 lg:w-[88%] lg:max-w-none">
+                    {t.problem.measuredCaption ? (
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-white/28">{t.problem.measuredCaption}</p>
+                    ) : null}
+                    <p className="text-xs uppercase tracking-[0.18em] text-[#8C97A8]">{t.problem.measuredTitle}</p>
+                    <div className="space-y-2.5">
+                      {t.problem.measuredItems.map((item, index) => {
                         const Icon = traditionalMetricIcons[index] ?? Activity;
                         return (
-                          <div key={item} className="flex items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] px-3 py-2.5 text-xs text-[#7F8B9A]">
-                            <Icon className="h-3.5 w-3.5 text-[#7F8B9A]/90" />
-                            <span>{item}</span>
-                          </div>
+                          <article
+                            key={item.label}
+                            className="rounded-2xl border border-white/[0.06] bg-white/[0.02] px-2 py-[7px] opacity-[0.84]"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.025] text-[#90A0B1]">
+                                <Icon className="h-3.5 w-3.5" />
+                              </span>
+                              <div className="min-w-0">
+                                <p className="text-sm font-medium tracking-tight text-white/88">{item.label}</p>
+                                {item.detail ? <p className="mt-1 text-sm leading-snug text-[#8A95A6]">{item.detail}</p> : null}
+                              </div>
+                            </div>
+                          </article>
                         );
                       })}
                     </div>
-                  </div>
+                  </section>
 
-                  <div className="mx-auto flex w-full max-w-[320px] flex-col items-center gap-3 text-center animate-fade-up" style={{ animationDelay: '150ms' }}>
-                    <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#AAB4C2]">{t.problem.transitionLabel}</p>
-                    <div className="relative hidden h-9 w-[220px] md:block">
-                      <div className="problem-flow-track absolute left-2 right-[56%] top-1/2 h-px -translate-y-1/2" />
-                      <div className="problem-flow-track absolute left-[56%] right-8 top-1/2 h-px -translate-y-1/2 opacity-40" />
-                      <div className="absolute left-2 right-[56%] top-1/2 h-5 -translate-y-1/2 overflow-hidden">
-                        <span className="problem-flow-dot problem-flow-dot-a" />
-                        <span className="problem-flow-dot problem-flow-dot-b" />
-                        <span className="problem-flow-dot problem-flow-dot-c" />
-                      </div>
-                      <div className="absolute left-1/2 top-1/2 h-7 w-[56px] -translate-x-1/2 -translate-y-1/2 rounded-md border border-white/12 bg-[rgba(9,20,38,0.72)]" />
-                      <div className="absolute left-1/2 top-1/2 h-px w-8 -translate-x-1/2 -translate-y-1/2 bg-white/24" />
-                      <div className="absolute left-1/2 top-1/2 h-8 w-px -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#F18A52]/70" />
-                      <ArrowRight className="absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9A33FF]/65" />
+                  <section className="relative flex min-h-[18.75rem] rounded-[28px] border border-white/[0.08] bg-[linear-gradient(165deg,rgba(255,255,255,0.055),rgba(7,11,22,0.16))] px-9 py-9 sm:px-10 sm:py-10">
+                    <div className="pointer-events-none absolute inset-x-[20%] top-6 h-20 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.26)_0%,rgba(154,51,255,0)_72%)] blur-2xl" />
+                    <div className="relative flex h-full w-full flex-1 flex-col items-center justify-center text-center">
+                      <p className="text-[10px] font-medium tracking-[0.03em] text-white/24 line-through decoration-white/14 md:text-[12px]">
+                        {t.problem.insightRejected}
+                      </p>
+                      <p className="mt-7 max-w-[9ch] text-[1.68rem] font-semibold leading-[0.96] tracking-[-0.05em] text-white [text-shadow:0_0_22px_rgba(255,255,255,0.1)] sm:text-[2.05rem] md:text-[2.38rem]">
+                        {t.problem.insightMain}
+                      </p>
+                      {t.problem.insightSupport ? (
+                        <p className="mt-5 max-w-[22rem] text-sm leading-relaxed text-[#C4CEDC] md:text-base">
+                          {t.problem.insightSupport}
+                        </p>
+                      ) : null}
                     </div>
-                    <div className="relative h-16 w-8 md:hidden">
-                      <div className="problem-flow-track-vertical absolute left-1/2 top-1 bottom-[56%] -translate-x-1/2 w-px" />
-                      <div className="problem-flow-track-vertical absolute bottom-2 left-1/2 top-[56%] -translate-x-1/2 w-px opacity-40" />
-                      <div className="absolute bottom-[56%] left-1/2 top-1 w-5 -translate-x-1/2 overflow-hidden">
-                        <span className="problem-flow-dot-v problem-flow-dot-v-a" />
-                        <span className="problem-flow-dot-v problem-flow-dot-v-b" />
-                        <span className="problem-flow-dot-v problem-flow-dot-v-c" />
-                      </div>
-                      <div className="absolute left-1/2 top-1/2 h-7 w-6 -translate-x-1/2 -translate-y-1/2 rounded-md border border-white/12 bg-[rgba(9,20,38,0.72)]" />
-                      <div className="absolute left-1/2 top-1/2 h-5 w-px -translate-x-1/2 -translate-y-1/2 bg-white/24" />
-                      <div className="absolute left-1/2 top-1/2 h-5 w-px -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#F18A52]/70" />
-                      <ArrowRight className="absolute bottom-0 left-1/2 h-4 w-4 -translate-x-1/2 rotate-90 text-[#9A33FF]/65" />
-                    </div>
-                  </div>
+                  </section>
 
-                  <div className="animate-fade-up" style={{ animationDelay: '280ms' }}>
-                    <ProblemSignalField title={t.problem.emotionalLabel} labels={t.problem.emotionalItems} />
-                  </div>
+                  <section className="grid grid-rows-[auto_auto] gap-3 lg:col-start-3 lg:w-full lg:max-w-[29.5rem] lg:justify-self-end">
+                    <p className="text-right text-xs uppercase tracking-[0.18em] text-[#AAB4C2]">{t.problem.driversTitle}</p>
+                    <div className="relative isolate grid w-full gap-x-3.5 gap-y-3.5 before:pointer-events-none before:absolute before:left-1/2 before:top-1/2 before:z-0 before:h-[54%] before:w-[52%] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-[radial-gradient(circle,rgba(245,185,92,0.15)_0%,rgba(245,185,92,0.075)_34%,rgba(129,112,255,0.035)_56%,rgba(245,185,92,0)_74%)] before:opacity-[0.12] before:blur-3xl before:content-[''] sm:grid-cols-2 lg:grid-cols-2">
+                      {t.problem.driversItems.map((item, index) => {
+                        return (
+                          <article
+                            key={item.title}
+                            className="relative z-[2] flex min-h-[6.875rem] w-full flex-col items-end rounded-2xl border border-white/[0.065] bg-[linear-gradient(160deg,rgba(255,247,235,0.035),rgba(255,255,255,0.052)_22%,rgba(255,255,255,0.02)_100%)] px-4 py-[18px] text-right shadow-[inset_0_1px_0_rgba(255,244,220,0.045),inset_-1px_0_0_rgba(255,213,146,0.03),0_14px_28px_rgba(0,0,0,0.15),0_0_22px_rgba(58,49,255,0.07),0_0_18px_rgba(247,179,92,0.025)]"
+                          >
+                            {renderProblemDriverSignal(index)}
+                            <p className="mt-4 w-full text-right text-sm font-semibold tracking-tight text-white">{item.title}</p>
+                            {item.detail ? <p className="mt-1.5 w-full text-right text-sm leading-snug text-[#AEBAC9]">{item.detail}</p> : null}
+                          </article>
+                        );
+                      })}
+                    </div>
+                  </section>
                 </div>
-              </div>
 
-              <div className="relative mt-10 text-center">
-                <div className="pointer-events-none absolute inset-x-[20%] -top-3 h-16 rounded-full bg-[radial-gradient(circle,rgba(154,51,255,0.34)_0%,rgba(154,51,255,0)_72%)] blur-xl" />
-                <p className="relative text-lg font-semibold tracking-tight text-white md:text-2xl">{t.problem.conclusionLead}</p>
-                <p className="relative mt-2 text-sm leading-relaxed text-[#AAB4C2] md:text-base">{t.problem.conclusionBody}</p>
+                <div className="pointer-events-none relative z-[1] mt-5 hidden h-8 lg:block" aria-hidden="true">
+                  <div className="absolute left-[4%] top-1/2 h-px w-[22%] -translate-y-1/2 bg-[linear-gradient(90deg,rgba(130,145,166,0),rgba(130,145,166,0.18)_18%,rgba(130,145,166,0.16)_76%,rgba(130,145,166,0))]" />
+                  <div className="absolute left-[25.5%] top-1/2 h-3.5 w-6 -translate-y-1/2 rounded-r-md border border-white/[0.055] bg-[linear-gradient(90deg,rgba(58,65,78,0.26),rgba(18,23,34,0.12))]" />
+                  <div className="absolute right-[47.5%] top-1/2 h-4 w-3.5 -translate-y-1/2 rounded-l-md border border-white/[0.05] bg-[linear-gradient(90deg,rgba(14,19,31,0.18),rgba(76,67,92,0.16))]" />
+                  <svg className="absolute right-[5%] top-1/2 h-6 w-[41%] -translate-y-1/2 overflow-visible opacity-75" viewBox="0 0 430 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0 14 C70 14 92 8 143 11 C196 14 218 21 270 17 C318 13 352 14 430 14"
+                      stroke="url(#problemCableLive)"
+                      strokeWidth="1.2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M0 14 C70 14 92 8 143 11 C196 14 218 21 270 17 C318 13 352 14 430 14"
+                      stroke="rgba(255,211,139,0.14)"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                    />
+                    <defs>
+                      <linearGradient id="problemCableLive" x1="0" y1="14" x2="430" y2="14" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#F7B35C" stopOpacity="0.38" />
+                        <stop offset="0.5" stopColor="#14C7E5" stopOpacity="0.32" />
+                        <stop offset="1" stopColor="#9A33FF" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+
+                <div className="mt-8 border-t border-white/[0.08] pt-5 text-center md:text-left">
+                  <p className="max-w-4xl text-lg font-semibold tracking-tight text-white md:text-2xl">
+                    {t.problem.conclusionPrimary}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/90 md:text-base">
+                    {t.problem.conclusionSecondary}
+                  </p>
+                  {t.problem.conclusionTertiary ? (
+                    <p className="mt-2 text-xs uppercase tracking-[0.16em] text-[#8FA0B3]">
+                      {t.problem.conclusionTertiary}
+                    </p>
+                  ) : null}
+                </div>
               </div>
             </article>
           </section>
