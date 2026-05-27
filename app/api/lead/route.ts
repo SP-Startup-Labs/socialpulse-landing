@@ -1,56 +1,41 @@
-export const runtime = 'nodejs';
-
-import { promises as fs } from 'fs';
-import path from 'path';
 import { NextResponse } from 'next/server';
 
-const leadsPath = path.join(process.cwd(), 'data', 'leads.json');
-
-type LeadPayload = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  organization?: string;
-  role?: string;
-  checkSize?: string;
-  stageInterest?: string;
-  message?: string;
-};
-
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const payload = (await request.json()) as LeadPayload;
+    const body = await req.json();
 
-    if (!payload.firstName || !payload.lastName || !payload.email || !payload.phone) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+
+    if (!webhookUrl) {
+      return NextResponse.json(
+        { error: 'Missing webhook URL' },
+        { status: 500 }
+      );
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9+()\-\s]{7,}$/;
-    if (!emailRegex.test(payload.email) || !phoneRegex.test(payload.phone)) {
-      return NextResponse.json({ error: 'Invalid email or phone format' }, { status: 400 });
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: 'Failed to send lead' },
+        { status: 500 }
+      );
     }
 
-    await fs.mkdir(path.dirname(leadsPath), { recursive: true });
+    return NextResponse.json({ success: true });
 
-    let existingLeads: Array<LeadPayload & { submittedAt: string }> = [];
-    try {
-      const file = await fs.readFile(leadsPath, 'utf-8');
-      existingLeads = JSON.parse(file);
-    } catch {
-      existingLeads = [];
-    }
+  } catch (error) {
+    console.error(error);
 
-    existingLeads.push({ ...payload, submittedAt: new Date().toISOString() });
-    await fs.writeFile(leadsPath, JSON.stringify(existingLeads, null, 2), 'utf-8');
-
-    // TODO: Replace local JSON persistence with a production database (Supabase/Postgres/etc.).
-    // TODO: Add transactional email notification for new lead submissions.
-    // TODO: Add CRM integration (HubSpot/Salesforce/etc.) after qualification workflow is defined.
-
-    return NextResponse.json({ message: 'Thanks — we’ll reach out shortly.' });
-  } catch {
-    return NextResponse.json({ error: 'Unexpected server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Server error' },
+      { status: 500 }
+    );
   }
 }
