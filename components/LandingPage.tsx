@@ -28,7 +28,6 @@ import {
   Zap,
   type LucideIcon
 } from 'lucide-react';
-import { type Language } from '@/lib/content';
 import { LeadModal } from './LeadModal';
 import { GradientIcon } from './visuals/GradientIcon';
 import { HeroRadarVisual } from './visuals/HeroRadarVisual';
@@ -164,7 +163,7 @@ type LocalizedContent = {
   footer: string;
 };
 
-const content: Record<Language, LocalizedContent> = {
+const content: { en: LocalizedContent } = {
   en: {
     brandTagline: 'Emotional Signal Intelligence',
     nav: [
@@ -462,307 +461,6 @@ const content: Record<Language, LocalizedContent> = {
       roadmap: ['News / Media Sources', 'Forums', 'Google Reviews / TrustPilot']
     },
     footer: 'Early access available for investors, press and strategic partners.'
-  },
-
-  es: {
-    brandTagline: 'Inteligencia de Senal Emocional',
-    nav: [
-      { label: 'Problema', href: '#problem' },
-      { label: 'Solucion', href: '#solution' },
-      { label: 'Mercado', href: '#opportunity' },
-      { label: 'Roadmap', href: '#roadmap' }
-    ],
-    badges: {
-      early: 'Acceso temprano',
-      live: 'X + Threads en vivo'
-    },
-    heroSignals: ['Pulso Emocional', 'Contexto Narrativo', 'Senales de Decision'],
-    hero: {
-      title: 'Comprende la emocion que mueve el mercado.',
-      subtitle:
-        'SocialPulse transforma conversaciones publicas en senales emocionales estructuradas: revela direccion, intensidad, presion narrativa y momentum.',
-      thesis:
-        'Las metricas miden actividad. La emocion revela intencion.',
-      credibility: 'Respaldado por XXX · Asesorado por XXX · Impulsado por XXX',
-      ctaPrimary: 'Solicitar acceso para inversion',
-      ctaShort: 'Solicitar acceso',
-      ctaSecondary: 'Explorar el Indice Emocional'
-    },
-    heroMetrics: [
-      { label: 'Indice Emocional', value: 'Analisis en vivo' },
-      { label: 'Cambio Narrativo', value: 'Contexto detectado' },
-      { label: 'Signal Momentum', value: 'Alertas accionables' }
-    ],
-    problem: {
-      title: 'El mercado esta midiendo la senal equivocada.',
-      subtitle: 'La actividad es visible. Pero no explica resultados.',
-      measuredTitle: 'LO QUE SE MIDE',
-      measuredCaption: 'metricas de superficie',
-      measuredItems: [
-        { label: 'Likes', detail: '' },
-        { label: 'Views', detail: '' },
-        { label: 'Engagement', detail: '' },
-        { label: 'Volumen', detail: '' },
-        { label: 'Velocidad', detail: '' }
-      ],
-      insightFlow: ['Actividad', 'Emocion', 'Reaccion de Mercado'],
-      insightRejected: 'La actividad mueve resultados',
-      insightMain: 'La emocion si.',
-      insightSupport: '',
-      driversTitle: 'LO QUE MUEVE RESULTADOS',
-      driversItems: [
-        {
-          title: 'Intensidad Emocional',
-          detail: ''
-        },
-        {
-          title: 'Cambio Narrativo',
-          detail: ''
-        },
-        {
-          title: 'Activacion de Audiencia',
-          detail: ''
-        },
-        {
-          title: 'Volatilidad de Confianza',
-          detail: ''
-        }
-      ],
-      conclusionPrimary: 'El capital se esta asignando sobre senales que no explican resultados.',
-      conclusionSecondary: 'Esa brecha es donde se crea ventaja.',
-      conclusionTertiary: ''
-    },
-    solution: {
-      title: 'La Solucion',
-      intro:
-        'SocialPulse funciona como un pipeline estructurado para traducir la conversacion publica en insights listos para la decision.',
-      outputs: [
-        'Mapa emocional del publico por tema y narrativa',
-        'Deteccion de cambios narrativos',
-        'Alertas de tension y riesgo reputacional',
-        'Dashboards ejecutivos listos para decidir'
-      ],
-      pipeline: [
-        {
-          title: 'Conversaciones Sociales',
-          subtitle: 'Signal Capture',
-          description:
-            'Recoge conversaciones publicas sobre cualquier tema, marca o narrativa en plataformas sociales conectadas, en tiempo real.'
-        },
-        {
-          title: 'Motor Emocional',
-          subtitle: 'Modelado Emocional',
-          description:
-            'Transforma el discurso publico en senales emocionales estructuradas.'
-        },
-        {
-          title: 'Presion Narrativa',
-          subtitle: 'Deteccion Narrativa',
-          description:
-            'Detecta cambios de framing, momentum de sentimiento y presion narrativa.'
-        },
-        {
-          title: 'Senales de Decision',
-          subtitle: 'Insights Accionables',
-          description:
-            'Convierte la dinamica emocional en senales claras para inversores, marcas y equipos estrategicos.'
-        }
-      ],
-      closing:
-        'De la conversacion a las senales de decision',
-      frameworkTitle: 'Mapa de Senal Emocional',
-      frameworkSubtitle:
-        'Mapeo de emociones reales sobre narrativas publicas en vivo.',
-      radarLabels: {
-        topLeft: 'Duda',
-        top: 'Enojo',
-        topRight: 'Entusiasmo',
-        right: 'Apoyo',
-        bottomRight: 'Confianza',
-        bottom: 'Esperanza',
-        bottomLeft: 'Escepticismo',
-        left: 'Decepcion'
-      }
-    },
-    opportunity: {
-      title: 'La Emocion Es la Proxima Capa de Datos',
-      subtitle:
-        'Entender audiencias definira la proxima generacion de inteligencia digital.',
-      intro:
-        'SocialPulse define una nueva categoria: Inteligencia de Senales Emocionales.',
-      categoryLead:
-        'SocialPulse define una nueva categoria: Inteligencia de Senales Emocionales.',
-      categorySub:
-        'Posicionado en la interseccion entre Social Media Analytics e Inteligencia Emocional Aplicada.',
-      rows: [
-        {
-          label: 'PyMEs y Agencias',
-          cards: [
-            {
-              value: '$61.9B',
-              label: 'Mercado Global de Social Media Analytics',
-              detail: 'Proyeccion al 2032',
-              countTo: 61.9,
-              countSuffix: 'B'
-            },
-            {
-              value: '$25.5B',
-              label: 'Mercado Servible',
-              detail: '(PyMEs y agencias que gestionan percepcion de marca)',
-              countTo: 25.5,
-              countSuffix: 'B'
-            },
-            {
-              value: '$25-50M',
-              label: 'Mercado Objetivo Inicial',
-              detail: 'Captura esperada en 24-36 meses'
-            }
-          ]
-        },
-        {
-          label: 'Creators e Influencers',
-          cards: [
-            {
-              value: '$14.9B',
-              label: 'Gasto en Creator Economy',
-              detail: 'Proyeccion al 2032',
-              countTo: 14.9,
-              countSuffix: 'B'
-            },
-            {
-              value: '$0.6-1.2B',
-              label: 'Mercado Servible de Analitica para Creators',
-              detail: ''
-            },
-            {
-              value: '$3-18M',
-              label: 'Captura Inicial del Segmento Creator',
-              detail: ''
-            }
-          ]
-        }
-      ],
-      adoptionTitle: 'Segmentos Primarios de Adopcion',
-      adoptionSegments: ['Creators / Influencers', 'PyMEs', 'Inversores'],
-      positioning: {
-        leftTitle: 'Analitica Social Tradicional',
-        leftSub: '(Mide engagement)',
-        rightTitle: 'Inteligencia Emocional Aplicada',
-        rightSub: '(Mide sentimiento de audiencia)',
-        centerTitle: 'SocialPulse',
-        centerSub: 'Transforma emocion en senales de decision.'
-      },
-      thesis: 'Una plataforma que captura valor en dos mercados globales de rapido crecimiento.'
-    },
-    model: {
-      title: 'MOTOR DE INGRESOS',
-      intro: 'Descubrimiento freemium que impulsa expansion por suscripcion.',
-      loop: [
-        {
-          title: 'Discovery',
-          detail: 'Busquedas gratuitas y exploracion de temas.'
-        },
-        {
-          title: 'Insight',
-          detail: 'Los usuarios descubren inteligencia emocional accionable.'
-        },
-        {
-          title: 'Monitoring',
-          detail: 'Comienzan a seguir narrativas de forma continua.'
-        },
-        {
-          title: 'Subscription',
-          detail: 'Actualizan para desbloquear monitoreo mas profundo.'
-        },
-        {
-          title: 'Expansion',
-          detail: 'Mas temas, mas equipos, planes superiores.'
-        }
-      ],
-      segments: [
-        {
-          title: 'Creators',
-          price: '\u20AC11.99 / mes',
-          detail: 'Microinfluencers y early adopters monitoreando sentimiento de audiencia.'
-        },
-        {
-          title: 'Professional',
-          price: '\u20AC49.99 / mes',
-          detail: 'Monitoreo avanzado para creators, analistas y equipos de research.'
-        },
-        {
-          title: 'Enterprise',
-          price: 'Desde \u20AC124.99 / mes',
-          detail: 'Agencias, corporaciones e instituciones con monitoreo multi-tema.'
-        }
-      ],
-      economics: [
-        'Crecimiento organico del producto',
-        'Ingresos recurrentes por suscripcion',
-        'Margenes de software (>70%)'
-      ]
-    },
-    roadmap: {
-      title: 'Roadmap y Traccion',
-      phases: [
-        {
-          title: 'Lanzamiento MVP',
-          horizon: '0-3 meses',
-          items: [
-            'MVP funcional con analisis de sentimiento en tiempo real, primer dashboard y comparacion de reputacion.',
-            'Idiomas soportados: ingles y espanol.',
-            'Meta: 500 usuarios activos'
-          ]
-        },
-        {
-          title: 'Personalizacion del Producto',
-          horizon: '3-9 meses',
-          items: [
-            'Personalizacion de usuario y nuevos modelos NLP entrenados por sector: deportes, marcas, politica, entretenimiento e investigacion.',
-            'Meta: 10K usuarios activos'
-          ]
-        },
-        {
-          title: 'Inteligencia Predictiva',
-          horizon: '9-15 meses',
-          items: [
-            'Lanzamiento del motor de prediccion reputacional y API B2B publica.',
-            'Meta: 25K usuarios + 500 miembros de pago'
-          ]
-        },
-        {
-          title: 'Escala Global',
-          horizon: '15-24 meses',
-          items: [
-            'Expansion internacional y plataforma multilingue (portugues, italiano, frances y lenguas asiaticas).',
-            'Meta: 50K usuarios + 3K miembros de pago'
-          ]
-        }
-      ]
-    },
-    positioning: {
-      title: 'Posicionamiento de Categoria',
-      subtitle:
-        'Este es el cambio de analitica de social media a inteligencia de senales emocionales.',
-      supporting:
-        'Comprender audiencias pronto importara mas que solo medirlas.',
-      shiftFrom: 'capacidad complementaria',
-      shiftTo: 'ventaja competitiva',
-      bottomLead: 'SocialPulse transforma',
-      bottomHighlight: 'senales emocionales',
-      bottomTail: 'en inteligencia estructurada.'
-    },
-    platforms: {
-      title: 'Plataformas Soportadas',
-      intro:
-        'La cobertura inicial se enfoca en plataformas de alta senal donde las narrativas emergen primero.',
-      availableTitle: 'Plataformas Sociales',
-      roadmapTitle: 'Fuentes Adicionales',
-      available: ['X', 'Threads', 'Instagram', 'TikTok', 'YouTube', 'Reddit'],
-      roadmap: ['Fuentes de Noticias / Medios', 'Foros', 'Google Reviews / TrustPilot']
-    },
-    footer:
-      'Acceso temprano disponible para inversores, prensa y partners estrategicos.'
   }
 };
 
@@ -975,12 +673,11 @@ function PipelineMicroVisual({ stepIndex }: { stepIndex: number }) {
 }
 
 export function LandingPage() {
-  const [lang, setLang] = useState<Language>('en');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [opportunityInView, setOpportunityInView] = useState(false);
   const [opportunityCountProgress, setOpportunityCountProgress] = useState(0);
   const opportunitySectionRef = useRef<HTMLElement | null>(null);
-  const t = content[lang];
+  const t = content.en;
 
   useEffect(() => {
     const target = opportunitySectionRef.current;
@@ -1029,46 +726,25 @@ export function LandingPage() {
     return `$${current.toFixed(1)}${card.countSuffix ?? ''}`;
   };
 
-  const visualLabels: SignalEngineVisualLabels =
-    lang === 'en'
-      ? {
-          volume: 'volume',
-          velocity: 'velocity',
-          emotionalIntent: 'emotional intent',
-          narrativePressure: 'narrative pressure',
-          engineTitle: 'Signal Engine',
-          engineInput: 'Public Conversations',
-          engineCore: 'Emotion Engine',
-          enginePressure: 'Narrative Pressure',
-          engineIndex: 'Signal Index',
-          outputs: {
-            signalVelocity: 'Emotion Index',
-            predominantNarratives: 'Predominant Narratives',
-            emotionalResonance: 'Signal Momentum'
-          },
-          funnelFreemium: 'Freemium',
-          funnelPaid: 'Paid',
-          funnelExpansion: 'Expansion'
-        }
-      : {
-          volume: 'volumen',
-          velocity: 'velocidad',
-          emotionalIntent: 'intencion emocional',
-          narrativePressure: 'presion narrativa',
-          engineTitle: 'Motor de Senal',
-          engineInput: 'Conversaciones Publicas',
-          engineCore: 'Motor Emocional',
-          enginePressure: 'Presion Narrativa',
-          engineIndex: 'Indice de Senal',
-          outputs: {
-            signalVelocity: 'Indice Emocional',
-            predominantNarratives: 'Narrativas predominantes',
-            emotionalResonance: 'Momentum de Senal'
-          },
-          funnelFreemium: 'Freemium',
-          funnelPaid: 'Pago',
-          funnelExpansion: 'Expansion'
-        };
+  const visualLabels: SignalEngineVisualLabels = {
+    volume: 'volume',
+    velocity: 'velocity',
+    emotionalIntent: 'emotional intent',
+    narrativePressure: 'narrative pressure',
+    engineTitle: 'Signal Engine',
+    engineInput: 'Public Conversations',
+    engineCore: 'Emotion Engine',
+    enginePressure: 'Narrative Pressure',
+    engineIndex: 'Signal Index',
+    outputs: {
+      signalVelocity: 'Emotion Index',
+      predominantNarratives: 'Predominant Narratives',
+      emotionalResonance: 'Signal Momentum'
+    },
+    funnelFreemium: 'Freemium',
+    funnelPaid: 'Paid',
+    funnelExpansion: 'Expansion'
+  };
 
   return (
     <>
@@ -1108,22 +784,6 @@ export function LandingPage() {
               ))}
             </nav>
             <div className="flex items-center gap-2">
-              <div className="flex shrink-0 rounded-full border border-white/15 bg-white/5 p-1 text-[11px] sm:text-xs">
-                <button
-                  onClick={() => setLang('en')}
-                  className={`rounded-full px-2.5 py-1 sm:px-3 ${lang === 'en' ? 'bg-white text-[#091426]' : 'text-[#AAB4C2] hover:text-white'}`}
-                  aria-pressed={lang === 'en'}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => setLang('es')}
-                  className={`rounded-full px-2.5 py-1 sm:px-3 ${lang === 'es' ? 'bg-white text-[#091426]' : 'text-[#AAB4C2] hover:text-white'}`}
-                  aria-pressed={lang === 'es'}
-                >
-                  ES
-                </button>
-              </div>
               <button onClick={() => setIsModalOpen(true)} className="button-primary rounded-full px-3 py-2 text-xs font-semibold text-white sm:px-4 sm:py-2.5 sm:text-sm md:px-5">
                 <span className="hidden md:inline">{t.hero.ctaPrimary}</span>
                 <span className="md:hidden">{t.hero.ctaShort}</span>
@@ -1715,7 +1375,7 @@ export function LandingPage() {
           </div>
         </footer>
       </div>
-      <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} lang={lang} />
+      <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }

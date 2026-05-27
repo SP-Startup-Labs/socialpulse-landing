@@ -1,4 +1,4 @@
-export type Language = 'en' | 'es';
+export type Language = 'en';
 
 export const roleOptions = [
   'Angel Investor',
@@ -61,53 +61,6 @@ export const copy = {
       stage: 'Investment Stage Interest',
       message: 'Short message',
       submit: 'Submit request'
-    }
-  },
-  es: {
-    nav: ['Por que importa', 'Que hace', 'Como funciona', 'Preguntas'],
-    badgeEarly: 'Acceso temprano',
-    badgePlatforms: 'X + Threads (Activo)',
-    badgeAudience: 'Inversion / Prensa',
-    heroTitle: 'Inteligencia emocional para redes sociales - disenada para senal, no ruido.',
-    heroSubtitle:
-      'SocialPulse traduce el pulso emocional de conversaciones publicas en informacion clara y util para decisiones.',
-    ctaPrimary: 'Solicitar acceso para inversion / prensa',
-    ctaSecondary: 'Ver como funciona',
-    whyTitle: 'Por que importa',
-    whyText:
-      'Las narrativas cambian mas rapido que los reportes. Los movimientos emocionales en conversaciones publicas suelen aparecer antes de impactos visibles en mercado y reputacion. SocialPulse ayuda a seguir esos cambios con contexto y claridad.',
-    whatTitle: 'Que hace SocialPulse',
-    howTitle: 'Como funciona',
-    capabilitiesTitle: 'Capacidades',
-    platformsTitle: 'Plataformas compatibles',
-    roadmapTitle: 'Hoja de ruta',
-    faqTitle: 'Preguntas frecuentes',
-    finalTitle: 'Acceso temprano para conversaciones con inversion y prensa',
-    finalText:
-      'Estamos abriendo una cantidad limitada de briefings mientras SocialPulse valida su MVP. Comparte tus datos para recibir seguimiento.',
-    footer: 'Acceso temprano - SocialPulse',
-    success: 'Gracias - te contactaremos pronto.',
-    formCommon: {
-      select: 'Seleccionar',
-      submitting: 'Enviando...'
-    },
-    formErrors: {
-      required: 'Requerido',
-      email: 'Email valido requerido',
-      phone: 'Telefono valido requerido',
-      submission: 'Error en el envio. Intenta nuevamente.'
-    },
-    formLabels: {
-      firstName: 'Nombre',
-      lastName: 'Apellido',
-      email: 'Correo electronico',
-      phone: 'Telefono',
-      org: 'Organizacion / Nombre del fondo',
-      role: 'Rol',
-      check: 'Ticket estimado',
-      stage: 'Interes por etapa de inversion',
-      message: 'Mensaje breve',
-      submit: 'Enviar solicitud'
     }
   }
 } as const;

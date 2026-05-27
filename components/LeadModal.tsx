@@ -1,13 +1,12 @@
 'use client';
 
-import { type FormEvent, useMemo, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { X } from 'lucide-react';
-import { type Language, checkSizeOptions, copy, roleOptions, stageOptions } from '@/lib/content';
+import { checkSizeOptions, copy, roleOptions, stageOptions } from '@/lib/content';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  lang: Language;
 };
 
 type FormData = {
@@ -34,16 +33,16 @@ const initialState: FormData = {
   message: ''
 };
 
-export function LeadModal({ isOpen, onClose, lang }: Props) {
+export function LeadModal({ isOpen, onClose }: Props) {
   const [form, setForm] = useState<FormData>(initialState);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState('');
 
-  const labels = copy[lang].formLabels;
-  const common = copy[lang].formCommon;
-  const errorsText = copy[lang].formErrors;
-  const title = useMemo(() => copy[lang].ctaPrimary, [lang]);
+  const labels = copy.en.formLabels;
+  const common = copy.en.formCommon;
+  const errorsText = copy.en.formErrors;
+  const title = copy.en.ctaPrimary;
 
   if (!isOpen) return null;
 
@@ -78,7 +77,7 @@ export function LeadModal({ isOpen, onClose, lang }: Props) {
     if (response.ok) {
       setForm(initialState);
       setErrors({});
-      setSuccess(copy[lang].success);
+      setSuccess(copy.en.success);
       return;
     }
 
