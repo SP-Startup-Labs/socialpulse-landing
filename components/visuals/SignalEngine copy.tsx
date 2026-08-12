@@ -19,7 +19,6 @@ type SocialEngineTabletLabels = {
   title: string;
   input: string;
   core: string;
-  processed?: string;
   outputs: SignalEngineLabels['outputs'];
 };
 
@@ -220,13 +219,6 @@ const momentumSignals: MomentumSignal[] = [
   { emotion: 'ANGER', delta: -31, window: 'LAST 2 HOURS' }
 ];
 
-const publicConversationFrames = [
-  '“This feels authentic”',
-  '“I’m not convinced yet”',
-  '“I love where this is going”',
-  '“Something feels off”'
-];
-
 const emotionIndexSets: RankedEmotion[][] = [
   [
     { label: 'Trust', score: 82, tone: 'cyan' },
@@ -357,71 +349,6 @@ function useAnimatedMetric(target: number, durationMs = 1700) {
   }, [durationMs, target]);
 
   return value;
-}
-
-function useAnimatedScore(target: number, durationMs = 2400) {
-  const [value, setValue] = useState(0);
-  const frameRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) {
-      setValue(target);
-      return;
-    }
-
-    const startedAt = performance.now();
-    setValue(0);
-
-    const step = (now: number) => {
-      const progress = Math.min((now - startedAt) / durationMs, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(target * eased);
-
-      if (progress < 1) frameRef.current = window.requestAnimationFrame(step);
-    };
-
-    frameRef.current = window.requestAnimationFrame(step);
-
-    return () => {
-      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
-    };
-  }, [durationMs, target]);
-
-  return value;
-}
-
-function AnimatedEmotionMetric({
-  emotion,
-  color,
-  glow
-}: {
-  emotion: RankedEmotion;
-  color: string;
-  glow: string;
-}) {
-  const score = useAnimatedScore(emotion.score);
-
-  return (
-    <div className="grid min-w-0 grid-cols-[minmax(64px,auto)_minmax(40px,1fr)_36px] items-center gap-2">
-      <p className="truncate whitespace-nowrap text-[12px] font-medium tracking-tight text-[#E6EDF3]">
-        {emotion.label}
-      </p>
-      <div className="h-[4px] w-full overflow-hidden rounded-full bg-white/10">
-        <span
-          className="block h-full rounded-full"
-          style={{
-            width: `${score}%`,
-            background: `linear-gradient(90deg, ${color}, rgba(255,255,255,0.72))`,
-            boxShadow: `0 0 12px ${glow}`
-          }}
-        />
-      </div>
-      <span className="text-right text-[11px] font-semibold tabular-nums text-[#E6EDF3] sm:text-[12px]">
-        {Math.round(score)}%
-      </span>
-    </div>
-  );
 }
 
 function MomentumMicroChart({ positive }: { positive: boolean }) {
@@ -753,8 +680,8 @@ function SocialEngineOutputCard({
 }) {
   return (
     <article
-      className={`social-engine-output-card flex h-full !min-h-[144px] flex-col overflow-hidden rounded-[1.08rem] border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] shadow-[0_18px_50px_rgba(0,0,0,0.35),0_0_30px_rgba(58,49,255,0.18)] backdrop-blur lg:!min-h-0 lg:h-full lg:px-4 lg:py-3 ${
-        strictGridAlignment ? 'px-6 py-4' : 'px-6 py-4'
+      className={`social-engine-output-card flex h-full min-h-[112px] flex-col overflow-hidden rounded-[1.08rem] border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] shadow-[0_18px_50px_rgba(0,0,0,0.35),0_0_30px_rgba(58,49,255,0.18)] backdrop-blur ${
+        strictGridAlignment ? 'px-6 py-5' : 'px-6 py-5'
       }`}
     >
       <h4 className="text-[11px] font-semibold leading-none tracking-tight text-white">{title}</h4>
@@ -812,9 +739,9 @@ function EmotionIndexPanel() {
   }, [featuredEmotions]);
 
   return (
-    <div className={`flex h-full w-full items-center gap-3 transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
-      <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center">
-        <div className="relative h-[64px] w-[64px] scale-110">
+    <div className={`flex h-full w-full items-center gap-5 transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center">
+        <div className="relative h-[64px] w-[64px]">
           <span className="absolute inset-[10px] rounded-full border border-white/8" />
           <span className="absolute inset-[20px] rounded-full border border-white/6" />
           <span className="absolute inset-[28px] rounded-full bg-white/70 shadow-[0_0_10px_rgba(255,255,255,0.18)]" />
@@ -851,12 +778,20 @@ function EmotionIndexPanel() {
 
       <div className="flex min-w-0 flex-1 flex-col justify-center gap-4">
         {featuredEmotions.map((emotion) => (
-          <AnimatedEmotionMetric
-            key={`${index}-${emotion.label}`}
-            emotion={emotion}
-            color={toneStyles[emotion.tone].color}
-            glow={toneStyles[emotion.tone].glow}
-          />
+          <div key={emotion.label} className="grid min-w-0 grid-cols-[minmax(76px,auto)_minmax(68px,1fr)_44px] items-center gap-3">
+            <p className="truncate whitespace-nowrap text-[12px] font-medium tracking-tight text-[#E6EDF3]">{emotion.label}</p>
+            <div className="h-[4px] w-full overflow-hidden rounded-full bg-white/10">
+              <span
+                className="block h-full rounded-full"
+                style={{
+                  width: `${emotion.score}%`,
+                  background: `linear-gradient(90deg, ${toneStyles[emotion.tone].color}, rgba(255,255,255,0.72))`,
+                  boxShadow: `0 0 12px ${toneStyles[emotion.tone].glow}`
+                }}
+              />
+            </div>
+            <span className="text-right text-[12px] font-semibold text-[#E6EDF3]">{emotion.score}%</span>
+          </div>
         ))}
       </div>
     </div>
@@ -923,7 +858,7 @@ function MomentumSignalPanel() {
   const chartGlowId = useId();
 
   return (
-    <div className={`grid h-full min-h-0 w-full grid-cols-[0.35fr_0.65fr] items-center gap-3 overflow-hidden transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
+    <div className={`grid h-full min-h-0 w-full grid-cols-[0.4fr_0.6fr] items-center gap-4 overflow-hidden transition-all duration-500 ${fading ? 'translate-y-0.5 opacity-0' : 'translate-y-0 opacity-100'}`}>
       <div className="flex min-w-0 flex-col justify-center">
         <p className={`${isPositive ? 'text-[#8CE9D8]' : 'text-[#FFB48A]'} text-[0.92rem] font-semibold leading-none tracking-tight`}>
           <span className="block whitespace-nowrap">{deltaText}</span>
@@ -943,7 +878,7 @@ function MomentumSignalPanel() {
         >
           <svg
             key={`${active.emotion}-${active.window}`}
-            className="block h-[42px] w-full"
+            className="block h-[36px] w-full"
             viewBox="0 0 220 58"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1016,59 +951,15 @@ export function SocialEngineTablet({ labels }: { labels: SocialEngineTabletLabel
   const outputPathTopId = useId();
   const outputPathMidId = useId();
   const outputPathBottomId = useId();
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const [sceneActive, setSceneActive] = useState(true);
-  const { index: signalIndex, fading: signalFading } = useFadingCycle(publicConversationFrames.length, 4400, 520);
-  const activeConversation = publicConversationFrames[signalIndex];
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene) return;
-
-    let intersecting = true;
-    const updateActivity = () => setSceneActive(intersecting && !document.hidden);
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        intersecting = entry.isIntersecting;
-        updateActivity();
-      },
-      { rootMargin: '120px' }
-    );
-
-    observer.observe(scene);
-    document.addEventListener('visibilitychange', updateActivity);
-
-    return () => {
-      observer.disconnect();
-      document.removeEventListener('visibilitychange', updateActivity);
-    };
-  }, []);
 
   return (
-    <div
-      ref={sceneRef}
-      className={`social-engine-scene relative ${sceneActive ? 'is-active' : 'is-paused'}`}
-    >
-      <p className="mb-3 pl-1 text-[9px] uppercase leading-none tracking-[0.16em] text-[#AAB4C2] sm:text-[10px]">
-        {labels.title}
-      </p>
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-4 hidden translate-x-5 translate-y-5 rotate-[1deg] rounded-[34px] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] opacity-60 blur-[1px] shadow-[0_25px_80px_rgba(0,0,0,0.45),0_0_60px_rgba(58,49,255,0.2)] sm:block sm:inset-5 sm:translate-x-8 sm:translate-y-8" />
-        <article className="hero-shell double-layer-panel relative overflow-hidden px-4 py-5 sm:px-6 sm:py-6 md:px-7 md:py-7">
+    <div className="relative">
+      <div className="pointer-events-none absolute inset-4 hidden translate-x-5 translate-y-5 rotate-[1deg] rounded-[34px] border border-white/10 bg-[linear-gradient(150deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] opacity-60 blur-[1px] shadow-[0_25px_80px_rgba(0,0,0,0.45),0_0_60px_rgba(58,49,255,0.2)] sm:block sm:inset-5 sm:translate-x-8 sm:translate-y-8" />
+      <article className="hero-shell double-layer-panel relative overflow-hidden px-4 py-5 sm:px-6 sm:py-6 md:px-7 md:py-7">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_44%,rgba(20,199,229,0.14),rgba(9,20,38,0)_34%),radial-gradient(circle_at_49%_48%,rgba(154,51,255,0.22),rgba(9,20,38,0)_38%),radial-gradient(circle_at_84%_22%,rgba(242,57,138,0.14),rgba(9,20,38,0)_30%)]" />
         <div className="hero-signal-trails pointer-events-none absolute inset-0" />
 
-        <div className="relative h-[560px] sm:h-[520px] lg:h-[400px]">
-          <div className="absolute inset-x-1 top-1 z-20 grid grid-cols-2 items-center gap-2 sm:inset-x-2 sm:top-2 sm:gap-4">
-            <p className="truncate text-left text-[8px] uppercase leading-none tracking-[0.13em] text-[#AAB4C2] sm:text-[10px] sm:tracking-[0.16em]">
-              {labels.input}
-            </p>
-            <p className="truncate text-right text-[8px] uppercase leading-none tracking-[0.13em] text-[#AAB4C2] sm:text-[10px] sm:tracking-[0.16em]">
-              {labels.processed ?? 'Processed insights'}
-            </p>
-          </div>
-
-          <div className="absolute inset-0 lg:-translate-x-[4%]">
+        <div className="relative h-[560px] sm:h-[520px] lg:h-[470px]">
           <svg
             className="pointer-events-none absolute inset-0 h-full w-full"
             viewBox="0 0 760 430"
@@ -1135,6 +1026,10 @@ export function SocialEngineTablet({ labels }: { labels: SocialEngineTabletLabel
             </circle>
           </svg>
 
+          <div className="absolute left-1.5 top-1.5 rounded-full border border-white/12 bg-white/[0.03] px-2.5 py-1 text-[9px] uppercase tracking-[0.16em] text-[#AAB4C2] sm:left-2 sm:top-2 sm:px-3 sm:text-[10px]">
+            {labels.title}
+          </div>
+
           <div className="absolute left-0 top-[16%] h-[62%] w-[39%] sm:left-2 sm:w-[34%] lg:left-4 lg:w-[32%]">
             {socialEngineParticles.map((particle, index) => (
               <span
@@ -1161,7 +1056,7 @@ export function SocialEngineTablet({ labels }: { labels: SocialEngineTabletLabel
                     '--engine-target-x-absorb': `${particle.absorbX.toFixed(2)}px`,
                     '--engine-target-y-absorb': `${particle.absorbY.toFixed(2)}px`,
                     '--engine-opacity': particle.opacity,
-                    '--engine-glow': `${particle.glow.toFixed(2)}px`,
+                    '--engine-glow': `${particle.glow}px`,
                     '--engine-tone': particle.tone
                   } as CSSProperties
                 }
@@ -1189,17 +1084,13 @@ export function SocialEngineTablet({ labels }: { labels: SocialEngineTabletLabel
               </span>
             ))}
 
+            <p className="absolute left-2 top-2 max-w-[84%] rounded-full border border-white/12 bg-black/25 px-2 py-1 text-[8px] uppercase tracking-[0.14em] text-[#AAB4C2] sm:hidden">
+              {labels.input}
+            </p>
+            <p className="absolute -bottom-9 left-1 hidden text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2] sm:block">{labels.input}</p>
           </div>
 
-          <div
-            className={`pointer-events-none absolute left-[3%] top-[29%] z-10 max-w-[31%] rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1.5 text-[8px] italic leading-tight text-white/50 backdrop-blur-sm transition-all duration-500 sm:left-[5%] sm:max-w-[27%] sm:px-3 sm:py-2 sm:text-[10px] ${
-              signalFading ? 'translate-y-1 opacity-0' : 'translate-y-0 opacity-100'
-            }`}
-          >
-            {activeConversation}
-          </div>
-
-          <div className="absolute left-[50%] top-[48%] -translate-x-1/2 -translate-y-1/2 sm:left-[50%]">
+          <div className="absolute left-[50%] top-[48%] -translate-x-1/2 -translate-y-1/2 sm:left-[48%]">
             <div className="social-engine-core-shell relative flex h-[12rem] w-[12rem] items-center justify-center rounded-full border border-white/18 bg-[radial-gradient(circle,rgba(242,57,138,0.46)_0%,rgba(154,51,255,0.38)_34%,rgba(36,107,255,0.26)_62%,rgba(9,20,38,0.2)_100%)] sm:h-[14.25rem] sm:w-[14.25rem]">
               <span className="social-engine-core-ring social-engine-core-ring-a" />
               <span className="social-engine-core-ring social-engine-core-ring-b" />
@@ -1224,26 +1115,24 @@ export function SocialEngineTablet({ labels }: { labels: SocialEngineTabletLabel
               </svg>
               <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/92 sm:text-[10px]">Core</span>
             </div>
-            <p className="mt-0 relative top-7 text-center text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2] sm:text-[11px]">{labels.core}</p>
+            <p className="mt-3 text-center text-[10px] uppercase tracking-[0.16em] text-[#AAB4C2] sm:text-[11px]">{labels.core}</p>
           </div>
+
+          <div className="social-engine-output-stack absolute grid grid-rows-3">
+            <SocialEngineOutputCard title={labels.outputs.signalVelocity} strictGridAlignment>
+              <EmotionIndexPanel />
+            </SocialEngineOutputCard>
+
+            <SocialEngineOutputCard title={labels.outputs.predominantNarratives} strictGridAlignment contentSpacingClassName="mt-3 !items-stretch">
+              <NarrativeRankingPanel />
+            </SocialEngineOutputCard>
+
+            <SocialEngineOutputCard title={labels.outputs.emotionalResonance}>
+              <MomentumSignalPanel />
+            </SocialEngineOutputCard>
           </div>
         </div>
-
-        <div className="relative mt-2 grid grid-cols-1 gap-3 md:-mt-10 md:grid-cols-3 lg:absolute lg:bottom-7 lg:right-7 lg:top-16 lg:z-20 lg:mt-0 lg:w-[29%] lg:grid-cols-1 lg:grid-rows-3 lg:gap-2.5">
-          <SocialEngineOutputCard title={labels.outputs.signalVelocity} strictGridAlignment contentSpacingClassName="mt-6 lg:mt-2">
-            <EmotionIndexPanel />
-          </SocialEngineOutputCard>
-
-          <SocialEngineOutputCard title={labels.outputs.predominantNarratives} strictGridAlignment contentSpacingClassName="mt-3 !items-stretch lg:mt-2">
-            <NarrativeRankingPanel />
-          </SocialEngineOutputCard>
-
-          <SocialEngineOutputCard title={labels.outputs.emotionalResonance} contentSpacingClassName="mt-6 lg:mt-2">
-            <MomentumSignalPanel />
-          </SocialEngineOutputCard>
-        </div>
-        </article>
-      </div>
+      </article>
     </div>
   );
 }
