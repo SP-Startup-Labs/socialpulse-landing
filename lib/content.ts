@@ -5,7 +5,6 @@ export const roleOptions = [
   'VC',
   'Corporate VC',
   'Family Office',
-  'Press',
   'Strategic Partner',
   'Advisor',
   'Other'
@@ -14,6 +13,8 @@ export const roleOptions = [
 export const checkSizeOptions = ['<50k', '50k-100k', '100k-250k', '250k+', 'Exploring'] as const;
 
 export const stageOptions = ['Pre-seed', 'Seed', 'Exploring'] as const;
+
+export const requestTypeOptions = ['Investor', 'Beta Access', 'General Inquiry'] as const;
 
 export const copy = {
   en: {
@@ -24,7 +25,7 @@ export const copy = {
     heroTitle: 'Emotional intelligence for social media - built for signal, not noise.',
     heroSubtitle:
       'SocialPulse translates the emotional pulse of public conversations into clear, decision-ready insights.',
-    ctaPrimary: 'Request Investor / Press Access',
+    ctaPrimary: 'Request Investor Deck',
     ctaSecondary: 'See how it works',
     whyTitle: 'Why It Matters',
     whyText:
@@ -56,6 +57,7 @@ export const copy = {
       email: 'Email',
       phone: 'Phone',
       org: 'Organization / Fund name',
+      requestType: 'Request type',
       role: 'Role',
       check: 'Estimated Check Size',
       stage: 'Investment Stage Interest',
