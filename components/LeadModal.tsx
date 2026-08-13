@@ -123,7 +123,7 @@ export function LeadModal({ isOpen, onClose }: Props) {
     'focus:border-[#8D6792]/70 focus:bg-transparent focus:ring-4 focus:ring-[#4B3B8E]/[0.08]';
 
   return (
-    <div className="lead-modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-[#050B16]/80 p-4 backdrop-blur-sm">
+    <div className="lead-modal-backdrop fixed inset-0 z-50 flex items-start justify-center overflow-y-auto overscroll-contain bg-[#050B16]/80 p-3 backdrop-blur-sm sm:p-4 md:items-center">
       <div className="lead-modal-panel relative w-full max-w-2xl rounded-2xl border border-white/15 bg-[#091426] p-6 shadow-[0_20px_80px_rgba(0,0,0,0.55)] md:p-7">
         <div className="pointer-events-none absolute -top-28 left-1/2 h-40 w-64 -translate-x-1/2 rounded-full bg-[#9A33FF]/25 blur-3xl" />
 
