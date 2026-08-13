@@ -21,7 +21,7 @@ import {
   ShieldCheck,
   Globe2,
   X as XGlyph,
-  Zap, 
+  Zap,
 } from 'lucide-react';
 import { LeadModal } from './LeadModal';
 import { HeroRadarVisual } from './visuals/HeroRadarVisual';
@@ -192,10 +192,10 @@ export function LandingPage() {
               </button>
               <span className="hidden h-8 w-px bg-white/[0.08] sm:block" />
               <button type="button" onClick={() => setIsModalOpen(true)} className="navbar-cta-button group inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-[13px] font-semibold text-white sm:gap-2.5 sm:rounded-xl sm:px-4 sm:py-3.5 sm:text-sm">
-  <span className="whitespace-nowrap">Get in Touch</span>
-  <span className="hidden whitespace-nowrap bg-gradient-to-r from-[#8A85AE] via-[#C8BCDD] to-[#AE9DC2] bg-clip-text text-xs font-medium text-transparent sm:inline">For Investors</span>
-  <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 sm:h-[18px] sm:w-[18px]" />
-</button>
+                <span className="whitespace-nowrap">Get in Touch</span>
+                <span className="hidden whitespace-nowrap bg-gradient-to-r from-[#8A85AE] via-[#C8BCDD] to-[#AE9DC2] bg-clip-text text-xs font-medium text-transparent sm:inline">For Investors</span>
+                <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 sm:h-[18px] sm:w-[18px]" />
+              </button>
 
             </div>
           </div>
@@ -457,7 +457,7 @@ export function LandingPage() {
               ))}
             </div>
           </section>
-          
+
 
           {/* otra seccion para los key metrics un pco mas bonita */}
           {/* <section aria-label="Key metrics" className="relative px-5 pb-20 pt-16 md:px-8 md:pb-28 md:pt-24">
