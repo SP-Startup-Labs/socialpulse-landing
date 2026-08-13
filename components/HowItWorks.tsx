@@ -461,8 +461,7 @@ export default function HowItWorks() {
                                         </p>                                        
                                         <button type="button"
                                             className={`mt-auto flex items-center gap-2 text-base font-medium text-[#F5F7FA] transition-all duration-700 hover:text-[#14C7E5] ${position === 0 || isActionAlertMoving ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                                                }`}>
-                                            View details
+                                                }`}>View details
                                             <ArrowRight className="h-3.5 w-3.5" />
                                         </button>
                                     </div>
