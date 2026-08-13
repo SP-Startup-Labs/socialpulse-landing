@@ -143,14 +143,14 @@ export function LandingPage() {
                 : undefined
             }
           >
-            <div className={`flex items-center gap-4 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'ml-0' : '-ml-6 lg:-ml-20'
+            <div className={`flex items-center gap-4 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'ml-0' : 'ml-0 lg:-ml-20'
               }`}
             >
               <a
                 href="#hero"
                 onClick={(event) => handleSmoothScroll(event, '#hero')}
                 aria-label="Back to top"
-                className="relative h-12 w-[190px] md:h-14 md:w-[230px]"
+                className="relative h-10 w-[140px] sm:h-12 sm:w-[190px] md:h-14 md:w-[230px]"
               >
                 <Image
                   src="/logos/logo_banner_fondo_oscuro.webp"
@@ -174,7 +174,7 @@ export function LandingPage() {
               ))}
             </nav>
 
-            <div className={`flex items-center gap-4 transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'translate-x-0' : 'translate-x-4 lg:translate-x-20'}`}>
+            <div className={`flex items-center gap-4 transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'translate-x-0' : 'translate-x-0 lg:translate-x-20'}`}>
               <button type="button" className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
                 <Link href="/login" className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
                   <UserRound className="h-[18px] w-[18px]" stroke="url(#login-icon-gradient)">
@@ -191,11 +191,11 @@ export function LandingPage() {
                 </Link>
               </button>
               <span className="hidden h-8 w-px bg-white/[0.08] sm:block" />
-              <button type="button" onClick={() => setIsModalOpen(true)} className="navbar-cta-button group inline-flex items-center justify-center gap-2.5 rounded-xl px-4 py-3.5 text-sm font-semibold text-white">
-                <span className="whitespace-nowrap">Get in Touch</span>
-                <span className="whitespace-nowrap bg-gradient-to-r from-[#8A85AE] via-[#C8BCDD] to-[#AE9DC2] bg-clip-text text-xs font-medium text-transparent"> For Investors</span>
-                <ArrowRight className="h-[18px] w-[18px] shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
+              <button type="button" onClick={() => setIsModalOpen(true)} className="navbar-cta-button group inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-[13px] font-semibold text-white sm:gap-2.5 sm:rounded-xl sm:px-4 sm:py-3.5 sm:text-sm">
+  <span className="whitespace-nowrap">Get in Touch</span>
+  <span className="hidden whitespace-nowrap bg-gradient-to-r from-[#8A85AE] via-[#C8BCDD] to-[#AE9DC2] bg-clip-text text-xs font-medium text-transparent sm:inline">For Investors</span>
+  <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 sm:h-[18px] sm:w-[18px]" />
+</button>
 
             </div>
           </div>
