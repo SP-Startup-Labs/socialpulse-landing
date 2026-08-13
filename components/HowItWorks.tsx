@@ -165,7 +165,7 @@ export default function HowItWorks() {
 
                 <div className="grid gap-5 md:grid-cols-2">
                     {/* Step 01 */}
-                    <article className="group relative min-h-[370px] overflow-hidden rounded-2xl border border-white/[0.08] bg-[#091426]/70 p-6 transition duration-300 hover:border-[#9A33FF]/30 md:p-8">
+                    <article className="group relative min-h-0 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#091426]/70 p-4 transition duration-300 hover:border-[#9A33FF]/30 sm:p-6 lg:min-h-[370px] lg:p-8">
                         <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#9A33FF]/10 blur-3xl" />
 
                         <div className="relative flex h-full flex-col">
@@ -173,7 +173,7 @@ export default function HowItWorks() {
                                 01
                             </span>
 
-                            <div className="mb-2 grid min-h-[124px] grid-cols-[44px_minmax(0,1fr)] items-start gap-5 pt-7">
+                            <div className="mb-2 grid min-h-0 grid-cols-[44px_minmax(0,1fr)] items-start gap-4 pt-7 lg:min-h-[124px] lg:gap-5">
                                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#9A33FF]/25 bg-[#9A33FF]/10">
                                     <Search className="h-[22px] w-[22px] text-[#B875FF]" />
                                 </div>
@@ -188,7 +188,7 @@ export default function HowItWorks() {
                                 </div>
                             </div>
 
-                            <div className="mt-7 h-[232px] rounded-xl border border-white/[0.08] bg-[#050912]/35 p-4">
+                            <div className="mt-7 min-h-[232px] rounded-xl border border-white/[0.08] bg-[#050912]/35 p-4">
                                 <div className="flex min-h-[46px] items-center gap-3 rounded-lg border border-white/[0.08] bg-white/[0.025] px-4 py-3">
                                     <Search className="h-4 w-4 shrink-0 text-[#7F8998]" />
 
@@ -216,7 +216,7 @@ export default function HowItWorks() {
                                         Trending topics
                                     </p>
 
-                                    <div className="mt-3 flex flex-wrap gap-3">
+                                    <div className="mt-3 flex flex-wrap gap-2 sm:gap-3">
                                         {trendingTopics.map((topic, index) => (
                                             <button type="button" key={topic} onClick={() => {
                                                 setSearchIndex(searches.indexOf(topic));
@@ -237,7 +237,7 @@ export default function HowItWorks() {
                     </article>
 
                     {/* Step 02 */}
-                    <article className="group relative min-h-[370px] overflow-hidden rounded-2xl border border-white/[0.08] bg-[#091426]/70 p-6 transition duration-300 hover:border-[#246BFF]/30 md:p-8">
+                    <article className="group relative min-h-0 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#091426]/70 p-4 transition duration-300 hover:border-[#246BFF]/30 sm:p-6 lg:min-h-[370px] lg:p-8">
                         <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-[#246BFF]/10 blur-3xl" />
 
                         <div className="relative flex h-full flex-col">
@@ -245,7 +245,7 @@ export default function HowItWorks() {
                                 02
                             </span>
 
-                            <div className="mb-2 grid min-h-[124px] grid-cols-[44px_minmax(0,1fr)] items-start gap-5 pt-7">
+                            <div className="mb-2 grid min-h-0 grid-cols-[44px_minmax(0,1fr)] items-start gap-4 pt-7 lg:min-h-[124px] lg:gap-5">
                                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#246BFF]/25 bg-[#246BFF]/10">
                                     <MessageSquareText className="h-[22px] w-[22px] text-[#5D91FF]" />
                                 </div>
@@ -255,13 +255,13 @@ export default function HowItWorks() {
                                         Analyze public conversations
                                     </h3>
 
-                                    <p className="mt-1 max-w text-base leading-6 text-[#AAB4C2]">
+                                    <p className="mt-1 max-w-md text-base leading-6 text-[#AAB4C2]">
                                         SocialPulse analyzes relevant public conversations across platforms and languages.
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="mt-7 h-[232px] rounded-xl border border-white/[0.08] bg-[#050912]/35 p-4">
+                            <div className="mt-7 min-h-[232px] rounded-xl border border-white/[0.08] bg-[#050912]/35 p-4">
                                 <p className="text-base font-medium text-[#D3D8E0]">
                                     Analyzing..
                                     <span className="animate-[pulse_0.8s_ease-in-out_infinite] text-[#FFFFFF]">.</span>
@@ -286,7 +286,7 @@ export default function HowItWorks() {
                                                 className="flex h-9 items-center gap-3 text-base text-[#AAB4C2]"
                                             >
                                                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#246BFF] shadow-[0_0_8px_rgba(36,107,255,0.7)]" />
-                                                {step}
+                                                <span className="min-w-0 truncate">{step}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -296,7 +296,7 @@ export default function HowItWorks() {
                     </article>
 
                     {/* Step 03 */}
-                    <article className="group relative min-h-[370px] overflow-hidden rounded-2xl border border-white/[0.08] bg-[#091426]/70 p-6 transition duration-300 hover:border-[#F2398A]/30 md:p-8">
+                    <article className="group relative min-h-0 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#091426]/70 p-4 transition duration-300 hover:border-[#F2398A]/30 sm:p-6 lg:min-h-[370px] lg:p-8">
                         <div className="pointer-events-none absolute -right-16 bottom-0 h-52 w-52 rounded-full bg-[#F2398A]/10 blur-3xl" />
 
                         <div className="relative flex h-full flex-col">
@@ -304,7 +304,7 @@ export default function HowItWorks() {
                                 03
                             </span>
 
-                            <div className="mb-2 grid min-h-[124px] grid-cols-[44px_minmax(0,1fr)] items-start gap-5 pt-7">
+                            <div className="mb-2 grid min-h-0 grid-cols-[44px_minmax(0,1fr)] items-start gap-4 pt-7 lg:min-h-[124px] lg:gap-5">
                                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#F2398A]/25 bg-[#F2398A]/10">
                                     <Activity className="h-[22px] w-[22px] text-[#F75BA2]" />
                                 </div>
@@ -314,15 +314,15 @@ export default function HowItWorks() {
                                         Detect a shift
                                     </h3>
 
-                                    <p className="mt-1 max- text-base leading-6 text-[#AAB4C2]">
+                                    <p className="mt-1 max-w-md text-base leading-6 text-[#AAB4C2]">
                                         We surface meaningful emotional shifts and emerging narratives early.
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="mt-3 h-[222px] rounded-xl border border-white/[0.08] bg-[#050912]/35 p-4">
-                                <div className="flex items-center justify-between gap-3">
-                                    <div className="flex items-center gap-2">
+                            <div className="mt-3 min-h-[222px] rounded-xl border border-white/[0.08] bg-[#050912]/35 p-4">
+                                <div className="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:justify-between lg:gap-3">
+                                    <div className="flex min-w-0 items-center gap-2">
                                         <TriangleAlert className="h-4 w-4 text-[#F2398A]" />
 
                                         <span className="text-base font-medium text-[#D3D8E0]">
@@ -411,7 +411,7 @@ export default function HowItWorks() {
                     </article>
 
                     {/* Step 04 */}
-                    <article className="group relative min-h-[370px] overflow-hidden rounded-2xl border border-white/[0.08] bg-[#091426]/70 p-6 transition duration-300 hover:border-[#14C7E5]/30 md:p-8">
+                    <article className="group relative min-h-0 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#091426]/70 p-4 transition duration-300 hover:border-[#14C7E5]/30 sm:p-6 lg:min-h-[370px] lg:p-8">
                         <div className="pointer-events-none absolute -left-16 -top-16 h-52 w-52 rounded-full bg-[#14C7E5]/10 blur-3xl" />
 
                         <div className="relative flex h-full flex-col">
@@ -419,7 +419,7 @@ export default function HowItWorks() {
                                 04
                             </span>
 
-                            <div className="mb-2 grid min-h-[124px] grid-cols-[44px_minmax(0,1fr)] items-start gap-5 pt-7">
+                            <div className="mb-2 grid min-h-0 grid-cols-[44px_minmax(0,1fr)] items-start gap-4 pt-7 lg:min-h-[124px] lg:gap-5">
                                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#14C7E5]/25 bg-[#14C7E5]/10">
                                     <BellRing className="h-[22px] w-[22px] text-[#3AD6EC]" />
                                 </div>
@@ -435,16 +435,16 @@ export default function HowItWorks() {
                                 </div>
                             </div>
 
-                            <div className="relative mt-3 h-[232px] overflow-hidden">
+                            <div className="relative mt-3 h-[244px] overflow-hidden sm:h-[232px]">
                                 {[actionAlertIndex, nextActionAlertIndex].map((alertIndex, position) => (
                                     <div key={`${alertIndex}-${position}`}                                       
                                         className={`absolute inset-x-0 top-0 flex flex-col rounded-xl border border-[#14C7E5]/20 bg-[linear-gradient(135deg,rgba(20,199,229,0.08),rgba(36,107,255,0.04))] p-4 shadow-[0_15px_45px_rgba(20,199,229,0.05)] transition-all duration-700 ease-in-out overflow-hidden ${position === 0
                                                 ? isActionAlertMoving
-                                                    ? 'z-20 h-[150px] -translate-y-[120%] opacity-0'
-                                                    : 'z-20 h-[150px] translate-y-0 scale-100 opacity-100' 
+                                                    ? 'z-20 h-[164px] -translate-y-[120%] opacity-0 sm:h-[150px]'
+                                                    : 'z-20 h-[164px] translate-y-0 scale-100 opacity-100 sm:h-[150px]' 
                                                 : isActionAlertMoving
-                                                    ? 'z-30 h-[150px] translate-y-0 scale-100 opacity-100' 
-                                                    : 'z-10 h-[56px] translate-y-[166px] scale-100 opacity-60' 
+                                                    ? 'z-30 h-[164px] translate-y-0 scale-100 opacity-100 sm:h-[150px]' 
+                                                    : 'z-10 h-[56px] translate-y-[180px] scale-100 opacity-60 sm:translate-y-[166px]' 
                                             }`}>
 
                                         <div className="flex items-center gap-2">
@@ -461,8 +461,7 @@ export default function HowItWorks() {
                                         </p>                                        
                                         <button type="button"
                                             className={`mt-auto flex items-center gap-2 text-base font-medium text-[#F5F7FA] transition-all duration-700 hover:text-[#14C7E5] ${position === 0 || isActionAlertMoving ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                                                }`}>
-                                            View details
+                                                }`}>View details
                                             <ArrowRight className="h-3.5 w-3.5" />
                                         </button>
                                     </div>
