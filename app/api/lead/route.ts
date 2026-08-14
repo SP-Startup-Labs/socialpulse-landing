@@ -13,6 +13,7 @@ type LeadPayload = {
   stageInterest?: string;
   message?: string;
   requestType?: string;
+  locale?: "en" | "es";
 };
 
 const resend = process.env.RESEND_API_KEY
@@ -31,6 +32,7 @@ export async function POST(req: Request) {
     const lastName = body.lastName?.trim() ?? "";
     const email = body.email?.trim().toLowerCase() ?? "";
     const phone = body.phone?.trim() ?? "";
+    const locale = body.locale === "es" ? "es" : "en";
 
     if (!firstName || !lastName || !email || !phone) {
       return NextResponse.json(
@@ -54,6 +56,7 @@ export async function POST(req: Request) {
       stageInterest: body.stageInterest?.trim() ?? "",
       message: body.message?.trim() ?? "",
       requestType: body.requestType?.trim() ?? "General request",
+      locale,
       source: "socialpulse-landing",
       createdAt: new Date().toISOString(),
     };
@@ -84,9 +87,33 @@ export async function POST(req: Request) {
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
 
+    const emailCopy = locale === "es"
+      ? {
+          title: "Gracias por contactar con nosotros.",
+          greeting: `Hola ${safeFirstName},`,
+          received: "Gracias por ponerte en contacto con SocialPulse. Hemos recibido tu mensaje y una persona de nuestro equipo te responderá muy pronto.",
+          closing: "Nos alegra contar contigo mientras construimos una forma más clara de comprender qué mueve realmente a las audiencias.",
+          team: "El equipo de SocialPulse",
+          tagline: "Comprende qué mueve a las audiencias.",
+          link: "Visitar socialpulse.es →",
+          subject: "Gracias por contactar con SocialPulse",
+          homepage: "https://www.socialpulse.es/es",
+        }
+      : {
+          title: "Thanks for reaching out.",
+          greeting: `Hi ${safeFirstName},`,
+          received: "Thanks for getting in touch with SocialPulse. We’ve received your message, and a member of our team will get back to you shortly.",
+          closing: "We’re glad to have you with us as we build a clearer way to understand what truly moves audiences.",
+          team: "The SocialPulse team",
+          tagline: "Understand what moves audiences.",
+          link: "Visit socialpulse.es →",
+          subject: "Thanks for reaching out to SocialPulse",
+          homepage: "https://www.socialpulse.es",
+        };
+
     const confirmationEmailHtml = `
       <!DOCTYPE html>
-      <html lang="en">
+      <html lang="${locale}">
         <body style="margin:0; padding:0; background:#050912; font-family:Arial,Helvetica,sans-serif;">
           <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050912;">
             <tr>
@@ -99,7 +126,7 @@ export async function POST(req: Request) {
                   <tr>
                     <td style="padding:36px 38px;">
                       <a
-                        href="https://www.socialpulse.es"
+                        href="${emailCopy.homepage}"
                         target="_blank"
                         style="display:inline-block; margin:0 0 28px; text-decoration:none;"
                       >
@@ -112,37 +139,37 @@ export async function POST(req: Request) {
                       </a>
 
                       <h1 style="margin:0 0 20px; color:#F5F7FA; font-size:28px; line-height:1.25;">
-                        Thanks for reaching out.
+                        ${emailCopy.title}
                       </h1>
 
                       <p style="margin:0 0 16px; color:#AAB4C2; font-size:16px; line-height:1.7;">
-                        Hi ${safeFirstName},
+                        ${emailCopy.greeting}
                       </p>
 
                       <p style="margin:0 0 16px; color:#AAB4C2; font-size:16px; line-height:1.7;">
-                        Thanks for getting in touch with SocialPulse. We’ve received your message, and a member of our team will get back to you shortly.
+                        ${emailCopy.received}
                       </p>
 
                       <p style="margin:0; color:#AAB4C2; font-size:16px; line-height:1.7;">
-                        We’re glad to have you with us as we build a clearer way to understand what truly moves audiences.
+                        ${emailCopy.closing}
                       </p>
 
                       <div style="margin:30px 0; height:1px; background:rgba(255,255,255,0.10);"></div>
 
                       <p style="margin:0 0 5px; color:#F5F7FA; font-size:15px; font-weight:600;">
-                        The SocialPulse team
+                        ${emailCopy.team}
                       </p>
 
                       <p style="margin:0; color:#6E9BFF; font-size:14px;">
-                        Understand what moves audiences.
+                        ${emailCopy.tagline}
                       </p>
                       <p style="margin:10px 0 0; font-size:14px;">
                       <a
-                        href="https://www.socialpulse.es"
+                        href="${emailCopy.homepage}"
                         target="_blank"
                         style="color:#6E9BFF; text-decoration:none;"
                       >
-                        Visit socialpulse.es →
+                        ${emailCopy.link}
                       </a>
                     </p>
                     </td>
@@ -171,13 +198,14 @@ export async function POST(req: Request) {
           <p><strong>Organization:</strong> ${lead.organization || "Not provided"}</p>
           <p><strong>Role:</strong> ${lead.role || "Not provided"}</p>
           <p><strong>Request type:</strong> ${lead.requestType}</p>
+          <p><strong>Language:</strong> ${lead.locale}</p>
           <p><strong>Message:</strong> ${lead.message || "Not provided"}</p>
         `,
       }),
       resend.emails.send({
         from: senderEmail,
         to: lead.email,
-        subject: "Thanks for reaching out to SocialPulse",
+        subject: emailCopy.subject,
         html: confirmationEmailHtml,
       }),
     ]);

@@ -30,30 +30,15 @@ import { WhoItsForSection } from './sections/WhoItsForSection';
 import { IllustrativeUseCaseSection } from './sections/IllustrativeUseCaseSection';
 import { VisionSection } from './sections/VisionSection';
 import { FinalCtaSection } from './sections/FinalCtaSection';
+import { LocaleProvider } from './LocaleProvider';
+import { localizedPath, translate, type Locale } from '@/lib/i18n';
 
-const content = {
-  en: {
-    nav: [
-      { label: 'How it works', href: '#how-it-works' },
-      { label: 'Who it’s for', href: '#model' },
-      { label: 'Use cases', href: '#roadmap' },
-      { label: 'Product', href: '#product' }
-    ],
-    solution: {
-      radarLabels: {
-        topLeft: 'Doubt',
-        top: 'Anger',
-        topRight: 'Excitement',
-        right: 'Support',
-        bottomRight: 'Trust',
-        bottom: 'Hope',
-        bottomLeft: 'Skepticism',
-        left: 'Disappointment'
-      }
-    },
-    footer: 'Early access available for investors, press and strategic partners.'
-  }
-} as const;
+const NAV_ITEMS = [
+  { label: 'How it works', href: '#how-it-works' },
+  { label: 'Who it’s for', href: '#model' },
+  { label: 'Use cases', href: '#roadmap' },
+  { label: 'Product', href: '#product' },
+];
 
 
 // Placeholder metrics — replace values once validated
@@ -64,11 +49,21 @@ const HERO_METRICS = [
   { value: '99%', label: 'Public data only', Icon: ShieldCheck, color: '#14C7E5' }
 ];
 
-export function LandingPage() {
+export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNavbarScrolled, setIsNavbarScrolled] = useState(false);
-
-  const t = content.en;
+  const t = (text: string) => translate(locale, text);
+  const path = (href: string) => localizedPath(locale, href);
+  const radarLabels = {
+    topLeft: t('Doubt'),
+    top: t('Anger'),
+    topRight: t('Excitement'),
+    right: t('Support'),
+    bottomRight: t('Trust'),
+    bottom: t('Hope'),
+    bottomLeft: t('Skepticism'),
+    left: t('Disappointment'),
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,7 +108,8 @@ export function LandingPage() {
   };
 
   return (
-    <>
+    <LocaleProvider locale={locale}>
+      <>
       <div className="relative isolate min-h-screen overflow-hidden bg-[#091426] text-white">
         <ShiftBackground />
         <div className="pointer-events-none fixed inset-0 z-[1] bg-[radial-gradient(circle_at_50%_18%,rgba(9,20,38,0.18)_0%,rgba(9,20,38,0.52)_58%,rgba(4,10,20,0.82)_100%)]" />
@@ -149,7 +145,7 @@ export function LandingPage() {
               <a
                 href="#hero"
                 onClick={(event) => handleSmoothScroll(event, '#hero')}
-                aria-label="Back to top"
+                aria-label={t('Back to top')}
                 className="relative h-10 w-[140px] sm:h-12 sm:w-[190px] md:h-14 md:w-[230px]"
               >
                 <Image
@@ -164,19 +160,27 @@ export function LandingPage() {
             </div>
 
             <nav className="hidden items-center gap-8 text-sm text-[#AAB4C2] lg:flex">
-              {t.nav.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <a key={item.label}
                   href={item.href}
                   onClick={(event) => handleSmoothScroll(event, item.href)}
                   className="whitespace-nowrap transition-colors duration-200 hover:text-white">
-                  {item.label}
+                  {t(item.label)}
                 </a>
               ))}
             </nav>
 
             <div className={`flex items-center gap-4 transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'translate-x-0' : 'translate-x-0 lg:translate-x-20'}`}>
+              <Link
+                href={locale === 'en' ? '/es' : '/'}
+                hrefLang={locale === 'en' ? 'es' : 'en'}
+                aria-label={locale === 'en' ? 'Ver la página en español' : 'View the page in English'}
+                className="inline-flex h-9 min-w-9 items-center justify-center rounded-lg border border-white/[0.1] px-2 text-xs font-semibold text-[#D2D9E2] transition hover:border-white/[0.2] hover:bg-white/[0.04] hover:text-white"
+              >
+                {locale === 'en' ? 'ES' : 'EN'}
+              </Link>
               <button type="button" className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
-                <Link href="/login" className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
+                <Link href={path('/login')} className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
                   <UserRound className="h-[18px] w-[18px]" stroke="url(#login-icon-gradient)">
                     <defs>
                       <linearGradient id="login-icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -187,13 +191,13 @@ export function LandingPage() {
                     </defs>
                   </UserRound>
 
-                  <span>Log in</span>
+                  <span>{t('Log in')}</span>
                 </Link>
               </button>
               <span className="hidden h-8 w-px bg-white/[0.08] sm:block" />
               <button type="button" onClick={() => setIsModalOpen(true)} className="navbar-cta-button group inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-[13px] font-semibold text-white sm:gap-2.5 sm:rounded-xl sm:px-4 sm:py-3.5 sm:text-sm">
-                <span className="whitespace-nowrap">Get in Touch</span>
-                <span className="hidden whitespace-nowrap bg-gradient-to-r from-[#8A85AE] via-[#C8BCDD] to-[#AE9DC2] bg-clip-text text-xs font-medium text-transparent sm:inline">For Investors</span>
+                <span className="whitespace-nowrap">{t('Get in Touch')}</span>
+                <span className="hidden whitespace-nowrap bg-gradient-to-r from-[#8A85AE] via-[#C8BCDD] to-[#AE9DC2] bg-clip-text text-xs font-medium text-transparent sm:inline">{t('For Investors')}</span>
                 <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 sm:h-[18px] sm:w-[18px]" />
               </button>
 
@@ -232,16 +236,16 @@ export function LandingPage() {
                 <div className="min-w-0 animate-fade-up">
                   <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#246BFF]/25 bg-[#246BFF]/10 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.12em] text-[#6C8DFF]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#14C7E5]" />
-                    Live example
+                    {t('Live example')}
                   </span>
                   <h1 className="max-w-2xl text-[2.2rem] font-bold leading-[1.03] tracking-[-0.03em] sm:text-5xl md:text-6xl xl:text-[3.75rem]">
-                    Understand what{' '}
-                    <span className="hero-moving-gradient">moves</span>{' '}
-                    audiences.
+                    {t('Understand what')}{' '}
+                    <span className="hero-moving-gradient">{t('moves')}</span>{' '}
+                    {t('audiences.')}
                   </h1>
 
                   <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-[#AAB4C2] sm:text-base md:mt-6 md:text-lg">
-                    SocialPulse analyzes public conversations in real time to reveal the emotions, narratives and shifts shaping audience behavior — so you can understand what is changing, why it matters and act before the moment passes.
+                    {t('SocialPulse analyzes public conversations in real time to reveal the emotions, narratives and shifts shaping audience behavior — so you can understand what is changing, why it matters and act before the moment passes.')}
                   </p>
 
                   <div className="mt-12 grid divide-y divide-white/[0.08] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
@@ -251,8 +255,8 @@ export function LandingPage() {
                       </span>
 
                       <div>
-                        <p className="min-h-[44px] text-[17px] font-semibold leading-[1.25] text-[#F5F7FA]">Real-time detection</p>
-                        <p className="mt-2 text-sm leading-[1.6] text-[#929CAB]">Fresh insights as conversations unfold.</p>
+                        <p className="min-h-[44px] text-[17px] font-semibold leading-[1.25] text-[#F5F7FA]">{t('Real-time detection')}</p>
+                        <p className="mt-2 text-sm leading-[1.6] text-[#929CAB]">{t('Fresh insights as conversations unfold.')}</p>
                       </div>
                     </div>
 
@@ -262,8 +266,8 @@ export function LandingPage() {
                       </span>
 
                       <div>
-                        <p className="min-h-[44px] text-[17px] font-semibold leading-[1.25] text-[#F5F7FA]">Emotions that matter</p>
-                        <p className="mt-2 text-sm leading-[1.6] text-[#929CAB]">Beyond sentiment to the drivers behind opinions.</p>
+                        <p className="min-h-[44px] text-[17px] font-semibold leading-[1.25] text-[#F5F7FA]">{t('Emotions that matter')}</p>
+                        <p className="mt-2 text-sm leading-[1.6] text-[#929CAB]">{t('Beyond sentiment to the drivers behind opinions.')}</p>
                       </div>
                     </div>
 
@@ -273,20 +277,20 @@ export function LandingPage() {
                       </span>
 
                       <div>
-                        <p className="min-h-[44px] text-[17px] font-semibold leading-[1.25] text-[#F5F7FA]">Public data only</p>
-                        <p className="mt-2 text-sm leading-[1.6] text-[#929CAB]">Ethical, transparent and privacy compliant.</p>
+                        <p className="min-h-[44px] text-[17px] font-semibold leading-[1.25] text-[#F5F7FA]">{t('Public data only')}</p>
+                        <p className="mt-2 text-sm leading-[1.6] text-[#929CAB]">{t('Ethical, transparent and privacy compliant.')}</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                     <a href="#live-analysis" onClick={(event) => handleSmoothScroll(event, '#live-analysis')} className="navbar-cta-button group inline-flex min-h-[52px] flex-1 items-center justify-center gap-3 rounded-xl px-6 py-4 text-[15px] font-semibold text-white">
-                      Explore a live analysis
+                      {t('Explore a live analysis')}
                       <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                     </a>
 
                     <button type="button" onClick={() => setIsModalOpen(true)} className="inline-flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-white/[0.16] bg-white/[0.02] px-6 py-4 text-[15px] font-medium text-[#D9DEE6] transition hover:border-white/[0.25] hover:bg-white/[0.05] hover:text-white">
-                      Request early access
+                      {t('Request early access')}
                     </button>
                   </div>
                 </div>
@@ -295,19 +299,19 @@ export function LandingPage() {
                   <div className=" flex h-full flex-col overflow-hidden rounded-[22px] border border-white/[0.1] bg-[#07101F]/95 shadow-[0_28px_90px_rgba(0,0,0,0.38),0_0_70px_rgba(36,107,255,0.08)] backdrop-blur-xl">
                     <div className="flex min-h-12 items-center justify-between gap-3 border-b border-white/[0.08] px-3 sm:px-4">
                       <div className="flex min-w-0 items-center gap-2 text-[10px] text-[#7F8998] sm:text-[11px]">
-                        <span>Topics</span>
+                        <span>{t('Topics')}</span>
                         <span className="text-white/25">›</span>
-                        <span className="truncate font-medium text-[#E8ECF2]">2026 FIFA World Cup</span>
+                        <span className="truncate font-medium text-[#E8ECF2]">{t('2026 FIFA World Cup')}</span>
 
                         <span className="inline-flex items-center gap-1 rounded-full border border-[#14C7E5]/20 bg-[#14C7E5]/10 px-2 py-0.5 text-[9px] font-medium text-[#14C7E5]">
                           <span className="h-1.5 w-1.5 rounded-full bg-[#14C7E5]" />
-                          Live
+                          {t('Live')}
                         </span>
                       </div>
 
                       <div className="flex shrink-0 items-center gap-2">
-                        <button type="button" className="rounded-lg border border-white/[0.08] bg-white/[0.025] px-2.5 py-1.5 text-[10px] text-[#AAB4C2]">Last 7 days ▾</button>
-                        <button type="button" className="hidden rounded-lg border border-white/[0.08] bg-white/[0.025] px-2.5 py-1.5 text-[10px] text-[#AAB4C2] sm:block">Share</button>
+                        <button type="button" className="rounded-lg border border-white/[0.08] bg-white/[0.025] px-2.5 py-1.5 text-[10px] text-[#AAB4C2]">{t('Last 7 days ▾')}</button>
+                        <button type="button" className="hidden rounded-lg border border-white/[0.08] bg-white/[0.025] px-2.5 py-1.5 text-[10px] text-[#AAB4C2] sm:block">{t('Share')}</button>
                       </div>
                     </div>
 
@@ -328,29 +332,29 @@ export function LandingPage() {
                         <div className="grid gap-3 md:grid-cols-[0.86fr_1.14fr]">
                           <article className="relative min-h-[228px] overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
                             <div className="flex items-center justify-between">
-                              <h3 className="text-xs font-medium text-[#E8ECF2]">Emotion Index</h3>
-                              <span className="text-[9px] uppercase tracking-[0.12em] text-[#14C7E5]">Live signal</span>
+                              <h3 className="text-xs font-medium text-[#E8ECF2]">{t('Emotion Index')}</h3>
+                              <span className="text-[9px] uppercase tracking-[0.12em] text-[#14C7E5]">{t('Live signal')}</span>
                             </div>
 
                             <div className="absolute inset-x-0 bottom-0 top-8 overflow-hidden">
                               <div className="absolute left-1/2 top-1/2 w-[500px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.43] [&_.hero-insight]:hidden">
-                                <HeroRadarVisual labels={t.solution.radarLabels} />
+                                <HeroRadarVisual labels={radarLabels} />
                               </div>
                             </div>
                           </article>
 
                           <article className="min-h-[228px] rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
-                            <h3 className="text-xs font-medium text-[#E8ECF2]">Trust vs. Skepticism</h3>
+                            <h3 className="text-xs font-medium text-[#E8ECF2]">{t('Trust vs. Skepticism')}</h3>
 
                             <div className="mt-2 flex items-center gap-4 text-[9px] text-[#7F8998]">
                               <span className="inline-flex items-center gap-1.5">
                                 <span className="h-1.5 w-3 rounded-full bg-[#246BFF]" />
-                                Trust
+                                {t('Trust')}
                               </span>
 
                               <span className="inline-flex items-center gap-1.5">
                                 <span className="h-1.5 w-3 rounded-full bg-[#F2398A]" />
-                                Skepticism
+                                {t('Skepticism')}
                               </span>
                             </div>
 
@@ -366,17 +370,17 @@ export function LandingPage() {
                             </svg>
 
                             <div className="flex justify-between px-1 text-[8px] text-[#657184]">
-                              <span>May 11</span>
-                              <span>May 13</span>
-                              <span>May 15</span>
-                              <span>May 17</span>
+                              <span>{locale === 'es' ? '11 may' : 'May 11'}</span>
+                              <span>{locale === 'es' ? '13 may' : 'May 13'}</span>
+                              <span>{locale === 'es' ? '15 may' : 'May 15'}</span>
+                              <span>{locale === 'es' ? '17 may' : 'May 17'}</span>
                             </div>
                           </article>
                         </div>
 
                         <div className="mt-3 grid gap-3 md:grid-cols-[1.15fr_0.78fr_1.07fr]">
                           <article className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
-                            <h3 className="text-xs font-medium text-[#E8ECF2]">Top Sources</h3>
+                            <h3 className="text-xs font-medium text-[#E8ECF2]">{t('Top Sources')}</h3>
 
                             <div className="mt-3 flex flex-wrap gap-2">
                               <button type="button" className="inline-flex items-center gap-1.5 rounded-full border border-[#246BFF]/20 bg-[#246BFF]/10 px-2 py-1 text-[9px] text-[#AFC6FF]">
@@ -392,19 +396,19 @@ export function LandingPage() {
                               </button>
 
                               <button type="button" className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.035] px-2 py-1 text-[9px] text-[#AAB4C2]">
-                                <Newspaper className="h-3 w-3 text-[#14C7E5]" /> News <span>7%</span>
+                                <Newspaper className="h-3 w-3 text-[#14C7E5]" /> {t('News')} <span>7%</span>
                               </button>
 
                               <button type="button" className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.035] px-2 py-1 text-[9px] text-[#AAB4C2]">
-                                <Star className="h-3 w-3 text-[#9A33FF]" /> Blogs <span>5%</span>
+                                <Star className="h-3 w-3 text-[#9A33FF]" /> {t('Blogs')} <span>5%</span>
                               </button>
                             </div>
                           </article>
 
                           <article className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
-                            <h3 className="text-xs font-medium text-[#E8ECF2]">Conversation Volume</h3>
+                            <h3 className="text-xs font-medium text-[#E8ECF2]">{t('Conversation Volume')}</h3>
                             <p className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-white">1.28M</p>
-                            <p className="text-[9px] text-[#657184]">mentions</p>
+                            <p className="text-[9px] text-[#657184]">{t('mentions')}</p>
 
                             <div className="mt-4 flex h-10 items-end gap-1.5">
                               {[38, 68, 45, 76, 58, 86, 63, 48, 82, 100].map((height, index) => (
@@ -414,13 +418,13 @@ export function LandingPage() {
                           </article>
 
                           <article className="rounded-xl border border-[#9A33FF]/15 bg-[#9A33FF]/[0.065] p-3">
-                            <h3 className="text-xs font-medium text-[#B66DFF]">Key Insight</h3>
+                            <h3 className="text-xs font-medium text-[#B66DFF]">{t('Key Insight')}</h3>
                             <p className="mt-2 text-[10px] leading-5 text-[#C4CBD5]">
-                              Trust is rising while skepticism dips across non-traditional audiences after the opening performance.
+                              {t('Trust is rising while skepticism dips across non-traditional audiences after the opening performance.')}
                             </p>
 
                             <button type="button" className="mt-3 inline-flex items-center gap-1.5 text-[9px] font-medium text-[#6C8DFF]">
-                              View analysis
+                              {t('View analysis')}
                               <ArrowRight className="h-3 w-3" />
                             </button>
                           </article>
@@ -431,17 +435,17 @@ export function LandingPage() {
                     <div className="flex min-h-9 items-center justify-between gap-3 border-t border-white/[0.07] px-3 text-[8px] text-[#657184] sm:px-4 sm:text-[9px]">
                       <span className="inline-flex min-w-0 items-center gap-2">
                         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#14C7E5]" />
-                        <span className="truncate">Real-time analysis of public conversations across 35+ languages</span>
+                        <span className="truncate">{t('Real-time analysis of public conversations across 35+ languages')}</span>
                       </span>
 
-                      <span className="shrink-0">Updated 8 minutes ago&nbsp; ↻</span>
+                      <span className="shrink-0">{t('Updated 8 minutes ago')}&nbsp; ↻</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          <section aria-label="Key metrics" className="mt-12 section-wrap !max-w-[1700px] pb-16 md:pb-[115px]">
+          <section aria-label={t('Key metrics')} className="mt-12 section-wrap !max-w-[1700px] pb-16 md:pb-[115px]">
             <div className="grid overflow-hidden rounded-[18px] border border-white/[0.09] bg-[#07101F]/80 shadow-[0_20px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4">
               {HERO_METRICS.map(({ value, label, Icon, color }) => (
                 <div key={label} className="flex min-h-[108px] items-center gap-4 border-b border-white/[0.08] px-6 py-5 last:border-b-0 sm:odd:border-r sm:[&:nth-child(3)]:border-b-0 sm:[&:nth-child(4)]:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0 lg:px-8">
@@ -451,7 +455,7 @@ export function LandingPage() {
 
                   <div>
                     <p className="text-[22px] font-semibold leading-none tracking-[-0.02em] text-[#F5F7FA]">{value}</p>
-                    <p className="mt-2 text-sm leading-snug text-[#AAB4C2]">{label}</p>
+                    <p className="mt-2 text-sm leading-snug text-[#AAB4C2]">{t(label)}</p>
                   </div>
                 </div>
               ))}
@@ -513,53 +517,54 @@ export function LandingPage() {
                   <span className="text-lg font-semibold tracking-tight text-white">SocialPulse</span>
                 </div>
                 <p className="max-w-md text-sm leading-relaxed text-[#AAB4C2]">
-                  Emotional Signal Intelligence for the digital conversation economy.
+                  {t('Emotional Signal Intelligence for the digital conversation economy.')}
                 </p>
                 <a href="mailto:contact@socialpulse.es" className="inline-flex text-sm text-[#D2D9E2] transition hover:text-white">
                   contact@socialpulse.es
                 </a>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">Product</p>
+                <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">{t('Product')}</p>
                 <div className="mt-3 space-y-2 text-sm text-[#D2D9E2]">
-                  <p>Signal Engine</p>
-                  <p>Emotional Index</p>
-                  <p>Narrative Detection</p>
+                  <p>{t('Signal Engine')}</p>
+                  <p>{t('Emotional Index')}</p>
+                  <p>{t('Narrative Detection')}</p>
                 </div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">Company</p>
+                <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">{t('Company')}</p>
                 <div className="mt-3 space-y-2 text-sm text-[#D2D9E2]">
-                  <p>About</p>
-                  <p>Research</p>
-                  <p>Press</p>
+                  <p>{t('About')}</p>
+                  <p>{t('Research')}</p>
+                  <p>{t('Press')}</p>
                 </div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">Legal</p>
+                <p className="text-xs uppercase tracking-[0.16em] text-[#AAB4C2]">{t('Legal')}</p>
                 <div className="mt-3 space-y-2 text-sm text-[#D2D9E2]">
-                  <a href="/privacy-policy" className="block transition hover:text-white">
-                    Privacy Policy
+                  <a href={path('/privacy-policy')} className="block transition hover:text-white">
+                    {t('Privacy Policy')}
                   </a>
-                  <a href="/terms-and-conditions" className="block transition hover:text-white">
-                    Terms & Conditions
+                  <a href={path('/terms-and-conditions')} className="block transition hover:text-white">
+                    {t('Terms & Conditions')}
                   </a>
-                  <a href="/cookie-policy" className="block transition hover:text-white">
-                    Cookie Policy
+                  <a href={path('/cookie-policy')} className="block transition hover:text-white">
+                    {t('Cookie Policy')}
                   </a>
-                  <a href="/gdpr" className="block transition hover:text-white">
-                    GDPR
+                  <a href={path('/gdpr')} className="block transition hover:text-white">
+                    {t('GDPR')}
                   </a>
                 </div>
               </div>
             </div>
             <div className="mt-8 border-t border-white/10 pt-4 text-sm text-[#AAB4C2]">
-              <p>{t.footer}</p>
+              <p>{t('Early access available for investors, press and strategic partners.')}</p>
             </div>
           </div>
         </footer>
       </div>
       <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </>
+      </>
+    </LocaleProvider>
   );
 }

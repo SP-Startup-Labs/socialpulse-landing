@@ -1,4 +1,4 @@
-export type Language = 'en';
+export type Language = 'en' | 'es';
 
 export const roleOptions = [
   'Angel Investor',
@@ -63,6 +63,54 @@ export const copy = {
       stage: 'Investment Stage Interest',
       message: 'Short message',
       submit: 'Submit request'
+    }
+  },
+  es: {
+    nav: ['Por qué importa', 'Qué hace', 'Cómo funciona', 'Preguntas frecuentes'],
+    badgeEarly: 'Acceso anticipado',
+    badgePlatforms: 'X + Threads (En directo)',
+    badgeAudience: 'Inversores / Prensa',
+    heroTitle: 'Inteligencia emocional para redes sociales: creada para detectar señales, no ruido.',
+    heroSubtitle:
+      'SocialPulse transforma el pulso emocional de las conversaciones públicas en información clara y lista para decidir.',
+    ctaPrimary: 'Solicitar presentación para inversores',
+    ctaSecondary: 'Ver cómo funciona',
+    whyTitle: 'Por qué importa',
+    whyText:
+      'Las narrativas avanzan más rápido que los paneles. Los cambios emocionales en las conversaciones públicas suelen aparecer antes que sus efectos visibles sobre el mercado y la reputación. SocialPulse ayuda a los equipos a seguir esos cambios con contexto, claridad y rigor.',
+    whatTitle: 'Qué hace SocialPulse',
+    howTitle: 'Cómo funciona',
+    capabilitiesTitle: 'Capacidades',
+    platformsTitle: 'Plataformas compatibles',
+    roadmapTitle: 'Hoja de ruta',
+    faqTitle: 'Preguntas frecuentes',
+    finalTitle: 'Acceso anticipado para inversores y prensa',
+    finalText:
+      'Estamos abriendo un número limitado de sesiones informativas mientras SocialPulse valida su MVP. Comparte tus datos para que podamos contactar contigo.',
+    footer: 'Acceso anticipado - SocialPulse',
+    success: 'Gracias. Nos pondremos en contacto contigo muy pronto.',
+    formCommon: {
+      select: 'Seleccionar',
+      submitting: 'Enviando...'
+    },
+    formErrors: {
+      required: 'Obligatorio',
+      email: 'Introduce un correo electrónico válido',
+      phone: 'Introduce un teléfono válido',
+      submission: 'El envío ha fallado. Inténtalo de nuevo.'
+    },
+    formLabels: {
+      firstName: 'Nombre',
+      lastName: 'Apellidos',
+      email: 'Correo electrónico',
+      phone: 'Teléfono',
+      org: 'Organización / Nombre del fondo',
+      requestType: 'Tipo de solicitud',
+      role: 'Cargo',
+      check: 'Importe estimado de inversión',
+      stage: 'Etapa de inversión de interés',
+      message: 'Mensaje breve',
+      submit: 'Enviar solicitud'
     }
   }
 } as const;
