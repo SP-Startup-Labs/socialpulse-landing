@@ -15,7 +15,9 @@ type LeadPayload = {
   requestType?: string;
 };
 
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -31,7 +33,10 @@ export async function POST(req: Request) {
     const phone = body.phone?.trim() ?? "";
 
     if (!firstName || !lastName || !email || !phone) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 },
+      );
     }
 
     if (!isValidEmail(email)) {
@@ -54,14 +59,20 @@ export async function POST(req: Request) {
     };
 
     if (!db) {
-      return NextResponse.json({ error: "Missing Firebase configuration" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Missing Firebase configuration" },
+        { status: 500 },
+      );
     }
 
     const notificationEmail = process.env.LEADS_TO_EMAIL;
     const senderEmail = process.env.LEADS_FROM_EMAIL;
 
     if (!resend || !notificationEmail || !senderEmail) {
-      return NextResponse.json({ error: "Missing Resend configuration" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Missing Resend configuration" },
+        { status: 500 },
+      );
     }
 
     const docRef = await db.collection("leads").add(lead);
@@ -87,9 +98,18 @@ export async function POST(req: Request) {
 
                   <tr>
                     <td style="padding:36px 38px;">
-                      <p style="margin:0 0 28px; color:#F5F7FA; font-size:21px; font-weight:700;">
-                        Social<span style="color:#9A33FF;">Pulse</span>
-                      </p>
+                      <a
+                        href="https://www.socialpulse.es"
+                        target="_blank"
+                        style="display:inline-block; margin:0 0 28px; text-decoration:none;"
+                      >
+                        <img
+                          src="https://www.socialpulse.es/logos/logo_banner_fondo_oscuro.png"
+                          alt="SocialPulse"
+                          width="160"
+                          style="display:block; width:160px; max-width:100%; height:auto; border:0;"
+                        />
+                      </a>
 
                       <h1 style="margin:0 0 20px; color:#F5F7FA; font-size:28px; line-height:1.25;">
                         Thanks for reaching out.
@@ -116,6 +136,15 @@ export async function POST(req: Request) {
                       <p style="margin:0; color:#6E9BFF; font-size:14px;">
                         Understand what moves audiences.
                       </p>
+                      <p style="margin:10px 0 0; font-size:14px;">
+                      <a
+                        href="https://www.socialpulse.es"
+                        target="_blank"
+                        style="color:#6E9BFF; text-decoration:none;"
+                      >
+                        Visit socialpulse.es →
+                      </a>
+                    </p>
                     </td>
                   </tr>
                 </table>
@@ -155,7 +184,10 @@ export async function POST(req: Request) {
 
     if (notificationEmailError) {
       console.error("Resend notification email error:", notificationEmailError);
-      return NextResponse.json({ error: "Lead saved, but email notification failed" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Lead saved, but email notification failed" },
+        { status: 500 },
+      );
     }
 
     if (confirmationEmailError) {
