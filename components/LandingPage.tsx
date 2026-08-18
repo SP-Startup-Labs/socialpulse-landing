@@ -19,6 +19,7 @@ import {
   Users,
   UserRound,
   ShieldCheck,
+  Share2,
   Globe2,
   X as XGlyph,
   Zap,
@@ -52,6 +53,7 @@ const HERO_METRICS = [
 export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNavbarScrolled, setIsNavbarScrolled] = useState(false);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
   const t = (text: string) => translate(locale, text);
   const path = (href: string) => localizedPath(locale, href);
   const radarLabels = {
@@ -105,6 +107,27 @@ export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
       top: targetPosition,
       behavior: 'smooth'
     });
+  };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: document.title, url });
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return;
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+      setIsLinkCopied(true);
+      window.setTimeout(() => setIsLinkCopied(false), 2000);
+    } catch {
+      setIsLinkCopied(false);
+    }
   };
 
   return (
@@ -171,14 +194,6 @@ export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
             </nav>
 
             <div className={`flex items-center gap-4 transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'translate-x-0' : 'translate-x-0 lg:translate-x-20'}`}>
-              <Link
-                href={locale === 'en' ? '/es' : '/'}
-                hrefLang={locale === 'en' ? 'es' : 'en'}
-                aria-label={locale === 'en' ? 'Ver la página en español' : 'View the page in English'}
-                className="inline-flex h-9 min-w-9 items-center justify-center rounded-lg border border-white/[0.1] px-2 text-xs font-semibold text-[#D2D9E2] transition hover:border-white/[0.2] hover:bg-white/[0.04] hover:text-white"
-              >
-                {locale === 'en' ? 'ES' : 'EN'}
-              </Link>
               <button type="button" className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
                 <Link href={path('/login')} className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
                   <UserRound className="h-[18px] w-[18px]" stroke="url(#login-icon-gradient)">
@@ -204,6 +219,38 @@ export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
             </div>
           </div>
         </header>
+
+        <aside
+          aria-label={t('Page tools')}
+          className="fixed bottom-4 right-3 z-40 flex items-center gap-1.5 rounded-2xl border border-white/[0.1] bg-[#07101F]/85 p-1.5 shadow-[0_14px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:bottom-auto sm:right-4 sm:top-1/2 sm:-translate-y-1/2 sm:flex-col"
+        >
+          <Link
+            href={locale === 'en' ? '/es' : '/'}
+            hrefLang={locale === 'en' ? 'es' : 'en'}
+            aria-label={t(locale === 'en' ? 'View the page in Spanish' : 'View the page in English')}
+            className="group relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.035] text-xs font-semibold text-[#D2D9E2] transition hover:border-[#6E9BFF]/45 hover:bg-[#246BFF]/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6E9BFF]/60 sm:h-11 sm:w-11"
+          >
+            {locale === 'en' ? 'ES' : 'EN'}
+            <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg border border-white/[0.08] bg-[#07101F]/95 px-2.5 py-1.5 text-xs font-medium text-[#D2D9E2] opacity-0 shadow-lg transition-opacity group-hover:opacity-100 sm:block">
+              {t(locale === 'en' ? 'View in Spanish' : 'View in English')}
+            </span>
+          </Link>
+
+          <div className="h-px w-7 bg-white/[0.08] sm:h-7 sm:w-px" />
+
+          <button
+            type="button"
+            onClick={handleShare}
+            aria-label={t('Share this page')}
+            className="group relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.035] text-[#AAB4C2] transition hover:border-[#9A33FF]/45 hover:bg-[#9A33FF]/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A33FF]/60 sm:h-11 sm:w-11"
+          >
+            <Share2 className="h-[18px] w-[18px]" strokeWidth={1.8} />
+            <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg border border-white/[0.08] bg-[#07101F]/95 px-2.5 py-1.5 text-xs font-medium text-[#D2D9E2] opacity-0 shadow-lg transition-opacity group-hover:opacity-100 sm:block">
+              {isLinkCopied ? t('Link copied') : t('Share')}
+            </span>
+          </button>
+        </aside>
+
         <main className="relative z-10 pt-14 md:pt-16">
           <section id="hero" className="section-wrap !max-w-[1920px] relative isolate overflow-visible pt-8 sm:pt-10 md:pt-10">
             <div className="pointer-events-none absolute inset-0 -z-10 overflow-visible">
