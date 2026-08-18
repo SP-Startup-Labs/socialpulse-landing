@@ -151,7 +151,7 @@ export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
             ? 'border-white/[0.04] shadow-[0_10px_30px_rgba(0,0,0,0.18)]'
             : 'border-transparent shadow-none'
             }`}>
-          <div className="section-wrap grid h-14 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:h-16 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]"
+          <div className="section-wrap grid h-14 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:h-16 lg:grid-cols-[auto_minmax(0,1fr)_auto]"
             style={
               isNavbarScrolled
                 ? {
@@ -162,8 +162,7 @@ export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
                 : undefined
             }
           >
-            <div className={`flex items-center justify-self-start gap-4 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'ml-0' : 'ml-0 lg:-ml-20'
-              }`}
+            <div className={`flex items-center justify-self-start gap-4 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'translate-x-0' : 'translate-x-0 lg:-translate-x-20'}`}
             >
               <a
                 href="#hero"
@@ -182,7 +181,7 @@ export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
               </a>
             </div>
 
-            <nav className="hidden h-full items-center justify-self-center gap-8 text-sm text-[#AAB4C2] lg:flex">
+            <nav className="hidden translate-y-1 h-full items-center justify-self-center gap-8 text-sm text-[#AAB4C2] lg:flex">
               {NAV_ITEMS.map((item) => (
                 <a key={item.label}
                   href={item.href}
@@ -193,7 +192,7 @@ export function LandingPage({ locale = 'en' }: { locale?: Locale }) {
               ))}
             </nav>
 
-            <div className={`flex items-center justify-self-end gap-4 transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'translate-x-0' : 'translate-x-0 lg:translate-x-20'}`}>
+            <div className={`flex translate-y-1 items-center justify-self-end gap-4 transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'translate-x-0' : 'translate-x-0 lg:translate-x-20'}`}>
               <Link href={path('/login')} className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
                 <UserRound className="h-[18px] w-[18px]" stroke="url(#login-icon-gradient)">
                   <defs>
