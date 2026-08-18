@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { ChevronLeft, ChevronRight, LayoutGrid, LineChart, Radar, Sparkles } from 'lucide-react';
+import { useLocale } from '../LocaleProvider';
 
 type Emotion = {
     name: string;
@@ -175,15 +176,17 @@ function useAnimatedValues(values: number[], duration = 650) {
 }
 
 function ScenarioSelector({ label, onPrevious, onNext }: { label: string; onPrevious: () => void; onNext: () => void }) {
+    const { t } = useLocale();
+
     return (
         <div className="inline-flex max-w-full items-center rounded-lg border border-white/[0.08] bg-[#050B16]/80 text-[#AAB4C2] shadow-[0_8px_24px_rgba(0,0,0,0.16)] backdrop-blur-sm">
-            <button type="button" className="grid h-8 w-8 shrink-0 place-items-center transition-colors duration-200 hover:bg-white/[0.06] hover:text-[#F5F7FA]" onClick={onPrevious} aria-label="Previous example">
+            <button type="button" className="grid h-8 w-8 shrink-0 place-items-center transition-colors duration-200 hover:bg-white/[0.06] hover:text-[#F5F7FA]" onClick={onPrevious} aria-label={t('Previous example')}>
                 <ChevronLeft className="h-3.5 w-3.5" />
             </button>
 
             <span className="max-w-[190px] truncate border-x border-white/[0.07] px-3 text-[12px] font-medium tracking-[0.01em] text-[#C5CCD6] sm:max-w-[230px]">{label}</span>
 
-            <button type="button" className="grid h-8 w-8 shrink-0 place-items-center transition-colors duration-200 hover:bg-white/[0.06] hover:text-[#F5F7FA]" onClick={onNext} aria-label="Next example">
+            <button type="button" className="grid h-8 w-8 shrink-0 place-items-center transition-colors duration-200 hover:bg-white/[0.06] hover:text-[#F5F7FA]" onClick={onNext} aria-label={t('Next example')}>
                 <ChevronRight className="h-3.5 w-3.5" />
             </button>
         </div>
@@ -191,6 +194,7 @@ function ScenarioSelector({ label, onPrevious, onNext }: { label: string; onPrev
 }
 
 function EmotionRadar({ emotions }: { emotions: Emotion[] }) {
+    const { t } = useLocale();
     const values = useAnimatedValues(emotions.map((emotion) => emotion.value));
     const radarPoints = values.map((value, index) => {
         const point = getRadarPoint(value, index, emotions.length);
@@ -247,7 +251,7 @@ function EmotionRadar({ emotions }: { emotions: Emotion[] }) {
 
                 return (
                     <text key={emotion.name} x={x} y={y} textAnchor={anchor} dominantBaseline="middle" fill="#AAB4C2" fontSize="12">
-                        <tspan x={x}>{emotion.name}</tspan>
+                        <tspan x={x}>{t(emotion.name)}</tspan>
                         <tspan x={x} dy="14" fill="#F5F7FA" fontWeight="600">{Math.round(values[index])}</tspan>
                     </text>
                 );
@@ -267,6 +271,7 @@ const PLOT_BOTTOM = 174;
 const DEFAULT_ACTIVE_POINT = 15;
 
 function MomentumChart() {
+    const { t } = useLocale();
     const [activeIndex, setActiveIndex] = useState(DEFAULT_ACTIVE_POINT);
     const chartPoints = MOMENTUM_POINTS.map((point, index) => ({
         ...point,
@@ -294,7 +299,7 @@ function MomentumChart() {
 
     return (
         <div className="h-full min-h-[220px] overflow-x-auto bg-[#06101D]">
-            <svg viewBox="0 0 720 210" className="block h-auto w-full min-w-[620px] cursor-crosshair" role="img" aria-label="Skepticism momentum chart" onPointerMove={handlePointerMove} onPointerDown={handlePointerMove} onPointerLeave={() => setActiveIndex(DEFAULT_ACTIVE_POINT)}>
+            <svg viewBox="0 0 720 210" className="block h-auto w-full min-w-[620px] cursor-crosshair" role="img" aria-label={t('Skepticism momentum chart')} onPointerMove={handlePointerMove} onPointerDown={handlePointerMove} onPointerLeave={() => setActiveIndex(DEFAULT_ACTIVE_POINT)}>
                 <defs>
                     <linearGradient id="momentum-area" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor="#F2398A" stopOpacity="0.26" />
@@ -321,9 +326,9 @@ function MomentumChart() {
                     <line key={y} x1="0" y1={y} x2="720" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
                 ))}
 
-                <text x="12" y="21" fill="#AAB4C2" fontSize="12" fontWeight="500">Skepticism momentum</text>
+                <text x="12" y="21" fill="#AAB4C2" fontSize="12" fontWeight="500">{t('Skepticism momentum')}</text>
                 <text x="12" y="51" fill="#F5F7FA" fontSize="27" fontWeight="600">+42%</text>
-                <text x="12" y="67" fill="#AAB4C2" fontSize="11">vs. previous 3 days</text>
+                <text x="12" y="67" fill="#AAB4C2" fontSize="11">{t('vs. previous 3 days')}</text>
 
                 <path d={areaPath} fill="url(#momentum-area)" />
                 <path d={linePath} fill="none" stroke="#F2398A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" filter="url(#momentum-glow)" />
@@ -336,13 +341,13 @@ function MomentumChart() {
 
                 <g pointerEvents="none">
                     <rect x={tooltipX} y={tooltipY} width={tooltipWidth} height={tooltipHeight} rx="6" fill="#1A2735" stroke="rgba(255,255,255,0.12)" />
-                    <text x={tooltipX + 10} y={tooltipY + 16} fill="#F5F7FA" fontSize="11.5" fontWeight="500">Shift detected</text>
-                    <text x={tooltipX + 10} y={tooltipY + 31} fill="#AAB4C2" fontSize="10.5">{activePoint.date}, {activePoint.time}</text>
+                    <text x={tooltipX + 10} y={tooltipY + 16} fill="#F5F7FA" fontSize="11.5" fontWeight="500">{t('Shift detected')}</text>
+                    <text x={tooltipX + 10} y={tooltipY + 31} fill="#AAB4C2" fontSize="10.5">{t(activePoint.date)}, {activePoint.time}</text>
                 </g>
 
                 {MOMENTUM_DAYS.map((day, index) => {
                     const x = (index * 3 + 1) * (CHART_WIDTH / (chartPoints.length - 1));
-                    return <text key={day} x={x} y="200" textAnchor="middle" fill="#AAB4C2" fontSize="11">{day}</text>;
+                    return <text key={day} x={x} y="200" textAnchor="middle" fill="#AAB4C2" fontSize="11">{t(day)}</text>;
                 })}
             </svg>
         </div>
@@ -358,6 +363,7 @@ function previousIndex(current: number, length: number) {
 }
 
 export function CoreCapabilitiesSection() {
+    const { t } = useLocale();
     const [emotionScenario, setEmotionScenario] = useState(0);
     const [narrativeScenario, setNarrativeScenario] = useState(0);
     const [audienceScenario, setAudienceScenario] = useState(0);
@@ -372,15 +378,15 @@ export function CoreCapabilitiesSection() {
 
             <div className="relative mx-auto w-full max-w-[1536px]">
                 <div className="mb-14 max-w-2xl">
-                    <p className="mb-4 text-base font-semibold uppercase tracking-[0.22em] text-[#9A8FB0]">Product Intelligence</p>
+                    <p className="mb-4 text-base font-semibold uppercase tracking-[0.22em] text-[#9A8FB0]">{t('Product Intelligence')}</p>
 
                     <h2 className="text-3xl font-semibold tracking-tight text-[#F5F7FA] md:text-5xl">
-                        Beyond sentiment. Understand{' '}
-                        <span className="bg-gradient-to-r from-[#F2398A] via-[#9A33FF] to-[#246BFF] bg-clip-text text-transparent">what is driving it.</span>
+                        {t('Beyond sentiment. Understand')}{' '}
+                        <span className="bg-gradient-to-r from-[#F2398A] via-[#9A33FF] to-[#246BFF] bg-clip-text text-transparent">{t('what is driving it.')}</span>
                     </h2>
 
                     <p className="mt-5 max-w-xl text-lg leading-7 text-[#AAB4C2]">
-                        SocialPulse moves beyond mentions and positive/negative sentiment to reveal emotions, narratives, audience differences and emerging shifts.
+                        {t('SocialPulse moves beyond mentions and positive/negative sentiment to reveal emotions, narratives, audience differences and emerging shifts.')}
                     </p>
                 </div>
 
@@ -396,9 +402,9 @@ export function CoreCapabilitiesSection() {
                                         <Radar className="mt-0.5 h-8 w-8 shrink-0 text-[#9A33FF] transition-transform duration-500 group-hover:scale-110" strokeWidth={1.5} />
 
                                         <div>
-                                            <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#F5F7FA] sm:text-2xl">Emotion Index</h3>
-                                            <p className="mt-3 text-base leading-6 text-[#AAB4C2]">Go beyond positive or negative. Our emotion analysis reveals the nuanced feelings driving the conversation.</p>
-                                            <p className="mt-3 text-base leading-6 text-[#AAB4C2]">Understand the emotional drivers behind engagement and reputation.</p>
+                                            <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#F5F7FA] sm:text-2xl">{t('Emotion Index')}</h3>
+                                            <p className="mt-3 text-base leading-6 text-[#AAB4C2]">{t('Go beyond positive or negative. Our emotion analysis reveals the nuanced feelings driving the conversation.')}</p>
+                                            <p className="mt-3 text-base leading-6 text-[#AAB4C2]">{t('Understand the emotional drivers behind engagement and reputation.')}</p>
 
                                         </div>
                                     </div>
@@ -408,7 +414,7 @@ export function CoreCapabilitiesSection() {
 
                         <div className="relative flex min-h-[360px] items-center justify-center overflow-hidden px-5 sm:px-8 lg:order-1 lg:border-r lg:border-white/[0.08]">
                             <div className="absolute left-5 top-5 z-10 sm:left-8 sm:top-8">
-                                <ScenarioSelector label={currentEmotionScenario.label} onPrevious={() => setEmotionScenario(previousIndex(emotionScenario, EMOTION_SCENARIOS.length))} onNext={() => setEmotionScenario(nextIndex(emotionScenario, EMOTION_SCENARIOS.length))} />
+                                <ScenarioSelector label={t(currentEmotionScenario.label)} onPrevious={() => setEmotionScenario(previousIndex(emotionScenario, EMOTION_SCENARIOS.length))} onNext={() => setEmotionScenario(nextIndex(emotionScenario, EMOTION_SCENARIOS.length))} />
                             </div>
 
                             <EmotionRadar emotions={currentEmotionScenario.emotions} />
@@ -420,14 +426,14 @@ export function CoreCapabilitiesSection() {
 
                         <div className="relative min-h-[250px] border-b border-white/[0.08] p-5 sm:p-7 lg:border-b-0 lg:border-r">
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                <h4 className="text-base font-medium text-[#F5F7FA]">Narrative Clusters</h4>
-                                <ScenarioSelector label={currentNarrativeScenario.label} onPrevious={() => setNarrativeScenario(previousIndex(narrativeScenario, NARRATIVE_SCENARIOS.length))} onNext={() => setNarrativeScenario(nextIndex(narrativeScenario, NARRATIVE_SCENARIOS.length))} />
+                                <h4 className="text-base font-medium text-[#F5F7FA]">{t('Narrative Clusters')}</h4>
+                                <ScenarioSelector label={t(currentNarrativeScenario.label)} onPrevious={() => setNarrativeScenario(previousIndex(narrativeScenario, NARRATIVE_SCENARIOS.length))} onNext={() => setNarrativeScenario(nextIndex(narrativeScenario, NARRATIVE_SCENARIOS.length))} />
                             </div>
 
                             <div className="mt-5 space-y-3.5">
                                 {currentNarrativeScenario.narratives.map(({ label, value, color }, index) => (
                                     <div key={index} className="grid grid-cols-[minmax(130px,1.3fr)_minmax(110px,1fr)_38px] items-center gap-3 text-base sm:grid-cols-[minmax(170px,1.2fr)_minmax(150px,1fr)_42px]">
-                                        <span className="truncate text-[#C5CCD6]">{label}</span>
+                                        <span className="truncate text-[#C5CCD6]">{t(label)}</span>
 
                                         <div className="h-2 overflow-hidden rounded-full bg-white/[0.07]">
                                             <div className="h-full rounded-full transition-[width] duration-700 ease-out" style={{ width: `${Math.max((value / largestNarrative) * 82, 8)}%`, background: `linear-gradient(90deg, ${color}, ${color === '#F2398A' ? '#9A33FF' : '#465CFF'})` }} />
@@ -444,9 +450,9 @@ export function CoreCapabilitiesSection() {
                                 <Sparkles className="mt-0.5 h-8 w-8 shrink-0 text-[#246BFF] transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" strokeWidth={1.5} />
 
                                 <div>
-                                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#F5F7FA] sm:text-2xl">Narrative Detection</h3>
-                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">Automatically discover the themes and stories people are discussing — without manual tagging.</p>
-                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">See which narratives are growing, fading or influencing sentiment.</p>
+                                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#F5F7FA] sm:text-2xl">{t('Narrative Detection')}</h3>
+                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">{t('Automatically discover the themes and stories people are discussing — without manual tagging.')}</p>
+                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">{t('See which narratives are growing, fading or influencing sentiment.')}</p>
                                 </div>
                             </div>
                         </article>
@@ -460,9 +466,9 @@ export function CoreCapabilitiesSection() {
                                 <LayoutGrid className="mt-0.5 h-8 w-8 shrink-0 text-[#F2398A] transition-transform duration-500 group-hover:scale-110" strokeWidth={1.5} />
 
                                 <div>
-                                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#F5F7FA] sm:text-2xl">Momentum &amp; Early Warnings</h3>
-                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">Track momentum over time and get early warnings when the conversation shifts.</p>
-                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">Spot inflection points before they become widespread.</p>
+                                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#F5F7FA] sm:text-2xl">{t('Momentum & Early Warnings')}</h3>
+                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">{t('Track momentum over time and get early warnings when the conversation shifts.')}</p>
+                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">{t('Spot inflection points before they become widespread.')}</p>
                                 </div>
                             </div>
                         </article>
@@ -475,8 +481,8 @@ export function CoreCapabilitiesSection() {
 
                         <div className="relative min-h-[255px] overflow-hidden border-b border-white/[0.08] p-5 sm:p-7 lg:border-b-0 lg:border-r">
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                <h4 className="text-base font-medium text-[#F5F7FA]">Audience Comparison</h4>
-                                <ScenarioSelector label={currentAudienceScenario.label} onPrevious={() => setAudienceScenario(previousIndex(audienceScenario, AUDIENCE_SCENARIOS.length))} onNext={() => setAudienceScenario(nextIndex(audienceScenario, AUDIENCE_SCENARIOS.length))} />
+                                <h4 className="text-base font-medium text-[#F5F7FA]">{t('Audience Comparison')}</h4>
+                                <ScenarioSelector label={t(currentAudienceScenario.label)} onPrevious={() => setAudienceScenario(previousIndex(audienceScenario, AUDIENCE_SCENARIOS.length))} onNext={() => setAudienceScenario(nextIndex(audienceScenario, AUDIENCE_SCENARIOS.length))} />
                             </div>
 
                             <div className="mt-5 overflow-x-auto pb-1 lg:overflow-x-visible">
@@ -487,7 +493,7 @@ export function CoreCapabilitiesSection() {
                                         {currentAudienceScenario.audiences.map((audience, index) => (
                                             <span key={audience} className="flex items-center justify-start gap-1.5">
                                                 <span className="h-2 w-2 rounded-full" style={{ backgroundColor: AUDIENCE_COLORS[index] }} />
-                                                {audience}
+                                                {t(audience)}
                                             </span>
                                         ))}
                                     </div>
@@ -495,7 +501,7 @@ export function CoreCapabilitiesSection() {
                                     <div className="mt-3 space-y-3.5">
                                         {currentAudienceScenario.rows.map((row, rowIndex) => (
                                             <div key={rowIndex} className="grid grid-cols-[105px_repeat(3,minmax(0,1fr))] items-center gap-x-4 text-base">
-                                                <span className="text-[#C5CCD6]">{row.signal}</span>
+                                                <span className="text-[#C5CCD6]">{t(row.signal)}</span>
 
                                                 {row.values.map((value, audienceIndex) => (
                                                     <div key={audienceIndex} className="flex items-center gap-2">
@@ -518,9 +524,9 @@ export function CoreCapabilitiesSection() {
                                 <LineChart className="mt-0.5 h-8 w-8 shrink-0 text-[#14C7E5] transition-transform duration-500 group-hover:scale-110" strokeWidth={1.5} />
 
                                 <div>
-                                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#F5F7FA] sm:text-2xl">Audience Comparison</h3>
-                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">Compare how different audiences feel about the same topic across countries, languages or segments.</p>
-                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">Tailor your message to what each audience cares about.</p>
+                                    <h3 className="text-xl font-semibold tracking-[-0.02em] text-[#F5F7FA] sm:text-2xl">{t('Audience Comparison')}</h3>
+                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">{t('Compare how different audiences feel about the same topic across countries, languages or segments.')}</p>
+                                    <p className="mt-3 text-base leading-6 text-[#AAB4C2]">{t('Tailor your message to what each audience cares about.')}</p>
                                 </div>
                             </div>
                         </article>

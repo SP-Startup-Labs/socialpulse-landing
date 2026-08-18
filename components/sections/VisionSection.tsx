@@ -2,6 +2,7 @@
 
 import { ArrowRight, BarChart3, CheckCircle2, Database, Gem, Globe2, Rocket, ShieldCheck, Target, TrendingUp, type LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { useLocale } from '../LocaleProvider';
 
 type VisionPoint = {
     label: string;
@@ -26,12 +27,14 @@ const investorPoints: VisionPoint[] = [
 ];
 
 function PointList({ items }: { items: VisionPoint[] }) {
+    const { t } = useLocale();
+
     return (
         <ul className="mt-6 w-full space-y-4 border-t border-white/[0.08] pt-5 text-left">
             {items.map(({ label, icon: Icon }) => (
                 <li key={label} className="grid grid-cols-[16px_minmax(0,1fr)] items-start gap-3 text-base leading-6 text-[#AAB4C2]">
                     <Icon className="mt-1 h-4 w-4 text-[#667085] transition-colors duration-300 group-hover:text-[#7F8BFF]" strokeWidth={1.7} />
-                    <span className="min-w-0 text-left">{label}</span>
+                    <span className="min-w-0 text-left">{t(label)}</span>
                 </li>
             ))}
         </ul>
@@ -52,19 +55,21 @@ function GlowCard({ children, className = '' }: { children: ReactNode; className
 }
 
 export function VisionSection({ onContactUs }: { onContactUs: () => void }) {
+    const { t } = useLocale();
+
     return (
         <section id="opportunity" className="relative px-5 pb-24 pt-12 md:px-8 md:py-[115px]">
             <div className="mx-auto w-full max-w-[1536px]">
                 <div className="grid gap-6 xl:grid-cols-[0.95fr_3.15fr_0.95fr]">
                     <div className="flex flex-col justify-center py-6 xl:pr-6">
-                        <p className="text-base font-medium text-[#6E9BFF]">Our vision</p>
+                        <p className="text-base font-medium text-[#6E9BFF]">{t('Our vision')}</p>
 
                         <h2 className="mt-5 text-3xl font-semibold leading-[1.2] tracking-tight text-[#F5F7FA] md:text-4xl">
-                            A real-time understanding layer for the world.
+                            {t('A real-time understanding layer for the world.')}
                         </h2>
 
                         <p className="mt-6 text-lg leading-7 text-[#AAB4C2]">
-                            We’re building the infrastructure that helps teams understand public sentiment, emotions and narratives across markets and languages. It turns public conversation into clear, explainable signals for faster, better decisions.
+                            {t('We’re building the infrastructure that helps teams understand public sentiment, emotions and narratives across markets and languages. It turns public conversation into clear, explainable signals for faster, better decisions.')}
                         </p>
                     </div>
 
@@ -74,19 +79,19 @@ export function VisionSection({ onContactUs }: { onContactUs: () => void }) {
                                 <BarChart3 className="h-7 w-7 text-[#69758A] transition-colors duration-300 group-hover:text-[#F2398A]" strokeWidth={1.7} />
                             </div>
 
-                            <h3 className="mt-5 text-xl font-semibold text-[#F5F7FA]">Massive opportunity</h3>
+                            <h3 className="mt-5 text-xl font-semibold text-[#F5F7FA]">{t('Massive opportunity')}</h3>
 
                             <p className="mt-3 bg-gradient-to-r from-[#6E9BFF] via-[#9A33FF] to-[#F2398A] bg-clip-text text-lg font-medium text-transparent">
-                                €XB market opportunity
+                                {t('€XB market opportunity')}
                             </p>
 
                             <p className="mt-5 text-base leading-6 text-[#AAB4C2]">
-                                A global market spanning creators, SMEs, agencies and enterprise intelligence teams.
+                                {t('A global market spanning creators, SMEs, agencies and enterprise intelligence teams.')}
                             </p>
 
                             <div className="mt-6 border-t border-white/[0.08] pt-5">
                                 <p className="text-base leading-6 text-[#AAB4C2]">
-                                    Starting with millions of creators and SMEs that are underserved by enterprise intelligence tools.
+                                    {t('Starting with millions of creators and SMEs that are underserved by enterprise intelligence tools.')}
                                 </p>
                             </div>
                         </GlowCard>
@@ -96,10 +101,10 @@ export function VisionSection({ onContactUs }: { onContactUs: () => void }) {
                                 <ShieldCheck className="h-7 w-7 text-[#69758A] transition-colors duration-300 group-hover:text-[#246BFF]" strokeWidth={1.7} />
                             </div>
 
-                            <h3 className="mt-5 text-xl font-semibold text-[#F5F7FA]">Defensible technology</h3>
+                            <h3 className="mt-5 text-xl font-semibold text-[#F5F7FA]">{t('Defensible technology')}</h3>
 
                             <p className="mt-5 text-base leading-6 text-[#AAB4C2]">
-                                Our engine combines multiple signals with emotion-aware analysis to turn noise into clear, explainable insights.
+                                {t('Our engine combines multiple signals with emotion-aware analysis to turn noise into clear, explainable insights.')}
                             </p>
 
                             <PointList items={technologyPoints} />
@@ -110,24 +115,24 @@ export function VisionSection({ onContactUs }: { onContactUs: () => void }) {
                                 <Rocket className="h-7 w-7 text-[#69758A] transition-colors duration-300 group-hover:text-[#9A33FF]" strokeWidth={1.7} />
                             </div>
 
-                            <h3 className="mt-5 text-xl font-semibold text-[#F5F7FA]">Execution readiness</h3>
+                            <h3 className="mt-5 text-xl font-semibold text-[#F5F7FA]">{t('Execution readiness')}</h3>
 
                             <PointList items={readinessPoints} />
                         </GlowCard>
                     </div>
 
                     <GlowCard>
-                        <h3 className="text-xl font-semibold text-[#F5F7FA]">For investors</h3>
+                        <h3 className="text-xl font-semibold text-[#F5F7FA]">{t('For investors')}</h3>
 
                         <p className="mt-4 text-base leading-6 text-[#AAB4C2]">
-                            We’re partnering with a small number of investors who share our long-term vision. Let’s build this category together.
+                            {t('We’re partnering with a small number of investors who share our long-term vision. Let’s build this category together.')}
                         </p>
 
                         <PointList items={investorPoints} />
 
                         <div className="mt-5">
                             <button type="button" onClick={onContactUs} className="navbar-cta-button final-cta-button group/button mt-auto flex w-full items-center justify-center gap-3 rounded-lg px-5 py-3.5 text-base font-medium text-white">
-                                Contact us
+                                {t('Contact us')}
                                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/button:translate-x-1" />
                             </button>
                         </div>

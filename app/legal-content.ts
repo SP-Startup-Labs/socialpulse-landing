@@ -147,3 +147,143 @@ export const legalPages = {
     ]
   }
 } satisfies Record<string, LegalPageContent>;
+
+export const legalPagesEs = {
+  privacy: {
+    title: 'Política de privacidad',
+    lastUpdated: 'Versión provisional pendiente de revisión legal',
+    intro:
+      'Esta Política de privacidad explica cómo SocialPulse puede recopilar, utilizar y proteger los datos personales enviados a través de este sitio web. Es una versión provisional que será revisada por el equipo legal.',
+    sections: [
+      {
+        heading: 'Responsable del tratamiento',
+        paragraphs: [
+          'Los datos del responsable del tratamiento están pendientes de confirmación. Esta sección deberá incluir la denominación legal de la empresa, su domicilio social y el correo electrónico de contacto en materia de privacidad.'
+        ]
+      },
+      {
+        heading: 'Datos que recopilamos',
+        paragraphs: [
+          'Podemos recopilar los datos personales enviados mediante los formularios del sitio web, como nombre, apellidos, correo electrónico, teléfono, organización, cargo y contenido del mensaje.'
+        ]
+      },
+      {
+        heading: 'Finalidad del tratamiento',
+        paragraphs: [
+          'La información podrá utilizarse para responder a solicitudes de acceso, consultas de inversores o prensa, interés por el producto y otras comunicaciones relacionadas con SocialPulse.'
+        ]
+      },
+      {
+        heading: 'Conservación de los datos',
+        paragraphs: [
+          'Los datos personales se conservarán únicamente durante el tiempo necesario para las finalidades descritas, salvo que la legislación exija un periodo de conservación superior.'
+        ]
+      },
+      {
+        heading: 'Derechos de las personas usuarias',
+        paragraphs: [
+          'Las personas usuarias podrán solicitar el acceso, rectificación, supresión, limitación, oposición o portabilidad de sus datos personales. El correo electrónico legal definitivo está pendiente de confirmación.'
+        ]
+      }
+    ]
+  },
+
+  terms: {
+    title: 'Términos y condiciones',
+    lastUpdated: 'Versión provisional pendiente de revisión legal',
+    intro:
+      'Estos Términos y condiciones establecen las reglas básicas para utilizar el sitio web de SocialPulse. Es una versión provisional que será revisada por el equipo legal.',
+    sections: [
+      {
+        heading: 'Uso del sitio web',
+        paragraphs: [
+          'Las personas usuarias se comprometen a utilizar este sitio web de forma legal y a no interferir en su funcionamiento, seguridad o disponibilidad.'
+        ]
+      },
+      {
+        heading: 'Contenido del sitio web',
+        paragraphs: [
+          'El contenido de este sitio web se ofrece con fines informativos generales y puede cambiar a medida que evolucione el producto SocialPulse.'
+        ]
+      },
+      {
+        heading: 'Propiedad intelectual',
+        paragraphs: [
+          'Todas las marcas, elementos de identidad, diseños, textos, gráficos y demás materiales relacionados con SocialPulse continúan siendo propiedad de sus respectivos titulares.'
+        ]
+      },
+      {
+        heading: 'Limitación de responsabilidad',
+        paragraphs: [
+          'SocialPulse no garantiza que el sitio web esté siempre disponible, libre de errores o sin interrupciones.'
+        ]
+      }
+    ]
+  },
+
+  cookies: {
+    title: 'Política de cookies',
+    lastUpdated: 'Versión provisional pendiente de revisión legal',
+    intro:
+      'Esta Política de cookies explica cómo pueden utilizarse cookies y tecnologías similares en el sitio web de SocialPulse. Es una versión provisional que será revisada por el equipo legal.',
+    sections: [
+      {
+        heading: '¿Qué son las cookies?',
+        paragraphs: [
+          'Las cookies son pequeños archivos de texto que se almacenan en el dispositivo de una persona al visitar un sitio web. Pueden ayudar al funcionamiento de la web, recordar preferencias y comprender cómo se utiliza el sitio.'
+        ]
+      },
+      {
+        heading: 'Tipos de cookies',
+        paragraphs: [
+          'El sitio web puede utilizar cookies estrictamente necesarias para sus funciones básicas. Las cookies analíticas o publicitarias solo deberán activarse cuando se hayan confirmado las herramientas definitivas y el mecanismo de consentimiento.'
+        ]
+      },
+      {
+        heading: 'Gestión de cookies',
+        paragraphs: [
+          'Las personas usuarias pueden gestionar o bloquear las cookies desde la configuración de su navegador. Si se utilizan cookies no esenciales, deberá implementarse una solución para recabar el consentimiento.'
+        ]
+      },
+      {
+        heading: 'Pendiente de confirmación',
+        paragraphs: [
+          'Esta sección deberá actualizarse cuando se confirme si el sitio utiliza Google Analytics, Microsoft Clarity, Meta Pixel, Vercel Analytics u otra herramienta de seguimiento.'
+        ]
+      }
+    ]
+  },
+
+  gdpr: {
+    title: 'RGPD',
+    lastUpdated: 'Versión provisional pendiente de revisión legal',
+    intro:
+      'Esta página resume información provisional relacionada con el RGPD para personas usuarias ubicadas en el Espacio Económico Europeo. Es un borrador que será revisado por el equipo legal.',
+    sections: [
+      {
+        heading: 'Base jurídica',
+        paragraphs: [
+          'Según el contexto, los datos podrán tratarse con base en el consentimiento de la persona usuaria, el interés legítimo o una comunicación precontractual. La base jurídica definitiva deberá confirmarse durante la revisión legal.'
+        ]
+      },
+      {
+        heading: 'Derechos de las personas interesadas',
+        paragraphs: [
+          'Las personas usuarias pueden tener derecho a acceder, rectificar, suprimir, limitar u oponerse al tratamiento de sus datos personales, así como a solicitar su portabilidad.'
+        ]
+      },
+      {
+        heading: 'Transferencias internacionales',
+        paragraphs: [
+          'Si los datos personales se almacenan o tratan fuera del Espacio Económico Europeo, deberán identificarse y documentarse las garantías adecuadas.'
+        ]
+      },
+      {
+        heading: 'Contacto',
+        paragraphs: [
+          'El correo electrónico definitivo de privacidad está pendiente de confirmación. Contacto provisional: contact@socialpulse.es.'
+        ]
+      }
+    ]
+  }
+} satisfies Record<string, LegalPageContent>;

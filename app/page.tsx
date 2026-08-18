@@ -1,4 +1,25 @@
 import { LandingPage } from '@/components/LandingPage';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'SocialPulse | AI-Powered Emotional Signal Intelligence',
+  description:
+    'Move beyond likes and engagement. SocialPulse transforms public conversations into emotional intelligence, helping brands, influencers, and agencies understand how people truly feel and make smarter decisions.',
+  alternates: {
+    canonical: '/',
+    languages: {
+      en: '/',
+      es: '/es',
+    },
+  },
+  openGraph: {
+    title: 'SocialPulse | AI-Powered Emotional Signal Intelligence',
+    description:
+      'Move beyond likes and engagement. SocialPulse transforms public conversations into emotional intelligence, helping brands, influencers, and agencies understand how people truly feel and make smarter decisions.',
+    url: 'https://socialpulse.es',
+    locale: 'en_US',
+  },
+};
 
 const softwareApplicationSchema = {
   '@context': 'https://schema.org',
@@ -20,7 +41,7 @@ export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
-      <LandingPage />
+      <LandingPage locale="en" />
     </>
   );
 }
