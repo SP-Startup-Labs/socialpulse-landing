@@ -23,6 +23,147 @@ body {
   @apply mx-auto w-full max-w-6xl px-6 md:px-8;
 }
 
+/* One shared content edge for the expanded navbar, hero and metrics. */
+.landing-shell {
+  width: 100%;
+  max-width: 1700px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 64px);
+}
+
+.site-navbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  background: rgba(9, 20, 38, 0.97);
+}
+
+.site-navbar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.site-navbar[data-expanded='true']::after { opacity: 1; }
+
+.navbar-shell {
+  --navbar-inset: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 56px;
+}
+
+.navbar-brand {
+  position: relative;
+  display: block;
+  flex: 0 1 140px;
+  min-width: 0;
+  height: 40px;
+}
+
+.navbar-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-brand,
+.navbar-actions {
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar-links,
+.navbar-login,
+.navbar-divider,
+.navbar-investors,
+.navbar-contact-arrow { display: none; }
+
+.navbar-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.site-navbar .navbar-cta-button {
+  /* The header is already opaque; blurring it adds work with no visual gain. */
+  backdrop-filter: none;
+}
+
+.navbar-menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+}
+
+.site-navbar a:focus-visible,
+.site-navbar button:focus-visible {
+  outline: 2px solid #6c8dff;
+  outline-offset: 3px;
+}
+
+.navbar-mobile:not([hidden]) {
+  display: grid;
+  padding-block: 8px 16px;
+  max-height: calc(100dvh - 64px);
+  overflow-y: auto;
+}
+
+.navbar-mobile a { padding: 12px 0; color: #d2d9e2; }
+.navbar-links a:hover, .navbar-login:hover, .navbar-mobile a:hover { color: white; }
+
+@media (min-width: 640px) {
+  .navbar-brand { flex-basis: 190px; height: 48px; }
+  .navbar-actions { gap: 16px; }
+  .navbar-login { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #d2d9e2; }
+  .navbar-divider { display: block; width: 1px; height: 32px; background: rgba(255, 255, 255, 0.08); }
+  .navbar-contact { padding-inline: 16px; font-size: 14px; }
+  .navbar-contact-arrow { display: block; }
+}
+
+@media (min-width: 768px) {
+  .navbar-shell { height: 64px; }
+  .navbar-brand { flex-basis: 230px; height: 56px; }
+  .navbar-investors { display: inline; font-size: 12px; font-weight: 500; color: #c8bcdd; }
+}
+
+@media (min-width: 1200px) {
+  .navbar-menu-toggle, .navbar-mobile:not([hidden]) { display: none; }
+  .navbar-links { display: flex; align-items: center; gap: 32px; font-size: 14px; color: #aab4c2; white-space: nowrap; }
+  .navbar-brand { transform: translate3d(var(--navbar-inset), 0, 0); }
+  .navbar-actions { transform: translate3d(calc(-1 * var(--navbar-inset)), 0, 0); }
+  .site-navbar[data-expanded='true'] .navbar-brand,
+  .site-navbar[data-expanded='true'] .navbar-actions { transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-brand, .navbar-actions, .site-navbar::after { transition: none; }
+}
+
+/* Keep the hero's three benefits readable when it shares a row with the app. */
+@media (min-width: 1280px) and (max-width: 1599px) {
+  .hero-features > div { flex-direction: column; gap: 12px; }
+  .hero-actions { flex-direction: column; }
+}
+
 .animate-fade-up {
   animation: fadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
