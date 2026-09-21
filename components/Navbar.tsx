@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Menu, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { useLocale } from './LocaleProvider';
 
 type NavbarProps = {
   links: readonly { label: string; href: string }[];
@@ -12,6 +13,7 @@ type NavbarProps = {
 };
 
 export function Navbar({ links, onNavigate, onContact }: NavbarProps) {
+  const { t, path } = useLocale();
   const [expanded, setExpanded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const shellRef = useRef<HTMLDivElement>(null);
@@ -77,38 +79,38 @@ export function Navbar({ links, onNavigate, onContact }: NavbarProps) {
       }}
     >
       <div ref={shellRef} className="landing-shell navbar-shell">
-        <a href="#hero" onClick={(event) => navigate(event, '#hero')} aria-label="Back to top" className="navbar-brand">
+        <a href="#hero" onClick={(event) => navigate(event, '#hero')} aria-label={t('Back to top')} className="navbar-brand">
           <Image src="/logos/logo_banner_fondo_oscuro.webp" alt="SocialPulse" fill priority sizes="(max-width: 639px) 140px, (max-width: 767px) 190px, 230px" className="object-contain" />
         </a>
 
-        <nav className="navbar-links" aria-label="Main navigation">
+        <nav className="navbar-links" aria-label={t('Main navigation')}>
           {links.map((item) => (
-            <a key={item.href} href={item.href} onClick={(event) => navigate(event, item.href)}>{item.label}</a>
+            <a key={item.href} href={item.href} onClick={(event) => navigate(event, item.href)}>{t(item.label)}</a>
           ))}
         </nav>
 
         <div className="navbar-actions">
-          <Link href="/login" className="navbar-login">
+          <Link href={path('/login')} className="navbar-login">
             <UserRound className="h-[18px] w-[18px] text-[#8A85AE]" />
-            <span>Log in</span>
+            <span>{t('Log in')}</span>
           </Link>
           <span className="navbar-divider" aria-hidden="true" />
           <button type="button" onClick={() => { setMenuOpen(false); onContact(); }} className="navbar-cta-button navbar-contact">
-            <span>Get in Touch</span>
-            <span className="navbar-investors">For Investors</span>
+            <span>{t('Get in Touch')}</span>
+            <span className="navbar-investors">{t('For Investors')}</span>
             <ArrowRight className="navbar-contact-arrow h-4 w-4 shrink-0" />
           </button>
-          <button ref={menuButtonRef} type="button" className="navbar-menu-toggle" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>
+          <button ref={menuButtonRef} type="button" className="navbar-menu-toggle" aria-label={t(menuOpen ? 'Close navigation' : 'Open navigation')} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
-      <nav id="mobile-navigation" className="landing-shell navbar-mobile" aria-label="Mobile navigation" hidden={!menuOpen}>
+      <nav id="mobile-navigation" className="landing-shell navbar-mobile" aria-label={t('Mobile navigation')} hidden={!menuOpen}>
         {links.map((item) => (
-          <a key={item.href} href={item.href} onClick={(event) => navigate(event, item.href)}>{item.label}</a>
+          <a key={item.href} href={item.href} onClick={(event) => navigate(event, item.href)}>{t(item.label)}</a>
         ))}
-        <Link href="/login" onClick={() => setMenuOpen(false)}>Log in</Link>
+        <Link href={path('/login')} onClick={() => setMenuOpen(false)}>{t('Log in')}</Link>
       </nav>
     </header>
   );

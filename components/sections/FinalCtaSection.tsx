@@ -1,31 +1,34 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
+import { useLocale } from '../LocaleProvider';
 
 export function FinalCtaSection({ onEarlyAccess }: { onEarlyAccess: () => void }) {
+    const { t } = useLocale();
+
     return (
         <section className="relative overflow-hidden px-5 pb-24 pt-14 md:px-8 md:py-[115px]">
             <div className="relative mx-auto grid w-full max-w-[1536px] items-center gap-14 xl:grid-cols-[0.82fr_1.18fr]">
                 <div className="relative z-10 xl:flex xl:min-h-[280px] xl:flex-col xl:justify-center">
                     <h2 className="max-w-[620px] text-3xl font-semibold leading-[1.15] tracking-tight text-[#F5F7FA] md:text-5xl">
-                        See what audiences are{' '}
+                        {t('See what audiences are')}{' '}
                         <span className="bg-gradient-to-r from-[#F2398A] via-[#9A33FF] to-[#246BFF] bg-clip-text text-transparent">
-                            really feeling.
+                            {t('really feeling.')}
                         </span>
                     </h2>
 
                     <p className="mt-5 text-lg leading-7 text-[#AAB4C2]">
-                        Explore a live analysis or request early access.
+                        {t('Explore a live analysis or request early access.')}
                     </p>
 
                     <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                         <a href="#live-analysis" className="navbar-cta-button final-cta-button group inline-flex min-h-[52px] flex-1 items-center justify-center gap-3 rounded-xl px-6 py-4 text-base font-semibold text-white">
-                            Explore a live analysis
+                            {t('Explore a live analysis')}
                             <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                         </a>
 
                         <button type="button" onClick={onEarlyAccess} className="navbar-cta-button final-cta-button group inline-flex min-h-[52px] flex-1 items-center justify-center gap-3 rounded-xl px-6 py-4 text-base font-semibold text-white">
-                            Request early access
+                            {t('Request early access')}
                             <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                         </button>
                     </div>
@@ -34,7 +37,7 @@ export function FinalCtaSection({ onEarlyAccess }: { onEarlyAccess: () => void }
                 <div className="relative h-[230px] w-full md:h-[280px] xl:translate-y-[10px]">
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(154,51,255,0.12),transparent_65%)] blur-2xl" />
 
-                    <svg viewBox="0 0 760 280" className="relative h-full w-full overflow-visible" role="img" aria-label="Audience emotional signal trend">
+                    <svg viewBox="0 0 760 280" className="relative h-full w-full overflow-visible" role="img" aria-label={t('Audience emotional signal trend')}>
                         <defs>
                             <linearGradient id="final-cta-line" x1="0%" y1="50%" x2="100%" y2="50%">
                                 <stop offset="0%" stopColor="#246BFF" />

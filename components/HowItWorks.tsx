@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
     Activity,
     BellRing,
@@ -9,19 +9,27 @@ import {
     TriangleAlert,
     ArrowRight,
 } from 'lucide-react';
+import { useLocale } from './LocaleProvider';
 
 
 export default function HowItWorks() {
+    const { t } = useLocale();
 
-    const trendingTopics = ['Ceuta border surge', 'Colombia earthquake', 'Strait of Hormuz'];
+    const trendingTopics = useMemo(
+        () => ['Ceuta border surge', 'Colombia earthquake', 'Strait of Hormuz'].map(t),
+        [t],
+    );
 
-    const searches = [
-        'Paris 2024 opening ceremony',
-        'https://www.youtube.com/watch',
-        'New product launch reactions',
-        'Brand campaign audience response',
-        ...trendingTopics,
-    ];
+    const searches = useMemo(
+        () => [
+            t('Paris 2024 opening ceremony'),
+            'https://www.youtube.com/watch',
+            t('New product launch reactions'),
+            t('Brand campaign audience response'),
+            ...trendingTopics,
+        ],
+        [t, trendingTopics],
+    );
 
     const [searchIndex, setSearchIndex] = useState(0);
     const [typedSearch, setTypedSearch] = useState('');
@@ -53,18 +61,21 @@ export default function HowItWorks() {
         );
 
         return () => window.clearTimeout(timeout);
-    }, [typedSearch, isDeleting, searchIndex]);
+    }, [typedSearch, isDeleting, searchIndex, searches]);
 
     // estados apra analyze puublic conversations
 
-    const analysisSteps = [
-        'Filtering irrelevant noise',
-        'Detecting emotional signals',
-        'Measuring emotional intensity',
-        'Connecting reactions to context',
-        'Tracking emotional shifts',
-        'Preparing decision-ready insights',
-    ];
+    const analysisSteps = useMemo(
+        () => [
+            t('Filtering irrelevant noise'),
+            t('Detecting emotional signals'),
+            t('Measuring emotional intensity'),
+            t('Connecting reactions to context'),
+            t('Tracking emotional shifts'),
+            t('Preparing decision-ready insights'),
+        ],
+        [t],
+    );
 
     const [analysisIndex, setAnalysisIndex] = useState(0);
     const [isAnalysisMoving, setIsAnalysisMoving] = useState(false);
@@ -90,7 +101,7 @@ export default function HowItWorks() {
                 window.clearTimeout(finishAnimation);
             }
         };
-    }, []);
+    }, [analysisSteps.length]);
 
     const visibleAnalysisSteps = Array.from(
         { length: 5 },
@@ -101,11 +112,14 @@ export default function HowItWorks() {
 
     //ANIMACIÓN STEP 04 Hace aparecer la alerta suavemente y reinicia el ciclo
 
-    const actionAlerts = [
-        'Skepticism around safety measures is increasing.',
-        'Concern grows over Venezuela.',
-        'Oil prices rise amid Strait of Hormuz tensions.',
-    ];
+    const actionAlerts = useMemo(
+        () => [
+            t('Skepticism around safety measures is increasing.'),
+            t('Concern grows over Venezuela.'),
+            t('Oil prices rise amid Strait of Hormuz tensions.'),
+        ],
+        [t],
+    );
 
     const [actionAlertIndex, setActionAlertIndex] = useState(0);
     const [isActionAlertMoving, setIsActionAlertMoving] =
@@ -133,7 +147,7 @@ export default function HowItWorks() {
                 window.clearTimeout(finishTimer);
             }
         };
-    }, []);
+    }, [actionAlerts.length]);
 
     const nextActionAlertIndex =
         (actionAlertIndex + 1) % actionAlerts.length;
@@ -147,19 +161,18 @@ export default function HowItWorks() {
             <div className="relative mx-auto w-full max-w-[1536px]">
                 <div className="mb-14 max-w-2xl">
                     <p className="mb-4 text-base font-semibold uppercase tracking-[0.22em] text-[#9A8FB0]">
-                        How it works
+                        {t('How it works')}
                     </p>
 
                     <h2 className="text-3xl font-semibold tracking-tight text-[#F5F7FA] md:text-5xl">
-                        From public conversation to{' '}
+                        {t('From public conversation to')}{' '}
                         <span className="bg-gradient-to-r from-[#F2398A] via-[#9A33FF] to-[#246BFF] bg-clip-text text-transparent">
-                            decision-ready signals
+                            {t('decision-ready signals')}
                         </span>
                     </h2>
 
                     <p className="mt-5 max-w-xl text-lg leading-7 text-[#AAB4C2]">
-                        SocialPulse turns audience reactions into clear emotional signals
-                        you can understand and act on.
+                        {t('SocialPulse turns audience reactions into clear emotional signals you can understand and act on.')}
                     </p>
                 </div>
 
@@ -179,11 +192,11 @@ export default function HowItWorks() {
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-semibold text-[#F5F7FA]">
-                                        Choose what to analyze
+                                        {t('Choose what to analyze')}
                                     </h3>
 
                                     <p className="mt-1 max-w-md text-base leading-6 text-[#AAB4C2]">
-                                        Select a topic, campaign or conversation you want to understand.
+                                        {t('Select a topic, campaign or conversation you want to understand.')}
                                     </p>
                                 </div>
                             </div>
@@ -213,7 +226,7 @@ export default function HowItWorks() {
 
                                 <div className="mt-5 border-t border-white/[0.07] pt-4">
                                     <p className="text-[15px] font-semibold uppercase tracking-[0.16em] text-[#7F8998]">
-                                        Trending topics
+                                        {t('Trending topics')}
                                     </p>
 
                                     <div className="mt-3 flex flex-wrap gap-2 sm:gap-3">
@@ -229,7 +242,7 @@ export default function HowItWorks() {
                                     </div>
 
                                     <p className="mt-4 text-base leading-5 text-[#7F8998]">
-                                        Enter a topic, keyword or URL, or explore a trending conversation.
+                                        {t('Enter a topic, keyword or URL, or explore a trending conversation.')}
                                     </p>
                                 </div>
                             </div>
@@ -252,18 +265,18 @@ export default function HowItWorks() {
 
                                 <div>
                                     <h3 className="text-xl font-semibold text-[#F5F7FA]">
-                                        Analyze public conversations
+                                        {t('Analyze public conversations')}
                                     </h3>
 
                                     <p className="mt-1 max-w-md text-base leading-6 text-[#AAB4C2]">
-                                        SocialPulse analyzes relevant public conversations across platforms and languages.
+                                        {t('SocialPulse analyzes relevant public conversations across platforms and languages.')}
                                     </p>
                                 </div>
                             </div>
 
                             <div className="mt-7 min-h-[232px] rounded-xl border border-white/[0.08] bg-[#050912]/35 p-4">
                                 <p className="text-base font-medium text-[#D3D8E0]">
-                                    Analyzing..
+                                    {t('Analyzing..')}
                                     <span className="animate-[pulse_0.8s_ease-in-out_infinite] text-[#FFFFFF]">.</span>
                                 </p>
 
@@ -311,11 +324,11 @@ export default function HowItWorks() {
 
                                 <div>
                                     <h3 className="text-xl font-semibold text-[#F5F7FA]">
-                                        Detect a shift
+                                        {t('Detect a shift')}
                                     </h3>
 
                                     <p className="mt-1 max-w-md text-base leading-6 text-[#AAB4C2]">
-                                        We surface meaningful emotional shifts and emerging narratives early.
+                                        {t('We surface meaningful emotional shifts and emerging narratives early.')}
                                     </p>
                                 </div>
                             </div>
@@ -326,12 +339,12 @@ export default function HowItWorks() {
                                         <TriangleAlert className="h-4 w-4 text-[#F2398A]" />
 
                                         <span className="text-base font-medium text-[#D3D8E0]">
-                                            Skepticism rising
+                                            {t('Skepticism rising')}
                                         </span>
                                     </div>
 
                                     <span className="rounded-md border border-[#F2398A]/30 bg-[#F2398A]/15 px-2.5 py-1 text-[15px] font-medium text-[#FF72B1]">
-                                        Shift detected
+                                        {t('Shift detected')}
                                     </span>
                                 </div>
 
@@ -426,11 +439,11 @@ export default function HowItWorks() {
 
                                 <div>
                                     <h3 className="text-xl font-semibold text-[#F5F7FA]">
-                                        Act on the signal
+                                        {t('Act on the signal')}
                                     </h3>
 
                                     <p className="mt-1 max-w-md text-base leading-6 text-[#AAB4C2]">
-                                        We deliver insights your team can act on.
+                                        {t('We deliver insights your team can act on.')}
                                     </p>
                                 </div>
                             </div>
@@ -453,7 +466,7 @@ export default function HowItWorks() {
                                                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#14C7E5]" />
                                             </span>
 
-                                            <span className="text-base font-medium text-[#3AD6EC]">New alert</span>
+                                            <span className="text-base font-medium text-[#3AD6EC]">{t('New alert')}</span>
                                         </div>                                       
                                         <p className={`mt-3 text-base leading-6 text-[#D3D8E0] transition-opacity duration-700 ${position === 0 || isActionAlertMoving ? 'opacity-100' : 'opacity-0'
                                             }`}>
@@ -461,7 +474,7 @@ export default function HowItWorks() {
                                         </p>                                        
                                         <button type="button"
                                             className={`mt-auto flex items-center gap-2 text-base font-medium text-[#F5F7FA] transition-all duration-700 hover:text-[#14C7E5] ${position === 0 || isActionAlertMoving ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                                                }`}>View details
+                                                }`}>{t('View details')}
                                             <ArrowRight className="h-3.5 w-3.5" />
                                         </button>
                                     </div>

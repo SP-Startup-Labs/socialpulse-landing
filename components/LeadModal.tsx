@@ -3,6 +3,7 @@
 import { type FormEvent, useState } from 'react';
 import { ChevronDown, X } from 'lucide-react';
 import { copy, requestTypeOptions, roleOptions, stageOptions } from '@/lib/content';
+import { useLocale } from './LocaleProvider';
 
 type Props = {
   isOpen: boolean;
@@ -22,12 +23,6 @@ type FormData = {
   message: string;
 };
 
-const defaultMessages: Record<string, string> = {
-  Investor: 'I would like to receive the SocialPulse investor deck.',
-  'Beta Access': 'I would like to get beta access to SocialPulse.',
-  'General Inquiry': 'I would like to receive general information about SocialPulse.'
-};
-
 const initialState: FormData = {
   firstName: '',
   lastName: '',
@@ -38,21 +33,30 @@ const initialState: FormData = {
   role: '',
   checkSize: '',
   stageInterest: '',
-  message: defaultMessages.Investor
+  message: ''
 };
 
 
 export function LeadModal({ isOpen, onClose }: Props) {
-  const [form, setForm] = useState<FormData>(initialState);
+  const { locale, t } = useLocale();
+  const defaultMessages: Record<string, string> = {
+    Investor: t('I would like to receive the SocialPulse investor deck.'),
+    'Beta Access': t('I would like to get beta access to SocialPulse.'),
+    'General Inquiry': t('I would like to receive general information about SocialPulse.')
+  };
+  const [form, setForm] = useState<FormData>(() => ({
+    ...initialState,
+    message: defaultMessages.Investor,
+  }));
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState('');
   const [openSelect, setOpenSelect] = useState<'role' | 'stage' | null>(null);
 
-  const labels = copy.en.formLabels;
-  const common = copy.en.formCommon;
-  const errorsText = copy.en.formErrors;
-  const title = 'Get in touch';
+  const labels = copy[locale].formLabels;
+  const common = copy[locale].formCommon;
+  const errorsText = copy[locale].formErrors;
+  const title = t('Get in touch');
   const isInvestorRequest = form.requestType === 'Investor';
 
   if (!isOpen) return null;
@@ -81,15 +85,15 @@ export function LeadModal({ isOpen, onClose }: Props) {
     const response = await fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
+      body: JSON.stringify({ ...form, locale })
     });
 
     setIsSubmitting(false);
 
     if (response.ok) {
-      setForm(initialState);
+      setForm({ ...initialState, message: defaultMessages.Investor });
       setErrors({});
-      setSuccess(copy.en.success);
+      setSuccess(copy[locale].success);
       return;
     }
 
@@ -104,9 +108,9 @@ export function LeadModal({ isOpen, onClose }: Props) {
     setForm((prev) => ({
       ...prev,
       requestType,
-      role: requestType === 'Request Investor Deck' ? prev.role : '',
+      role: requestType === 'Investor' ? prev.role : '',
 
-      stageInterest: requestType === 'Request Investor Deck' ? prev.stageInterest : '',
+      stageInterest: requestType === 'Investor' ? prev.stageInterest : '',
       message: defaultMessages[requestType] ?? prev.message
     }));
 
@@ -134,7 +138,7 @@ export function LeadModal({ isOpen, onClose }: Props) {
 
           <button
             onClick={onClose}
-            aria-label="Close modal"
+            aria-label={t('Close modal')}
             className="rounded-lg border border-white/10 p-1.5 text-[#AAB4C2] transition hover:bg-white/5 hover:text-white"
           >
             <X className="h-5 w-5" />
@@ -158,7 +162,7 @@ export function LeadModal({ isOpen, onClose }: Props) {
                     : 'text-[#7F8998] hover:text-[#D9DEE6]'
                 }`}
               >
-                {option}
+                {t(option)}
               </button>
             );
           })}
@@ -189,14 +193,14 @@ export function LeadModal({ isOpen, onClose }: Props) {
                 aria-invalid={Boolean(errors[key])}
                 placeholder={
                   key === 'firstName'
-                    ? 'Name'
+                    ? t('Name')
                     : key === 'lastName'
-                      ? 'Surname'
+                      ? t('Surname')
                       : key === 'email'
                         ? 'example@gmail.com'
                         : key === 'phone'
                           ? '+34 666 777 888'
-                          : 'SocialPulse / Company name'
+                          : t('SocialPulse / Company name')
                 }
                 required={['firstName', 'lastName', 'email', 'phone'].includes(key)}
               />
@@ -292,7 +296,7 @@ export function LeadModal({ isOpen, onClose }: Props) {
                               : 'text-[#AAB4C2] hover:bg-white/[0.05] hover:text-white'
                           }`}
                         >
-                          {opt}
+                          {t(opt)}
                         </button>
                       ))}
                     </div>
@@ -383,7 +387,7 @@ export function LeadModal({ isOpen, onClose }: Props) {
                               : 'text-[#AAB4C2] hover:bg-white/[0.05] hover:text-white'
                           }`}
                         >
-                          {opt}
+                          {t(opt)}
                         </button>
                       ))}
                     </div>

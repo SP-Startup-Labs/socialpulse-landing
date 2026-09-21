@@ -1,5 +1,7 @@
 'use client';
 
+import { useLocale } from '../LocaleProvider';
+
 type HeroRadarVisualProps = {
   labels: {
     top: string;
@@ -99,6 +101,7 @@ function toPolygonPath(points: { x: number; y: number }[]) {
 }
 
 export function HeroRadarVisual({ labels }: HeroRadarVisualProps) {
+  const { t } = useLocale();
   const polygonD = toPolygonPath(POLYGON_POINTS);
 
   return (
@@ -117,7 +120,7 @@ export function HeroRadarVisual({ labels }: HeroRadarVisualProps) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             role="img"
-            aria-label="SocialPulse emotional signal radar"
+            aria-label={t('SocialPulse emotional signal radar')}
           >
             <defs>
               <radialGradient id="heroCoreGradient" cx="50%" cy="50%" r="50%">

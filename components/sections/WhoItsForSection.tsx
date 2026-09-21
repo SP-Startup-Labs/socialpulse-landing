@@ -1,4 +1,7 @@
+'use client';
+
 import { LineChart, UserRound, Users } from 'lucide-react';
+import { useLocale } from '../LocaleProvider';
 
 const audienceCards = [
     {
@@ -43,21 +46,23 @@ const audienceCards = [
 ];
 
 export function WhoItsForSection() {
+    const { t } = useLocale();
+
     return (
         <section id="model" className="relative overflow-hidden px-5 py-24 md:px-8 md:py-[115px]">
             <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#9A33FF]/[0.05] blur-[150px]" />
 
             <div className="relative mx-auto w-full max-w-[1536px]">
                 <div className="mb-14 max-w-3xl">
-                    <p className="mb-4 text-base font-semibold uppercase tracking-[0.22em] text-[#9A8FB0]">Who it’s for</p>
+                    <p className="mb-4 text-base font-semibold uppercase tracking-[0.22em] text-[#9A8FB0]">{t('Who it’s for')}</p>
 
                     <h2 className="text-3xl font-semibold tracking-tight text-[#F5F7FA] md:text-5xl">
-                        Advanced intelligence.{' '}
-                        <span className="bg-gradient-to-r from-[#F2398A] via-[#9A33FF] to-[#246BFF] bg-clip-text text-transparent">Built for broader access.</span>
+                        {t('Advanced intelligence.')}{' '}
+                        <span className="bg-gradient-to-r from-[#F2398A] via-[#9A33FF] to-[#246BFF] bg-clip-text text-transparent">{t('Built for broader access.')}</span>
                     </h2>
 
                     <p className="mt-5 max-w-2xl text-lg leading-7 text-[#AAB4C2]">
-                        Start with creators and SMEs. Scale the same intelligence across teams, clients and markets.
+                        {t('Start with creators and SMEs. Scale the same intelligence across teams, clients and markets.')}
                     </p>
                 </div>
 
@@ -76,18 +81,18 @@ export function WhoItsForSection() {
                                         </div>
 
                                         <div className="min-w-0 pt-1">
-                                            <h3 className="text-xl font-semibold leading-6 tracking-[-0.02em] text-[#F5F7FA]">{card.title}</h3>
-                                            <span className={`mt-3 inline-flex rounded-md border px-3 py-1 text-[12px] font-medium tracking-[0.05em] ${card.badgeClass}`}>{card.badge}</span>
+                                            <h3 className="text-xl font-semibold leading-6 tracking-[-0.02em] text-[#F5F7FA]">{t(card.title)}</h3>
+                                            <span className={`mt-3 inline-flex rounded-md border px-3 py-1 text-[12px] font-medium tracking-[0.05em] ${card.badgeClass}`}>{t(card.badge)}</span>
                                         </div>
                                     </div>
 
-                                    <p className="mt-7 text-base leading-6 text-[#AAB4C2]">{card.copy}</p>
+                                    <p className="mt-7 text-base leading-6 text-[#AAB4C2]">{t(card.copy)}</p>
 
                                     <ul className="mt-4 space-y-3">
                                         {card.items.map((item) => (
                                             <li key={item} className="flex items-center gap-3 text-base text-[#D3D8E0]">
                                                 <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${card.dotClass}`} />
-                                                {item}
+                                                {t(item)}
                                             </li>
                                         ))}
                                     </ul>

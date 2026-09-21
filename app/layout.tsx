@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
+import { headers } from 'next/headers';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -41,8 +42,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = headers().get('x-socialpulse-locale') === 'es' ? 'es' : 'en';
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`${inter.variable} ${poppins.variable}`}>
         {children}
       </body>
