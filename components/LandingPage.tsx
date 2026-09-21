@@ -4,7 +4,8 @@ import ShiftBackground from './visuals/ShiftBackground';
 import HowItWorks from './HowItWorks';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState, type MouseEvent } from 'react';
+import { useState, type MouseEvent } from 'react';
+import { Navbar } from './Navbar';
 import {
   ArrowRight,
   Activity,
@@ -17,7 +18,6 @@ import {
   Star,
   Target,
   Users,
-  UserRound,
   ShieldCheck,
   Globe2,
   X as XGlyph,
@@ -66,20 +66,9 @@ const HERO_METRICS = [
 
 export function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isNavbarScrolled, setIsNavbarScrolled] = useState(false);
 
   const t = content.en;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsNavbarScrolled(window.scrollY > 24);
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
 
   const handleSmoothScroll = (
@@ -87,11 +76,13 @@ export function LandingPage() {
     href: string
   ) => {
     event.preventDefault();
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'auto' : 'smooth';
 
     if (href === '#hero') {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior
       });
       return;
     }
@@ -108,7 +99,7 @@ export function LandingPage() {
 
     window.scrollTo({
       top: targetPosition,
-      behavior: 'smooth'
+      behavior
     });
   };
 
@@ -127,81 +118,9 @@ export function LandingPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(9,20,38,0)_34%,rgba(9,20,38,0.72)_100%)]" />
         </div> */}
 
-        <header
-          className={`fixed inset-x-0 top-0 z-50 border-b bg-[#091426]/78 backdrop-blur-xl transition-all duration-300 ${isNavbarScrolled
-            ? 'border-white/[0.04] shadow-[0_10px_30px_rgba(0,0,0,0.18)]'
-            : 'border-transparent shadow-none'
-            }`}>
-          <div className="section-wrap flex h-14 items-center justify-between gap-2 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:h-16"
-            style={
-              isNavbarScrolled
-                ? {
-                  maxWidth: '100vw',
-                  paddingLeft: 'clamp(20px,3vw,40px)',
-                  paddingRight: 'clamp(20px,3vw,40px)',
-                }
-                : undefined
-            }
-          >
-            <div className={`flex items-center gap-4 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'ml-0' : 'ml-0 lg:-ml-20'
-              }`}
-            >
-              <a
-                href="#hero"
-                onClick={(event) => handleSmoothScroll(event, '#hero')}
-                aria-label="Back to top"
-                className="relative h-10 w-[140px] sm:h-12 sm:w-[190px] md:h-14 md:w-[230px]"
-              >
-                <Image
-                  src="/logos/logo_banner_fondo_oscuro.webp"
-                  alt="SocialPulse"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 190px, 230px"
-                  className="object-contain"
-                />
-              </a>
-            </div>
-
-            <nav className="hidden items-center gap-8 text-sm text-[#AAB4C2] lg:flex">
-              {t.nav.map((item) => (
-                <a key={item.label}
-                  href={item.href}
-                  onClick={(event) => handleSmoothScroll(event, item.href)}
-                  className="whitespace-nowrap transition-colors duration-200 hover:text-white">
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-
-            <div className={`flex items-center gap-4 transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isNavbarScrolled ? 'translate-x-0' : 'translate-x-0 lg:translate-x-20'}`}>
-              <button type="button" className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
-                <Link href="/login" className="hidden items-center gap-2 text-sm text-[#D2D9E2] transition-colors duration-200 hover:text-white sm:inline-flex">
-                  <UserRound className="h-[18px] w-[18px]" stroke="url(#login-icon-gradient)">
-                    <defs>
-                      <linearGradient id="login-icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#2D418B" />
-                        <stop offset="55%" stopColor="#4B3B8E" />
-                        <stop offset="100%" stopColor="#8D6792" />
-                      </linearGradient>
-                    </defs>
-                  </UserRound>
-
-                  <span>Log in</span>
-                </Link>
-              </button>
-              <span className="hidden h-8 w-px bg-white/[0.08] sm:block" />
-              <button type="button" onClick={() => setIsModalOpen(true)} className="navbar-cta-button group inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-[13px] font-semibold text-white sm:gap-2.5 sm:rounded-xl sm:px-4 sm:py-3.5 sm:text-sm">
-                <span className="whitespace-nowrap">Get in Touch</span>
-                <span className="hidden whitespace-nowrap bg-gradient-to-r from-[#8A85AE] via-[#C8BCDD] to-[#AE9DC2] bg-clip-text text-xs font-medium text-transparent sm:inline">For Investors</span>
-                <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 sm:h-[18px] sm:w-[18px]" />
-              </button>
-
-            </div>
-          </div>
-        </header>
+        <Navbar links={t.nav} onNavigate={handleSmoothScroll} onContact={() => setIsModalOpen(true)} />
         <main className="relative z-10 pt-14 md:pt-16">
-          <section id="hero" className="section-wrap !max-w-[1920px] relative isolate overflow-visible pt-8 sm:pt-10 md:pt-10">
+          <section id="hero" className="landing-shell relative isolate overflow-visible pt-8 sm:pt-10 md:pt-10">
             <div className="pointer-events-none absolute inset-0 -z-10 overflow-visible">
               <div className="absolute -left-24 top-0 h-[280px] w-[280px] rounded-full bg-[#F2398A]/22 blur-[140px]" />
               <div className="absolute left-[35%] top-[8%] h-[220px] w-[300px] rounded-full bg-[#9A33FF]/18 blur-[120px]" />
@@ -227,14 +146,14 @@ export function LandingPage() {
               </svg>
             </div>
 
-            <div className="mx-auto mt-[90px] flex w-full max-w-[1630px] flex-col">
-              <div className="grid items-stretch gap-14 lg:grid-cols-[3fr_4fr] lg:gap-10 xl:gap-14">
+            <div className="mx-auto mt-8 flex w-full flex-col sm:mt-12 xl:mt-[90px]">
+              <div className="grid items-stretch gap-14 xl:grid-cols-[minmax(0,3fr)_minmax(0,4fr)] xl:gap-10 2xl:gap-14">
                 <div className="min-w-0 animate-fade-up">
                   <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#246BFF]/25 bg-[#246BFF]/10 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.12em] text-[#6C8DFF]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#14C7E5]" />
                     Live example
                   </span>
-                  <h1 className="max-w-2xl text-[2.2rem] font-bold leading-[1.03] tracking-[-0.03em] sm:text-5xl md:text-6xl xl:text-[3.75rem]">
+                  <h1 className="max-w-2xl text-[clamp(1.75rem,8vw,2.2rem)] font-bold leading-[1.03] tracking-[-0.03em] sm:text-5xl md:text-6xl xl:text-[3.75rem]">
                     Understand what{' '}
                     <span className="hero-moving-gradient">moves</span>{' '}
                     audiences.
@@ -244,7 +163,7 @@ export function LandingPage() {
                     SocialPulse analyzes public conversations in real time to reveal the emotions, narratives and shifts shaping audience behavior — so you can understand what is changing, why it matters and act before the moment passes.
                   </p>
 
-                  <div className="mt-12 grid divide-y divide-white/[0.08] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                  <div className="hero-features mt-12 grid divide-y divide-white/[0.08] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
                     <div className="flex min-h-[132px] items-start gap-4 py-6 sm:py-3 sm:pr-5">
                       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#246BFF]/35 bg-[#246BFF]/10">
                         <Zap className="h-5 w-5 text-[#6C8DFF]" />
@@ -279,7 +198,7 @@ export function LandingPage() {
                     </div>
                   </div>
 
-                  <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                  <div className="hero-actions mt-9 flex flex-col gap-4 sm:flex-row">
                     <a href="#live-analysis" onClick={(event) => handleSmoothScroll(event, '#live-analysis')} className="navbar-cta-button group inline-flex min-h-[52px] flex-1 items-center justify-center gap-3 rounded-xl px-6 py-4 text-[15px] font-semibold text-white">
                       Explore a live analysis
                       <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
@@ -291,10 +210,10 @@ export function LandingPage() {
                   </div>
                 </div>
                 {/* dashboard */}
-                <div id="live-analysis" className="w-full max-w-[900px] min-w-0 animate-fade-up lg:pt-12" style={{ animationDelay: '120ms' }}>
+                <div id="live-analysis" className="w-full min-w-0 animate-fade-up xl:pt-12" style={{ animationDelay: '120ms' }}>
                   <div className=" flex h-full flex-col overflow-hidden rounded-[22px] border border-white/[0.1] bg-[#07101F]/95 shadow-[0_28px_90px_rgba(0,0,0,0.38),0_0_70px_rgba(36,107,255,0.08)] backdrop-blur-xl">
-                    <div className="flex min-h-12 items-center justify-between gap-3 border-b border-white/[0.08] px-3 sm:px-4">
-                      <div className="flex min-w-0 items-center gap-2 text-[10px] text-[#7F8998] sm:text-[11px]">
+                    <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] px-3 py-2 sm:px-4">
+                      <div className="flex min-w-0 flex-1 items-center gap-2 text-[10px] text-[#7F8998] sm:text-[11px]">
                         <span>Topics</span>
                         <span className="text-white/25">›</span>
                         <span className="truncate font-medium text-[#E8ECF2]">2026 FIFA World Cup</span>
@@ -325,7 +244,7 @@ export function LandingPage() {
                       </aside>
 
                       <div className="min-w-0 flex-1 p-3">
-                        <div className="grid gap-3 md:grid-cols-[0.86fr_1.14fr]">
+                        <div className="grid gap-3 md:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)]">
                           <article className="relative min-h-[228px] overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
                             <div className="flex items-center justify-between">
                               <h3 className="text-xs font-medium text-[#E8ECF2]">Emotion Index</h3>
@@ -374,7 +293,7 @@ export function LandingPage() {
                           </article>
                         </div>
 
-                        <div className="mt-3 grid gap-3 md:grid-cols-[1.15fr_0.78fr_1.07fr]">
+                        <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.78fr)_minmax(0,1.07fr)]">
                           <article className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
                             <h3 className="text-xs font-medium text-[#E8ECF2]">Top Sources</h3>
 
@@ -428,7 +347,7 @@ export function LandingPage() {
                       </div>
                     </div>
 
-                    <div className="flex min-h-9 items-center justify-between gap-3 border-t border-white/[0.07] px-3 text-[8px] text-[#657184] sm:px-4 sm:text-[9px]">
+                    <div className="flex min-h-9 flex-wrap items-center justify-between gap-2 border-t border-white/[0.07] px-3 py-2 text-[8px] text-[#657184] sm:px-4 sm:text-[9px]">
                       <span className="inline-flex min-w-0 items-center gap-2">
                         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#14C7E5]" />
                         <span className="truncate">Real-time analysis of public conversations across 35+ languages</span>
@@ -441,7 +360,7 @@ export function LandingPage() {
               </div>
             </div>
           </section>
-          <section aria-label="Key metrics" className="mt-12 section-wrap !max-w-[1700px] pb-16 md:pb-[115px]">
+          <section aria-label="Key metrics" className="mt-12 landing-shell pb-16 md:pb-[115px]">
             <div className="grid overflow-hidden rounded-[18px] border border-white/[0.09] bg-[#07101F]/80 shadow-[0_20px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4">
               {HERO_METRICS.map(({ value, label, Icon, color }) => (
                 <div key={label} className="flex min-h-[108px] items-center gap-4 border-b border-white/[0.08] px-6 py-5 last:border-b-0 sm:odd:border-r sm:[&:nth-child(3)]:border-b-0 sm:[&:nth-child(4)]:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0 lg:px-8">
